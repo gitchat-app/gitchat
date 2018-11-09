@@ -1,8 +1,22 @@
-import React, { Component } from "react";
-import logo from "./logo.svg";
-import "./App.scss";
+import React, { Component } from "react"
+import logo from "./logo.svg"
+import "./App.scss"
+import firebase from "./firebase"
 
 class App extends Component {
+  componentDidMount() {
+    console.log(firebase.database())
+
+    const usersRef = firebase.database().ref("users")
+
+    const testUser = {
+      username: "testing"
+    }
+
+    // usersRef.push(testUser)
+    console.log("usersRef", usersRef)
+  }
+
   render() {
     return (
       <div className="App">
@@ -19,8 +33,8 @@ class App extends Component {
           </a>
         </header>
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App
