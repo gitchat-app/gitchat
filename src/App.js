@@ -23,9 +23,6 @@ class App extends Component {
     //   username: "testing"
     // };
 
-
-
-
     // usersRef.push(testUser)
     // console.log("usersRef", usersRef);
   }

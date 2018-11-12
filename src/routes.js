@@ -17,5 +17,6 @@ export default (
     <Route path="/profile" component={Profile} />
     <Route path="/server/:id" component={Servers} />
     <Route path="/direct/:id" component={DirectMessages} />
+    <Route path='*' render={() => <div>404 error: Not Found!</div>} />
   </Switch>
 );

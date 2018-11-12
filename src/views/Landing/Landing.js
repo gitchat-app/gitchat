@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 import * as routes from "../../routes";
 import "./Landing.scss";
-<<<<<<< HEAD
-import { Link } from 'react-router-dom';
 import firebase from "../../firebase";
-=======
-
-// import firebase from "../../firebase";
->>>>>>> master
+import { Link } from 'react-router-dom';
 
 class Landing extends Component {
   constructor() {
@@ -20,7 +15,7 @@ class Landing extends Component {
   }
 
   login = () => {
-
+    
   };
 
   onChangeHandler = (eTargetName, eTargetValue) => {
