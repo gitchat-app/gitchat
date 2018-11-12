@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 // import "./Chat.scss";
 
-import firebase from "../../../firebase";
-import MessageCard from "./MessageCard";
+import firebase from "../../firebase";
+import MessageCard from "../MessageCard/MessageCard";
 
 class Chat extends Component {
   constructor(props) {
@@ -20,14 +20,14 @@ class Chat extends Component {
 
   sendMessage(e) {
     e.preventDefault();
-    console.log(this.state.input);
+    // console.log(this.state.input);
     let messagesRef = firebase
       .database()
       .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
 
     messagesRef.push({
       content: this.state.input,
-      sender: "hard-coded-tester",
+      sender: "hardCodedTester",
       timeSent: firebase.database.ServerValue.TIMESTAMP
     });
 
@@ -44,9 +44,11 @@ class Chat extends Component {
       .database()
       .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
 
+    messagesRef.off();
+
     messagesRef
       .orderByChild("timeSent")
-      .limitToLast(3)
+      .limitToLast(20)
       .on("value", (snap) => {
         console.log("snap.val() ordered?", snap.val());
         //   let ordered = snap.val()
@@ -54,8 +56,20 @@ class Chat extends Component {
       });
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.id !== prevProps.id) {
+      // this.setState({ messages: {} });
+      // messagesRef.off();
+      this.getMessages();
+    }
+  }
+
   componentDidMount() {
     this.getMessages();
+  }
+
+  componentWillUnmount() {
+    console.log("UNMOUNTING");
   }
 
   render() {

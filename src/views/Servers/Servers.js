@@ -6,7 +6,7 @@ import axios from "axios";
 import firebase from "../../firebase";
 import Channels from "./components/Channels";
 import Users from "./components/Users";
-import Chat from "./components/Chat";
+import Chat from "../../components/Chat/Chat";
 
 class Servers extends Component {
   constructor() {

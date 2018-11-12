@@ -1,0 +1,19 @@
+.message-card {
+  margin: 10px;
+  //   background: lightgreen;
+  width: 30vw;
+
+  display: flex;
+  border: black 1px solid;
+
+  .left-icon {
+    img {
+      height: 50px;
+    }
+  }
+
+  .inside-message {
+    background: lightgreen;
+    width: 100%;
+  }
+}
