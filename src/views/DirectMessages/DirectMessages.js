@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./DirectMessages.scss";
 
-import firebase from "../../firebase";
+// import firebase from "../../firebase";
 
 class DirectMessages extends Component {
   render() {
