@@ -1,16 +1,9 @@
-import React, { Component } from "react";
-import "./Landing.scss";
+REACT_APP_FIREBASE_API_KEY=AIzaSyAGh2aT2ogr-RMT1IoQO6og_UXmtt014jM
+REACT_APP_FIREBASE_AUTH_DOMAIN=gitchat-app.firebaseapp.com
+REACT_APP_FIREBASE_DATABASE_URL=https://gitchat-app.firebaseio.com
+REACT_APP_FIREBASE_PROJECT_ID=gitchat-app
+REACT_APP_FIREBASE_STORAGE_BUCKET=gitchat-app.appspot.com
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=80649258125
 
-import firebase from "../../firebase";
+SECRET=HI
 
-class Landing extends Component {
-  render() {
-    return (
-      <div>
-        <h1>Landing </h1>
-      </div>
-    );
-  }
-}
-
-export default Landing;
