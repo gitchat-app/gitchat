@@ -4,9 +4,21 @@
   height: 100vh;
   color: white;
 
-  .serverList-cont {
-    width: 10%;
-    height: 10%;
+  h1 {
+    font-size: 50px;
+  }
+
+  button {
+    background: none;
+    border: 1px solid white;
+    color: white;
+    width: 5%;
+    height: 11%;
     border-radius: 50%;
+    font-size: 40px;
+    text-align: center;
+  }
+  .serverList-cont {
+    width: 5%;
   }
 }

@@ -1,8 +1,6 @@
 import React, { Component } from "react";
-
-
 import firebase from "../../firebase";
-import Server from "../../components/Server/Server";
+import ServerNav from "../../components/ServerNav/ServerNav";
 import "./Dashboard.scss";
 
 class Dashboard extends Component {
@@ -26,18 +24,23 @@ class Dashboard extends Component {
       this.setState({servers: list})
     });
   }
+
+  addServer() {
+
+  }
   render() {
     const { servers } = this.state;
     console.log(servers);
     let serverList = servers.map((server, i) => (
         <div className="serverList-cont" key={i}>
-          <Server server={server} />
+          <ServerNav server={server} />
         </div>
     ));
     return (
       <div className="main-dash-cont">
         <h1>Dashboard</h1>
         {serverList}
+        <button onClick={() => this.addServer()}>+</button>
       </div>
     );
   }
