@@ -6,6 +6,7 @@ import axios from "axios";
 import firebase from "../../firebase";
 import Channels from "./components/Channels";
 import Users from "./components/Users";
+import Chat from "./components/Chat";
 
 class Servers extends Component {
   constructor() {
@@ -44,6 +45,10 @@ class Servers extends Component {
           <h1>
             {this.props.match.params.id}: {this.state.currentChannel}
           </h1>
+          <Chat
+            serverName={this.props.match.params.id}
+            channelName={this.state.currentChannel}
+          />
         </div>
         <Users serverName={this.props.match.params.id} />
       </div>
