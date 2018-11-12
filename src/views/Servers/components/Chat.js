@@ -2,6 +2,7 @@ import React, { Component } from "react";
 // import "./Chat.scss";
 
 import firebase from "../../../firebase";
+import MessageCard from "./MessageCard";
 
 class Chat extends Component {
   constructor(props) {
@@ -60,18 +61,23 @@ class Chat extends Component {
   render() {
     console.log("this.state", this.state);
     console.log("this.props", this.props);
-    // let messageCards = [];
+    let messageCards = [];
 
-    // this.state.messages.map((e,i,arr)=>{
-    //     let card = <div className='message-card' >
-    //     {e.content}
-    //     </div>
-    //     // messageCards.push()
-    // })
+    // this.state.messages.map((e, i, arr) => {
+    //   let card = <MessageCard />;
+    //   messageCards.push(card);
+    // });
+
+    for (let keys in this.state.messages) {
+      let card = <MessageCard obj={this.state.messages[keys]} />;
+      messageCards.push(card);
+    }
 
     return (
       <div>
         <h1>Chat component</h1>
+
+        {messageCards}
 
         <form onSubmit={(e) => this.sendMessage(e)}>
           <input
