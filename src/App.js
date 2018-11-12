@@ -16,7 +16,7 @@ class App extends Component {
   }
 
   componentDidMount() {
-    console.log(firebase.database());
+    // console.log(firebase.database());
 
     const usersRef = firebase.database().ref("users");
 
@@ -25,16 +25,15 @@ class App extends Component {
     };
 
     // usersRef.push(testUser)
-    console.log("usersRef", usersRef);
+    // console.log("usersRef", usersRef);
   }
 
   render() {
     return (
-      <Provider store={store}>
+      // <Provider store={store}>
         <BrowserRouter>
           <div className="App">{routes}</div>
         </BrowserRouter>
-      </Provider>
     );
   }
 }
