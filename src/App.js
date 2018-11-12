@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import "./App.scss";
-import firebase from "./firebase";
+import firebase, { auth, provider } from "./firebase";
 
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
@@ -8,6 +8,13 @@ import routes from "./routes";
 import store from "./ducks/store";
 
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      user: null
+    }
+  }
+
   componentDidMount() {
     console.log(firebase.database());
 
