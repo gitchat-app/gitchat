@@ -9,25 +9,22 @@ import store from "./ducks/store";
 
 class App extends Component {
   componentDidMount() {
-    console.log(firebase.database());
-
-    const usersRef = firebase.database().ref("users");
-
-    const testUser = {
-      username: "testing"
-    };
-
+    // console.log(firebase.database());
+    // const usersRef = firebase.database().ref("users");
+    // const testUser = {
+    //   username: "testing"
+    // };
     // usersRef.push(testUser)
-    console.log("usersRef", usersRef);
+    // console.log("usersRef", usersRef);
   }
 
   render() {
     return (
-      <Provider store={store}>
-        <BrowserRouter>
-          <div className="App">{routes}</div>
-        </BrowserRouter>
-      </Provider>
+      // <Provider store={store}>
+      <BrowserRouter>
+        <div className="App">{routes}</div>
+      </BrowserRouter>
+      // </Provider>
     );
   }
 }
