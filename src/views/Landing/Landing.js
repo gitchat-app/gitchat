@@ -1,81 +1,64 @@
 import React, { Component } from "react";
 import * as routes from "../../routes";
+import { Link } from 'react-router-dom';
 import "./Landing.scss";
 import firebase from "../../firebase";
-import { Link } from 'react-router-dom';
+import firebaseui from "firebaseui";
+import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 
 class Landing extends Component {
   constructor() {
     super();
     this.state = {
-      emailAddress: "",
-      password: "",
-      isAuth: false
+      email: '',
+      password: '',
+      isAuth: false,
+      fullname: ''
     };
   }
 
-  login = () => {
-    
+  uiConfig = {
+    signInFlow: "popup",
+    signInOptions: [
+      firebase.auth.EmailAuthProvider.PROVIDER_ID,
+      firebase.auth.GoogleAuthProvider.PROVIDER_ID,
+      firebase.auth.GithubAuthProvider.PROVIDER_ID
+    ]
   };
 
-  onChangeHandler = (eTargetName, eTargetValue) => {
-    this.setState({ [eTargetName]: eTargetValue });
-  };
+  componentDidMount() {
+    firebase.auth().onAuthStateChanged(user => {
+      // if user exists, set to true, else false 
+      // ! converts to boolean
+      this.setState({ isAuth: !!user });
+      this.setState({ fullname: firebase.auth().currentUser.displayName }); 
+      console.log("user", user);
+    });
+  }
 
   render() {
     return (
-      <div className="outerMostLoginWrapper">
-        <div>
-        <h1>gitChat</h1>
-        <br />
-
-        <div className="loginBox">
-          <h1>Login </h1>
+      <div className="isAuth">
+        {this.state.isAuth ? (
           <div>
-            <input
-              type="text"
-              className="input"
-              name="emailAddress"
-              onChange={e =>
-                this.onChangeHandler(e.target.name, e.target.value)
-              }
-              value={this.state.emailAddress}
-              placeholder="Email Address"
+            <h1> Welcome {firebase.auth().currentUser.displayName} </h1>
+            <img
+              alt="profile_picture"
+              src={firebase.auth().currentUser.photoURL}
             />
+            <br />
+            <div> You are Authorized & Signed In </div>
+            <br />
+            <button onClick={() => firebase.auth().signOut()}> 
+              Sign out! 
+              </button>
           </div>
-          <div>
-            <input
-              type="text"
-              className="input"
-              name="password"
-              onChange={e =>
-                this.onChangeHandler(e.target.name, e.target.value)
-              }
-              value={this.state.password}
-              placeholder="Password"
-            />
-          </div>
-          <br />
-          <button className="login-button" onClick={()=> this.login() }>
-            Login
-          </button> 
-          
-          
-        </div>
-        
-        <br />
-        <div>
-          <Link to='../../forgot-password'>Forgot Password?</Link>
-        </div>
-
-        <div>
-          <br />
-          <h4>
-            Don't have an account? &nbsp;
-            <Link to='../../signup'>Sign Up</Link>
-          </h4>
-        </div>
-        </div>
+        ) : (
+          <StyledFirebaseAuth
+            uiConfig={this.uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+        )}
       </div>
     );
   }
