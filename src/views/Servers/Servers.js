@@ -7,7 +7,7 @@ import firebase from "../../firebase";
 import Channels from "./components/Channels";
 import Users from "./components/Users";
 import Chat from "../../components/Chat/Chat";
-// import ServerNav from "../../components/ServerNav/ServerNav";
+
 
 class Servers extends Component {
   constructor() {

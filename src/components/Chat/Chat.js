@@ -1,5 +1,7 @@
 import React, { Component } from "react";
+
 import "./Chat.scss";
+
 
 import firebase from "../../firebase";
 import MessageCard from "../MessageCard/MessageCard";
@@ -10,12 +12,15 @@ class Chat extends Component {
 
     this.state = {
       messages: {},
+
       input: ""
+
     };
 
     this.sendMessage = this.sendMessage.bind(this);
     this.changeInput = this.changeInput.bind(this);
     this.getMessages = this.getMessages.bind(this);
+
     this.scrollToBottom = this.scrollToBottom.bind(this);
     this.onCtrlEnter = this.onCtrlEnter.bind(this);
   }
@@ -37,6 +42,7 @@ class Chat extends Component {
     if (e) {
       e.preventDefault();
     }
+
 
     // console.log(this.state.input);
     let messagesRef = firebase
@@ -62,23 +68,28 @@ class Chat extends Component {
       .database()
       .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
 
+
     // messagesRef.off();
+
 
     messagesRef
       .orderByChild("timeSent")
       .limitToLast(20)
       .on("value", (snap) => {
+
         this.setState({ messages: snap.val() });
       });
   }
 
   componentDidUpdate(prevProps) {
+
     if (this.props !== prevProps) {
       // console.log("NEW PROPS");
 
       this.getMessages();
     }
     this.scrollToBottom({ block: "end", behavior: "smooth" });
+
   }
 
   componentDidMount() {
@@ -91,8 +102,10 @@ class Chat extends Component {
 
   render() {
     console.log("this.state", this.state);
+
     // console.log("this.props", this.props);
     let messageCards = [];
+
 
     for (let keys in this.state.messages) {
       let card = <MessageCard obj={this.state.messages[keys]} />;
@@ -100,6 +113,7 @@ class Chat extends Component {
     }
 
     return (
+
       <div className="chat-component">
         <div className="header">{`#${this.props.channelName} | ${
           this.props.channelSubtitle
@@ -129,6 +143,7 @@ class Chat extends Component {
             </button>
           </form>
         </div>
+
       </div>
     );
   }

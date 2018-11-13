@@ -1,5 +1,6 @@
 .message-card {
   margin: 10px;
+
   padding: 1%;
   //   background: lightgreen;
   width: 95%;
@@ -21,11 +22,14 @@
     overflow: hidden;
     img {
       height: 100%;
+
     }
   }
 
   .inside-message {
+
     // background: lightgreen;
+
     width: 100%;
   }
 }

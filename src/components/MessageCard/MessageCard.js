@@ -29,6 +29,7 @@ class MessageCard extends Component {
   }
 
   render() {
+
     // console.log("this.props", this.props);
     // console.log("this.state", this.state);
 
@@ -40,6 +41,7 @@ class MessageCard extends Component {
       .unix(this.props.obj.timeSent / 1000)
       .format("MMMM Do - h:mm A");
 
+
     return (
       <div className="message-card">
         <div className="left-icon">
@@ -47,9 +49,11 @@ class MessageCard extends Component {
           <img src={this.state.sender.avatar} alt="" />
         </div>
         <div className="inside-message">
+
           <div className="top">
             {this.state.sender.username} at {timeHours}
           </div>
+
           <div>{this.props.obj.content}</div>
         </div>
       </div>
