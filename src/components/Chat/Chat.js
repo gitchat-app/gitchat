@@ -55,15 +55,13 @@ class Chat extends Component {
       .orderByChild("timeSent")
       .limitToLast(20)
       .on("value", (snap) => {
-        console.log("snap.val() ordered?", snap.val());
-        //   let ordered = snap.val()
         this.setState({ messages: snap.val() });
       });
   }
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      console.log("NEW PROPS");
+      // console.log("NEW PROPS");
 
       this.getMessages();
     }
@@ -79,8 +77,8 @@ class Chat extends Component {
   }
 
   render() {
-    console.log("this.state", this.state);
-    console.log("this.props", this.props);
+    // console.log("this.state", this.state);
+    // console.log("this.props", this.props);
     let messageCards = [];
 
     for (let keys in this.state.messages) {
@@ -89,7 +87,10 @@ class Chat extends Component {
     }
 
     return (
-      <div className="chat-component" id="style-7">
+      <div className="chat-component">
+        <div className="header">{`#${this.props.channelName} | ${
+          this.props.channelSubtitle
+        }`}</div>
         <div class="scrollbar" id="style-7">
           {messageCards}
           <form onSubmit={(e) => this.sendMessage(e)}>

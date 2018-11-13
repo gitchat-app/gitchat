@@ -14,7 +14,8 @@ class Servers extends Component {
     super();
 
     this.state = {
-      currentChannel: "general"
+      currentChannelName: "general",
+      currentChannelSubtitle: ""
     };
 
     this.changeChannel = this.changeChannel.bind(this);
@@ -22,7 +23,10 @@ class Servers extends Component {
 
   changeChannel(newChannel) {
     console.log("newChannel", newChannel);
-    this.setState({ currentChannel: newChannel });
+    this.setState({
+      currentChannelName: newChannel.name,
+      currentChannelSubtitle: newChannel.subtitle
+    });
     console.log("this.state", this.state);
   }
 
@@ -38,10 +42,10 @@ class Servers extends Component {
     return (
       <div className="server-page">
         {/* <ServerNav /> */}
-        <div className="header">
+        {/* <div className="header">
           <h1>{this.props.match.params.id}</h1>
-          <div> {this.state.currentChannel} </div>
-        </div>
+          <div> {this.state.currentChannelName.name} </div>
+        </div> */}
         <div className="body">
           <div className="left">
             <Channels
@@ -52,7 +56,8 @@ class Servers extends Component {
           <div className="middle">
             <Chat
               serverName={this.props.match.params.id}
-              channelName={this.state.currentChannel}
+              channelName={this.state.currentChannelName}
+              channelSubtitle={this.state.currentChannelSubtitle}
             />
           </div>
           <div className="right">
