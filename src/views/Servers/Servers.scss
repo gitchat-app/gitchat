@@ -1,10 +1,43 @@
 .server-page {
   display: flex;
-}
-
-.middle {
-  display: flex;
   flex-direction: column;
-  width: 50%;
-  align-items: center;
+
+  width: 100%;
+
+  .header {
+    display: flex;
+    flex-direction: column;
+    height: 5vh;
+    background: lightgreen;
+
+    box-shadow: 0px 0px 2vh 0.8vh grey;
+
+    margin-bottom: 1vh;
+
+    font: 16px Arial;
+    h1 {
+      font-size: 20px;
+    }
+  }
+
+  .body {
+    display: flex;
+  }
+
+  .left {
+    width: 15%;
+  }
+
+  .middle {
+    display: flex;
+    flex-direction: column;
+    width: 70%;
+    align-items: center;
+    background: rgb(199, 199, 199);
+  }
+
+  .right {
+    width: 15%;
+    padding: 1%;
+  }
 }

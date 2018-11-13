@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import "./Chat.scss";
+import "./Chat.scss";
 
 import firebase from "../../firebase";
 import MessageCard from "../MessageCard/MessageCard";
@@ -10,13 +10,18 @@ class Chat extends Component {
 
     this.state = {
       messages: {},
-      input: null
+      input: ""
     };
 
     this.sendMessage = this.sendMessage.bind(this);
     this.changeInput = this.changeInput.bind(this);
     this.getMessages = this.getMessages.bind(this);
+    this.scrollToBottom = this.scrollToBottom.bind(this);
   }
+
+  scrollToBottom = (options) => {
+    this.messagesEnd.scrollIntoView(options);
+  };
 
   sendMessage(e) {
     e.preventDefault();
@@ -44,7 +49,7 @@ class Chat extends Component {
       .database()
       .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
 
-    messagesRef.off();
+    // messagesRef.off();
 
     messagesRef
       .orderByChild("timeSent")
@@ -57,11 +62,12 @@ class Chat extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.id !== prevProps.id) {
-      // this.setState({ messages: {} });
-      // messagesRef.off();
+    if (this.props !== prevProps) {
+      console.log("NEW PROPS");
+
       this.getMessages();
     }
+    this.scrollToBottom({ block: "end", behavior: "smooth" });
   }
 
   componentDidMount() {
@@ -77,30 +83,33 @@ class Chat extends Component {
     console.log("this.props", this.props);
     let messageCards = [];
 
-    // this.state.messages.map((e, i, arr) => {
-    //   let card = <MessageCard />;
-    //   messageCards.push(card);
-    // });
-
     for (let keys in this.state.messages) {
       let card = <MessageCard obj={this.state.messages[keys]} />;
       messageCards.push(card);
     }
 
     return (
-      <div>
-        <h1>Chat component</h1>
-
-        {messageCards}
-
-        <form onSubmit={(e) => this.sendMessage(e)}>
-          <input
-            value={this.state.input}
-            onChange={(e) => this.changeInput(e)}
-            placeholder={`Send a message in ${this.props.channelName}...`}
+      <div className="chat-component" id="style-7">
+        <div class="scrollbar" id="style-7">
+          {messageCards}
+          <form onSubmit={(e) => this.sendMessage(e)}>
+            <textarea
+              value={this.state.input}
+              rows="3"
+              onChange={(e) => this.changeInput(e)}
+              placeholder={`Send a message in ${this.props.channelName}...`}
+            />
+            <button disabled={this.state.input === "" ? true : false}>
+              Send
+            </button>
+          </form>
+          <div
+            style={{ float: "left", clear: "both" }}
+            ref={(el) => {
+              this.messagesEnd = el;
+            }}
           />
-          <button>Send</button>
-        </form>
+        </div>
       </div>
     );
   }

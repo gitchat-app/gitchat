@@ -7,6 +7,7 @@ import firebase from "../../firebase";
 import Channels from "./components/Channels";
 import Users from "./components/Users";
 import Chat from "../../components/Chat/Chat";
+// import ServerNav from "../../components/ServerNav/ServerNav";
 
 class Servers extends Component {
   constructor() {
@@ -36,21 +37,28 @@ class Servers extends Component {
   render() {
     return (
       <div className="server-page">
-        <Channels
-          serverName={this.props.match.params.id}
-          changeChannel={this.changeChannel}
-        />
-        <div className="middle">
-          <h1>Server chat goes here </h1>
-          <h1>
-            {this.props.match.params.id}: {this.state.currentChannel}
-          </h1>
-          <Chat
-            serverName={this.props.match.params.id}
-            channelName={this.state.currentChannel}
-          />
+        {/* <ServerNav /> */}
+        <div className="header">
+          <h1>{this.props.match.params.id}</h1>
+          <div> {this.state.currentChannel} </div>
         </div>
-        <Users serverName={this.props.match.params.id} />
+        <div className="body">
+          <div className="left">
+            <Channels
+              serverName={this.props.match.params.id}
+              changeChannel={this.changeChannel}
+            />
+          </div>
+          <div className="middle">
+            <Chat
+              serverName={this.props.match.params.id}
+              channelName={this.state.currentChannel}
+            />
+          </div>
+          <div className="right">
+            <Users serverName={this.props.match.params.id} />
+          </div>
+        </div>
       </div>
     );
   }
