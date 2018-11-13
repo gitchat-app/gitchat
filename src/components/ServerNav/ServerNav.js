@@ -12,26 +12,39 @@ class ServerNav extends Component {
       channels: {}
     }
   }
+
   componentDidMount() {
     const { channels } = this.state; 
-    const { server } = this.props;
-    console.log(server);
-    for(let key in server) {
-      const ref = firebase.database().ref(key);
-      ref.on("value", snapshot => {
-        let count = snapshot.child("members").numChildren();
-        
-        this.setState({members: count})
-      });
-      this.setState({name: server[key].name, icon: server[key].icon, channels: server[key].channels})
-    }
+    const { objKey } = this.props;
+    const ref = firebase.database().ref(`servers/${objKey}`);
+    ref.on("value", snapshot => {
+      let nameVal = snapshot.child("name").val();
+      let count = snapshot.child("members").numChildren();
+      let iconVal = snapshot.child("icon").val();
+      let channelsVal = snapshot.child("channels").val();
+      this.setState({name: nameVal, members: count, icon: iconVal, channels: channelsVal})
+    });
   }
+
+  getInitials = () => {
+    const { icon, name } = this.state;
+    let initials = "";
+    // if(!icon) {
+      console.log("test")
+      initials = name.split(' ').slice(0, 2).map(val => val.split('')[0]).join('');
+    // }
+    return (<div className="default-icon">{initials}</div>);
+  }
+
   render() {
     console.log(this.state);
     const { name, members, icon, channels } = this.state;
     return (
       <div className="serverNav-main-cont">
-        <img src="https://i2.wp.com/www.ahfirstaid.org/wp-content/uploads/2014/07/avatar-placeholder.png" alt={name} />
+        {!icon 
+          ? this.getInitials()
+          : <img src={icon} alt={name} />
+        }
         <p>{name}</p>
       </div>
     );
