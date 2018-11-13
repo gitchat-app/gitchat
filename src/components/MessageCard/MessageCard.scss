@@ -1,19 +1,35 @@
 .message-card {
   margin: 10px;
+
+  padding: 1%;
   //   background: lightgreen;
-  width: 30vw;
+  width: 95%;
 
   display: flex;
-  border: black 1px solid;
+  // border: black 1px solid;
+
+  border-top: 1px black solid;
+
+  color: #ecefed;
 
   .left-icon {
+    background: white;
+    height: 50px;
+
+    margin-right: 10px;
+
+    border-radius: 50%;
+    overflow: hidden;
     img {
-      height: 50px;
+      height: 100%;
+
     }
   }
 
   .inside-message {
-    background: lightgreen;
+
+    // background: lightgreen;
+
     width: 100%;
   }
 }

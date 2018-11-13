@@ -1,5 +1,7 @@
 import React, { Component } from "react";
-// import "./Chat.scss";
+
+import "./Chat.scss";
+
 
 import firebase from "../../firebase";
 import MessageCard from "../MessageCard/MessageCard";
@@ -10,16 +12,38 @@ class Chat extends Component {
 
     this.state = {
       messages: {},
-      input: null
+
+      input: ""
+
     };
 
     this.sendMessage = this.sendMessage.bind(this);
     this.changeInput = this.changeInput.bind(this);
     this.getMessages = this.getMessages.bind(this);
+
+    this.scrollToBottom = this.scrollToBottom.bind(this);
+    this.onCtrlEnter = this.onCtrlEnter.bind(this);
   }
 
+  onCtrlEnter(e) {
+    console.log("e.keyCode", e.keyCode);
+
+    if (e.keyCode === 13 && e.ctrlKey) {
+      console.log("BOTH PRESSED");
+      this.sendMessage();
+    }
+  }
+
+  scrollToBottom = (options) => {
+    this.messagesEnd.scrollIntoView(options);
+  };
+
   sendMessage(e) {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
+
+
     // console.log(this.state.input);
     let messagesRef = firebase
       .database()
@@ -44,24 +68,28 @@ class Chat extends Component {
       .database()
       .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
 
-    messagesRef.off();
+
+    // messagesRef.off();
+
 
     messagesRef
       .orderByChild("timeSent")
       .limitToLast(20)
       .on("value", (snap) => {
-        console.log("snap.val() ordered?", snap.val());
-        //   let ordered = snap.val()
+
         this.setState({ messages: snap.val() });
       });
   }
 
   componentDidUpdate(prevProps) {
-    if (this.props.id !== prevProps.id) {
-      // this.setState({ messages: {} });
-      // messagesRef.off();
+
+    if (this.props !== prevProps) {
+      // console.log("NEW PROPS");
+
       this.getMessages();
     }
+    this.scrollToBottom({ block: "end", behavior: "smooth" });
+
   }
 
   componentDidMount() {
@@ -74,13 +102,10 @@ class Chat extends Component {
 
   render() {
     console.log("this.state", this.state);
-    console.log("this.props", this.props);
+
+    // console.log("this.props", this.props);
     let messageCards = [];
 
-    // this.state.messages.map((e, i, arr) => {
-    //   let card = <MessageCard />;
-    //   messageCards.push(card);
-    // });
 
     for (let keys in this.state.messages) {
       let card = <MessageCard obj={this.state.messages[keys]} />;
@@ -88,19 +113,37 @@ class Chat extends Component {
     }
 
     return (
-      <div>
-        <h1>Chat component</h1>
 
-        {messageCards}
+      <div className="chat-component">
+        <div className="header">{`#${this.props.channelName} | ${
+          this.props.channelSubtitle
+        }`}</div>
+        <div class="scrollbar" id="style-7">
+          {messageCards}
 
-        <form onSubmit={(e) => this.sendMessage(e)}>
-          <input
-            value={this.state.input}
-            onChange={(e) => this.changeInput(e)}
-            placeholder={`Send a message in ${this.props.channelName}...`}
+          <div
+            className="fake-div"
+            style={{ float: "left", clear: "both" }}
+            ref={(el) => {
+              this.messagesEnd = el;
+            }}
           />
-          <button>Send</button>
-        </form>
+        </div>
+        <div className="input-and-button">
+          <form onSubmit={(e) => this.sendMessage(e)}>
+            <textarea
+              value={this.state.input}
+              rows="3"
+              onChange={(e) => this.changeInput(e)}
+              onKeyDown={this.onCtrlEnter}
+              placeholder={`Send a message in ${this.props.channelName}...`}
+            />
+            <button disabled={this.state.input === "" ? true : false}>
+              Send
+            </button>
+          </form>
+        </div>
+
       </div>
     );
   }
