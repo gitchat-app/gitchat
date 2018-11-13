@@ -29,15 +29,19 @@ class MessageCard extends Component {
   }
 
   render() {
-    console.log("this.props", this.props);
-    console.log("this.state", this.state);
 
-    // console.log(
-    //   "moment.unix(this.state.sender.timeSent)",
-    //   moment.unix(this.state.sender.timeSent)
-    // );
+    // console.log("this.props", this.props);
+    // console.log("this.state", this.state);
 
-    console.log("this.props.obj.timeSent", this.props.obj.timeSent);
+    let timeHours = moment
+      .unix(this.props.obj.timeSent / 1000)
+      .format("h:mm A");
+
+    let timestamp = moment
+      .unix(this.props.obj.timeSent / 1000)
+      .format("MMMM Do - h:mm A");
+
+
     return (
       <div className="message-card">
         <div className="left-icon">
@@ -45,12 +49,11 @@ class MessageCard extends Component {
           <img src={this.state.sender.avatar} alt="" />
         </div>
         <div className="inside-message">
-          <div>
-            {moment
-              .unix(this.props.obj.timeSent / 1000)
-              .format("dddd, MMMM Do, YYYY h:mm:ss A")}
+
+          <div className="top">
+            {this.state.sender.username} at {timeHours}
           </div>
-          <div className="username">{this.state.sender.username}</div>
+
           <div>{this.props.obj.content}</div>
         </div>
       </div>

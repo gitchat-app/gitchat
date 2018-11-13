@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import "./Users.scss";
+import "./Users.scss";
 
 import firebase from "../../../firebase";
 
@@ -38,7 +38,7 @@ class Users extends Component {
     }
 
     return (
-      <div>
+      <div className="users-component">
         <h1>All Users</h1>
         {/* {this.state.members} */}
         {usernames}
