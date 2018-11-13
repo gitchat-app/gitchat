@@ -1,4 +1,4 @@
-import firebase from "firebase"
+import firebase from "firebase";
 
 const config = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -10,10 +10,6 @@ const config = {
   messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID
 }
 
-firebase.initializeApp(config)
-
-// authorization
-export const provider = new firebase.auth.GoogleAuthProvider();
-export const auth = firebase.auth(); 
+firebase.initializeApp(config); 
 
 export default firebase
