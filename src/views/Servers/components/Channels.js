@@ -3,6 +3,7 @@ import React, { Component } from "react";
 
 import firebase from "../../../firebase";
 import "./Channels.scss";
+import ActiveButton from "./ActiveButton";
 
 class Channels extends Component {
   constructor(props) {
@@ -18,11 +19,23 @@ class Channels extends Component {
       .database()
       .ref(`servers/${this.props.serverName}/channels`);
 
-    channelsRef.once("value").then((snap) => {
-      console.log("snap.val()", snap.val());
+    channelsRef
+      .once("value")
+      .then((snap) => {
+        console.log("snap.val()", snap.val());
 
-      this.setState({ channels: snap.val() });
-    });
+        this.setState({ channels: snap.val() });
+      })
+      .then(() => {
+        for (let key in this.state.channels) {
+          if (key === "general") {
+            this.props.changeChannel({
+              name: key,
+              subtitle: this.state.channels[key]
+            });
+          }
+        }
+      });
   }
   render() {
     let channelsArr = [];
@@ -30,19 +43,37 @@ class Channels extends Component {
     for (let key in this.state.channels) {
       let newDiv = (
         <button
-          className="channel-card"
-          onClick={() => this.props.changeChannel(key)}
+          className="channel-button"
+          onClick={() => {
+            this.className = "channel-button-active";
+            this.props.changeChannel({
+              name: key,
+              subtitle: this.state.channels[key]
+            });
+          }}
         >
-          <h2>{key}</h2>
-          <subtitle>{this.state.channels[key]}</subtitle>
+          <h2>#{key}</h2>
         </button>
       );
+
+      // let newDiv = (
+      //   <ActiveButton
+      //     buttonType="channel"
+      //     onClick={() => {
+      //       this.props.changeChannel({
+      //         name: key,
+      //         subtitle: this.state.channels[key]
+      //       });
+      //     }}
+      //     channelName={key}
+      //   />
+      // );
 
       channelsArr.push(newDiv);
     }
     return (
       <div className="channels">
-        <h1>Channels </h1>
+        <h1 className="header">{this.props.serverName} </h1>
         {channelsArr}
       </div>
     );
