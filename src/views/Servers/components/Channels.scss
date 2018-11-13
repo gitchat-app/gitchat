@@ -1,12 +1,22 @@
 .channels {
   display: flex;
   flex-direction: column;
-  background: lightgreen;
+  background: #2d3832;
+
+  padding: 5%;
 
   height: 100%;
 
+  color: whitesmoke;
+
   .header {
     font-size: 24px;
+  }
+
+  .channel-button {
+    margin: 2%;
+    height: 30px;
+    font-size: 16px;
   }
 
   // .channel-button {

@@ -30,13 +30,13 @@ class Servers extends Component {
     console.log("this.state", this.state);
   }
 
-  componentDidMount() {
-    axios
-      .get(`${process.env.REACT_APP_FIREBASE_DATABASE_URL}/users.json`)
-      .then((res) => {
-        // console.log("res", res);
-      });
-  }
+  // componentDidMount() {
+  //   // axios
+  //   //   .get(`${process.env.REACT_APP_FIREBASE_DATABASE_URL}/users.json`)
+  //   //   .then((res) => {
+  //   //     // console.log("res", res);
+  //   //   });
+  // }
 
   render() {
     return (

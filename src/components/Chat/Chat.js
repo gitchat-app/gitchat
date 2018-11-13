@@ -17,6 +17,16 @@ class Chat extends Component {
     this.changeInput = this.changeInput.bind(this);
     this.getMessages = this.getMessages.bind(this);
     this.scrollToBottom = this.scrollToBottom.bind(this);
+    this.onCtrlEnter = this.onCtrlEnter.bind(this);
+  }
+
+  onCtrlEnter(e) {
+    console.log("e.keyCode", e.keyCode);
+
+    if (e.keyCode === 13 && e.ctrlKey) {
+      console.log("BOTH PRESSED");
+      this.sendMessage();
+    }
   }
 
   scrollToBottom = (options) => {
@@ -24,7 +34,10 @@ class Chat extends Component {
   };
 
   sendMessage(e) {
-    e.preventDefault();
+    if (e) {
+      e.preventDefault();
+    }
+
     // console.log(this.state.input);
     let messagesRef = firebase
       .database()
@@ -77,7 +90,7 @@ class Chat extends Component {
   }
 
   render() {
-    // console.log("this.state", this.state);
+    console.log("this.state", this.state);
     // console.log("this.props", this.props);
     let messageCards = [];
 
@@ -93,23 +106,28 @@ class Chat extends Component {
         }`}</div>
         <div class="scrollbar" id="style-7">
           {messageCards}
+
+          <div
+            className="fake-div"
+            style={{ float: "left", clear: "both" }}
+            ref={(el) => {
+              this.messagesEnd = el;
+            }}
+          />
+        </div>
+        <div className="input-and-button">
           <form onSubmit={(e) => this.sendMessage(e)}>
             <textarea
               value={this.state.input}
               rows="3"
               onChange={(e) => this.changeInput(e)}
+              onKeyDown={this.onCtrlEnter}
               placeholder={`Send a message in ${this.props.channelName}...`}
             />
             <button disabled={this.state.input === "" ? true : false}>
               Send
             </button>
           </form>
-          <div
-            style={{ float: "left", clear: "both" }}
-            ref={(el) => {
-              this.messagesEnd = el;
-            }}
-          />
         </div>
       </div>
     );

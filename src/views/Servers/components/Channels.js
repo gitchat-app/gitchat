@@ -19,11 +19,23 @@ class Channels extends Component {
       .database()
       .ref(`servers/${this.props.serverName}/channels`);
 
-    channelsRef.once("value").then((snap) => {
-      console.log("snap.val()", snap.val());
+    channelsRef
+      .once("value")
+      .then((snap) => {
+        console.log("snap.val()", snap.val());
 
-      this.setState({ channels: snap.val() });
-    });
+        this.setState({ channels: snap.val() });
+      })
+      .then(() => {
+        for (let key in this.state.channels) {
+          if (key === "general") {
+            this.props.changeChannel({
+              name: key,
+              subtitle: this.state.channels[key]
+            });
+          }
+        }
+      });
   }
   render() {
     let channelsArr = [];
@@ -40,8 +52,7 @@ class Channels extends Component {
             });
           }}
         >
-          <h2>{key}</h2>
-          <subtitle>{this.state.channels[key]}</subtitle>
+          <h2>#{key}</h2>
         </button>
       );
 
