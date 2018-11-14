@@ -3,8 +3,8 @@ import firebase from "../../firebase";
 import firebaseui from "firebaseui";
 
 class Username extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       username: ""
     };
@@ -31,28 +31,28 @@ class Username extends Component {
           uid: user.uid,
           email: user.email,
           username: this.state.username,
-          avatar:
-            "http://laurauinteriordesign.com/wp-content/uploads/2018/03/avatar-placeholder.png"
+          avatar: "http://laurauinteriordesign.com/wp-content/uploads/2018/03/avatar-placeholder.png"
         });
       }
     });
     authRef.ref(`usernames/${this.state.username}`).once("value", snapshot => {
       authRef.ref(`usernames/${this.state.username}`).set(user.uid);
     });
-    this.props.history.push("/dashboard");
+    this.props.history.push('/dashboard');
   };
 
   render() {
-    // console.log(firebase.auth().currentUser.displayName)
+    console.log(this.props);
     return (
       <div>
-        <h1>username:</h1>
-        {this.state.username}
+        <h1>Create your username</h1>
         <input
           value={this.state.username}
           onChange={e => this.setState({ username: e.target.value })}
         />
-        <button onClick={() => this.createUser()}>Add user name </button>
+        <button
+          disabled={this.state.username === "" ? true : false} 
+          onClick={() => this.createUser()}>Add user name</button>
       </div>
     );
   }
