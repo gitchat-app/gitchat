@@ -1,5 +1,7 @@
+@import "../../index.scss";
+
 .message-card {
-  margin: 10px;
+  margin: 5px;
 
   padding: 1%;
   //   background: lightgreen;
@@ -8,26 +10,25 @@
   display: flex;
   // border: black 1px solid;
 
-  border-top: 1px black solid;
+  border-bottom: 1px $middle-green solid;
 
-  color: #ecefed;
+  color: $font;
 
   .left-icon {
-    background: white;
+    // background: $lightest-green;
     height: 50px;
 
     margin-right: 10px;
 
-    border-radius: 50%;
+    border-radius: 10px;
+    // border-radius: 50%;
     overflow: hidden;
     img {
       height: 100%;
-
     }
   }
 
   .inside-message {
-
     // background: lightgreen;
 
     width: 100%;
