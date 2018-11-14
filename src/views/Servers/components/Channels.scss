@@ -1,7 +1,9 @@
+@import "../../../index.scss";
+
 .channels {
   display: flex;
   flex-direction: column;
-  background: #2d3832;
+  background: $dark-green;
 
   padding: 5%;
 

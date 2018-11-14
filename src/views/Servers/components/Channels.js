@@ -3,7 +3,6 @@ import React, { Component } from "react";
 
 import firebase from "../../../firebase";
 import "./Channels.scss";
-import ActiveButton from "./ActiveButton";
 
 class Channels extends Component {
   constructor(props) {
@@ -17,12 +16,12 @@ class Channels extends Component {
   componentDidMount() {
     let channelsRef = firebase
       .database()
-      .ref(`servers/${this.props.serverName}/channels`);
+      .ref(`servers/${this.props.serverId}/channels`);
 
     channelsRef
       .once("value")
       .then((snap) => {
-        console.log("snap.val()", snap.val());
+        // console.log("snap.val()", snap.val());
 
         this.setState({ channels: snap.val() });
       })
