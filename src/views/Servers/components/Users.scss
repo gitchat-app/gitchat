@@ -1,4 +1,10 @@
+@import "../../../index.scss";
+
 .users-component {
-  background: whitesmoke;
-  padding: 2%;
+  background: $light-green;
+  padding: 5%;
+
+  color: $font;
+
+  height: 100%;
 }

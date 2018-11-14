@@ -18,17 +18,11 @@ class Users extends Component {
       .database()
       .ref(`servers/${this.props.serverName}/members`);
 
-    console.log("membersRef", membersRef);
-
-    let memberObj = null;
-
     membersRef.once("value").then((snap) => {
       //   console.log("snap.val()", snap.val());
 
       this.setState({ memberObj: snap.val() });
-      //   console.log("this.state", this.state);
     });
-    // console.log("memberObj", memberObj);
   }
 
   render() {
