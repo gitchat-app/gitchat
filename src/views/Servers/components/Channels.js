@@ -3,7 +3,6 @@ import React, { Component } from "react";
 
 import firebase from "../../../firebase";
 import "./Channels.scss";
-import ActiveButton from "./ActiveButton";
 
 class Channels extends Component {
   constructor(props) {

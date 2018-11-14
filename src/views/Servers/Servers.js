@@ -1,8 +1,6 @@
 import React, { Component } from "react";
 import "./Servers.scss";
 
-import axios from "axios";
-
 import firebase from "../../firebase";
 import Channels from "./components/Channels";
 import Users from "./components/Users";
