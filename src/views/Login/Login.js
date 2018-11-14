@@ -17,7 +17,7 @@ class Login extends Component {
       }
     },
     signInFlow: "popup",
-    signInSuccessUrl: 'http://localhost:3000/username',
+    signInSuccessUrl: "http://localhost:3000/username",
     signInOptions: [
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
