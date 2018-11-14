@@ -44,6 +44,7 @@ class Username extends Component {
 
   render() {
     // console.log(firebase.auth().currentUser.displayName)
+    console.log(this.props)
     return (
       <div>
         <h1>username:</h1>

@@ -12,5 +12,7 @@ class Profile extends Component {
     );
   }
 }
+// integrated password 
+
 
 export default Profile;
