@@ -1,35 +1,67 @@
-.message-card {
-  margin: 10px;
+@import "../../index.scss";
 
-  padding: 1%;
+.message-card {
+  margin: 5px;
+
+  padding: 0.8%;
   //   background: lightgreen;
   width: 95%;
 
   display: flex;
   // border: black 1px solid;
 
-  border-top: 1px black solid;
+  border-bottom: 1px $middle-green solid;
 
-  color: #ecefed;
+  color: $font;
 
   .left-icon {
-    background: white;
+    // background: $lightest-green;
+    // background: white;
     height: 50px;
+    width: 50px;
 
     margin-right: 10px;
 
-    border-radius: 50%;
+    border-radius: 10px;
+    // border-radius: 50%;
     overflow: hidden;
-    img {
-      height: 100%;
 
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+
+    img {
+      // height: 100%;
+      width: 100%;
     }
   }
 
   .inside-message {
-
     // background: lightgreen;
 
     width: 100%;
+
+    .top {
+      display: flex;
+      align-items: center;
+      // justify-content: space-between;
+
+      margin-bottom: 10px;
+
+      .username {
+        font-size: 19px;
+        color: white;
+      }
+
+      .timestamp {
+        color: lightgray;
+        font-size: 13px;
+        margin-left: 5px;
+      }
+    }
+
+    .body {
+      font-size: 16px;
+    }
   }
 }

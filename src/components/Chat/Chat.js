@@ -2,7 +2,6 @@ import React, { Component } from "react";
 
 import "./Chat.scss";
 
-
 import firebase from "../../firebase";
 import MessageCard from "../MessageCard/MessageCard";
 
@@ -14,7 +13,6 @@ class Chat extends Component {
       messages: {},
 
       input: ""
-
     };
 
     this.sendMessage = this.sendMessage.bind(this);
@@ -43,7 +41,6 @@ class Chat extends Component {
       e.preventDefault();
     }
 
-
     // console.log(this.state.input);
     let messagesRef = firebase
       .database()
@@ -51,7 +48,7 @@ class Chat extends Component {
 
     messagesRef.push({
       content: this.state.input,
-      sender: "hardCodedTester",
+      sender: this.state.user.uid,
       timeSent: firebase.database.ServerValue.TIMESTAMP
     });
 
@@ -68,32 +65,38 @@ class Chat extends Component {
       .database()
       .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
 
-
     // messagesRef.off();
-
 
     messagesRef
       .orderByChild("timeSent")
       .limitToLast(20)
       .on("value", (snap) => {
-
         this.setState({ messages: snap.val() });
       });
   }
 
   componentDidUpdate(prevProps) {
-
     if (this.props !== prevProps) {
       // console.log("NEW PROPS");
 
       this.getMessages();
     }
     this.scrollToBottom({ block: "end", behavior: "smooth" });
-
   }
 
   componentDidMount() {
     this.getMessages();
+    firebase.auth().onAuthStateChanged(
+      function(user) {
+        if (user) {
+          console.log("user", user);
+          this.setState({ user });
+        } else {
+          // No user is signed in.
+        }
+      }.bind(this)
+    );
+    // .then(console.log("THEN this.state", this.state));
   }
 
   componentWillUnmount() {
@@ -106,14 +109,12 @@ class Chat extends Component {
     // console.log("this.props", this.props);
     let messageCards = [];
 
-
     for (let keys in this.state.messages) {
       let card = <MessageCard obj={this.state.messages[keys]} />;
       messageCards.push(card);
     }
 
     return (
-
       <div className="chat-component">
         <div className="header">{`#${this.props.channelName} | ${
           this.props.channelSubtitle
@@ -138,12 +139,14 @@ class Chat extends Component {
               onKeyDown={this.onCtrlEnter}
               placeholder={`Send a message in ${this.props.channelName}...`}
             />
-            <button disabled={this.state.input === "" ? true : false}>
-              Send
-            </button>
+            <div className="button-area">
+              <div>press ctrl + enter to send</div>
+              <button disabled={this.state.input === "" ? true : false}>
+                Send
+              </button>
+            </div>
           </form>
         </div>
-
       </div>
     );
   }
