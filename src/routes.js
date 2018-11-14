@@ -1,14 +1,17 @@
 import React from "react";
 import { Switch, Route } from "react-router-dom";
-import Landing from "./views/Landing/Landing";
+import Login from "./views/Login/Login";
 import Dashboard from "./views/Dashboard/Dashboard";
+import Username from "./views/Username/Username";
 import Servers from "./views/Servers/Servers";
 import DirectMessages from "./views/DirectMessages/DirectMessages";
 import Profile from "./views/Profile/Profile";
 
 export default (
   <Switch>
-    <Route path="/" exact component={Landing} /> {/* === Auth & Login */}
+    {/* <Route path="/" exact component={Home} />  */}
+    <Route path="/login" component={Login} /> 
+    <Route path="/username" component={Username} />
     <Route path="/dashboard" component={Dashboard} />
     <Route path="/profile" component={Profile} />
     <Route path="/server/:id" component={Servers} />
