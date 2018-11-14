@@ -8,14 +8,16 @@ import Channels from "./components/Channels";
 import Users from "./components/Users";
 import Chat from "../../components/Chat/Chat";
 
-
 class Servers extends Component {
   constructor() {
     super();
 
     this.state = {
       currentChannelName: "general",
-      currentChannelSubtitle: ""
+      currentChannelSubtitle: "",
+      server: {
+        name: ""
+      }
     };
 
     this.changeChannel = this.changeChannel.bind(this);
@@ -27,29 +29,28 @@ class Servers extends Component {
       currentChannelName: newChannel.name,
       currentChannelSubtitle: newChannel.subtitle
     });
-    console.log("this.state", this.state);
+    // console.log("this.state", this.state);
   }
 
-  // componentDidMount() {
-  //   // axios
-  //   //   .get(`${process.env.REACT_APP_FIREBASE_DATABASE_URL}/users.json`)
-  //   //   .then((res) => {
-  //   //     // console.log("res", res);
-  //   //   });
-  // }
+  componentDidMount() {
+    let serverRef = firebase
+      .database()
+      .ref(`servers/${this.props.match.params.id}`);
+
+    serverRef.once("value").then((snap) => {
+      this.setState({ server: snap.val() });
+    });
+  }
 
   render() {
+    console.log("this.state", this.state);
     return (
       <div className="server-page">
-        {/* <ServerNav /> */}
-        {/* <div className="header">
-          <h1>{this.props.match.params.id}</h1>
-          <div> {this.state.currentChannelName.name} </div>
-        </div> */}
         <div className="body">
           <div className="left">
             <Channels
-              serverName={this.props.match.params.id}
+              serverId={this.props.match.params.id}
+              serverName={this.state.server.name}
               changeChannel={this.changeChannel}
             />
           </div>

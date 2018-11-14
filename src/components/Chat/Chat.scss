@@ -20,6 +20,8 @@
     align-items: center;
 
     font-size: 18px;
+
+    padding-left: 2%;
   }
 
   .scrollbar {
@@ -39,6 +41,16 @@
 
     position: fixed;
     bottom: 0;
+
+    color: $font;
+
+    .button-area {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      padding: 0 1%;
+    }
   }
 
   .fake-div {
@@ -54,6 +66,8 @@
     margin-bottom: 10px;
     border-radius: 5px;
     resize: none;
+
+    // background: $lightest-green;
   }
 
   button {
