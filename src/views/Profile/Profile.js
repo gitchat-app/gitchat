@@ -21,13 +21,13 @@ class Profile extends Component {
         if (user) {
           console.log("user:", user);
           const ref = firebase.database().ref(`users/${user.uid}`);
-          ref.on("value", snapshot => {
+          ref.on("value", (snapshot) => {
             console.log("snapshot:", snapshot.val());
             this.setState({ user: snapshot.val() });
-            this.setState({ avatar: snapshot.val().avatar })
-            this.setState({ username: snapshot.val().username })
-            this.setState({ name: snapshot.val().name })
-            this.setState({ email: snapshot.val().email })
+            this.setState({ avatar: snapshot.val().avatar });
+            this.setState({ username: snapshot.val().username });
+            this.setState({ name: snapshot.val().name });
+            this.setState({ email: snapshot.val().email });
           });
         } else {
           // No user is logged in.
@@ -40,7 +40,7 @@ class Profile extends Component {
   render() {
     // const uid = this.state.user.uid;
     // console.log('uid: ', uid);
-    
+
     return (
       <div className="profile">
         <h1>Profile</h1>
@@ -64,7 +64,7 @@ class Profile extends Component {
             <input
               value={this.state.avatar}
               placeholder="Avatar"
-              onChange={e => this.setState({ avatar: e.target.value })}
+              onChange={(e) => this.setState({ avatar: e.target.value })}
             />
             {/* USER ENTERED URL input: 
             https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50 
@@ -74,24 +74,24 @@ class Profile extends Component {
             <input
               value={this.state.username}
               placeholder="Username"
-              onChange={e => this.setState({ username: e.target.value })}
+              onChange={(e) => this.setState({ username: e.target.value })}
             />
 
             <h3>name</h3>
             <input
               value={this.state.name}
               placeholder="Name"
-              onChange={e => this.setState({ name: e.target.value })}
+              onChange={(e) => this.setState({ name: e.target.value })}
             />
 
             <h3>email</h3>
             <input
               value={this.state.email}
               placeholder="email"
-              onChange={e => this.setState({ email: e.target.value })}
+              onChange={(e) => this.setState({ email: e.target.value })}
             />
 
-            <button onClick={e => this.setState({ edit: false })}>
+            <button onClick={(e) => this.setState({ edit: false })}>
               Cancel
             </button>
             <div>
