@@ -24,10 +24,10 @@ class Chat extends Component {
   }
 
   onCtrlEnter(e) {
-    console.log("e.keyCode", e.keyCode);
+    // console.log("e.keyCode", e.keyCode);
 
-    if (e.keyCode === 13 && e.ctrlKey) {
-      console.log("BOTH PRESSED");
+    if (e.keyCode === 13 && e.ctrlKey && this.state.input !== "") {
+      console.log("BOTH PRESSED AND NOT EMPTY STRING");
       this.sendMessage();
     }
   }
@@ -119,7 +119,7 @@ class Chat extends Component {
         <div className="header">{`#${this.props.channelName} | ${
           this.props.channelSubtitle
         }`}</div>
-        <div class="scrollbar" id="style-7">
+        <div className="scrollbar" id="style-7">
           {messageCards}
 
           <div
