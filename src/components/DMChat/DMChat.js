@@ -1,14 +1,7 @@
 import React, { Component } from "react";
 import "./DMChat.scss";
-
 import firebase from "../../firebase";
-
 import MessageCard from "../MessageCard/MessageCard";
-
-//notes: make the url for the dm just direct/idOfRecipient and pull it in via match.params and the current user in the componentDidMount and order them alphabetically and save that to state as the id for dms
-
-//to have a list of dms, consider having openDMs as an object on each member that will always have the most recent message and timestamp on it (so you can see everyone you have a dm with and they can be ordered by how recent they are)
-//this will need to update the dm for both user objects with the other user's id
 
 class DMChat extends Component {
   constructor(props) {
@@ -124,6 +117,13 @@ class DMChat extends Component {
 
       //needs to change the dmKey in state
       this.makeKey();
+      firebase
+        .database()
+        .ref(`users/${this.props.currentUrlParams}`)
+        .once("value", (snap) => {
+          console.log("snap.val()", snap.val());
+          this.setState({ recipientUsername: snap.val().username });
+        });
     }
     this.scrollToBottom({ block: "end", behavior: "smooth" });
   }
@@ -149,12 +149,17 @@ class DMChat extends Component {
         }
       }.bind(this)
     );
+
+    firebase
+      .database()
+      .ref(`users/${this.props.currentUrlParams}`)
+      .once("value", (snap) => {
+        console.log("snap.val()", snap.val());
+        this.setState({ recipientUsername: snap.val().username });
+      });
   }
 
   render() {
-    // console.log("this.state", this.state);
-
-    // console.log("this.props", this.props);
     let messageCards = [];
 
     for (let keys in this.state.messages) {
@@ -163,7 +168,9 @@ class DMChat extends Component {
     }
     return (
       <div className="dm-chat">
-        <div className="header">{`Direct Message to userHere`}</div>
+        <div className="header">{`Direct Message to ${
+          this.state.recipientUsername
+        }`}</div>
         <div className="scrollbar" id="style-7">
           {messageCards}
 
@@ -182,7 +189,9 @@ class DMChat extends Component {
               rows="3"
               onChange={(e) => this.changeInput(e)}
               onKeyDown={this.onCtrlEnter}
-              placeholder={`Send a message to ${this.props.channelName}...`}
+              placeholder={`Send a message to ${
+                this.state.recipientUsername
+              }...`}
             />
             <div className="button-area">
               <div>press ctrl + enter to send</div>

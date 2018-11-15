@@ -92,8 +92,7 @@ class DirectMessageSidebar extends Component {
     // console.log("this.state.links", this.state.links);
     return (
       <div className="dm-sidebar">
-        <h1>DM Sidebar</h1>
-        <h1>Link to /dash here???</h1>
+        <h1>Direct Messages</h1>
         {linkMap}
       </div>
     );
