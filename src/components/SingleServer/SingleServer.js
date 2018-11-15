@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import firebase from "../../firebase";
+import { NavLink } from "react-router-dom";
 import "./SingleServer.scss";
 
 class SingleServer extends Component {
@@ -26,25 +27,26 @@ class SingleServer extends Component {
     });
   }
 
-  getInitials = () => {
-    const { icon, name } = this.state;
-    let initials = "";
-    // if(!icon) {
-    // console.log("test")
-    initials = name.split(' ').slice(0, 2).map(val => val.split('')[0]).join('');
-    // }
-    return (<div className="default-icon">{initials}</div>);
-  }
+  // getInitials = () => {
+  //   const { icon, name } = this.state;
+  //   let initials = "";
+  //   // if(!icon) {
+  //   // console.log("test")
+  //   initials = name.split(' ').slice(0, 2).map(val => val.split('')[0]).join('');
+  //   // }
+  //   return (<div className="default-icon">{initials}</div>);
+  // }
 
   render() {
     // console.log(this.state);
     const { name, members, icon, channels } = this.state;
+    const { objKey } = this.props;
     return (
       <div className="single-server-main-cont">
-        {!icon
+        {/* {!icon
           ? this.getInitials()
-          : <img src={icon} alt={name} />
-        }
+        } */}
+        <NavLink className="server-link" to={`/server/${objKey}`}><img src={icon} alt={name} /></NavLink>
         <p>{name}</p>
       </div>
     );

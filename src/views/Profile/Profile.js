@@ -11,13 +11,13 @@ class Profile extends Component {
   }
 
 
-  getUserInfo = () => {
-    const userInfo = firebase.database().ref('users/', uid).set({
-      avatar: avatar,
-      email: email,
-      username: username
-    });
-  }
+  // getUserInfo = () => {
+  //   const userInfo = firebase.database().ref('users/', uid).set({
+  //     avatar: avatar,
+  //     email: email,
+  //     username: username
+  //   });
+  // }
 
   render() {
     const user = firebase.auth().currentUser; 

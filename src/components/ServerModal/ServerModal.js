@@ -71,7 +71,7 @@ export default function ServerModal(props) {
               </div>
               <div className="add-server-btn-cont">
                 <button onClick={toggleDefault}>Back</button>
-                <button onClick={handleCloseModal} type="submit">Add Server</button>
+                <button type="submit">Join Server!</button>
               </div>
             </form>
           </div>
