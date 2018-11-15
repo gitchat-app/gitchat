@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-// import "./Channels.scss";
 
 import firebase from "../../../firebase";
 import "./Channels.scss";

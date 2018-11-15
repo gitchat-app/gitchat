@@ -3,95 +3,100 @@
 .dm-component {
   // padding: 0 2%;
   // font-family: Arial;
-  width: 100%;
-  background: $lightest-green;
-  height: 100vh;
 
-  white-space: pre-line;
+  display: flex;
 
-  .header {
-    background: $middle-green;
-    color: $font;
-
+  .chat {
     width: 100%;
-    height: 5vh;
-
-    display: flex;
-    align-items: center;
-
-    font-size: 18px;
-
-    padding-left: 2%;
-  }
-
-  .scrollbar {
-    // max-height: 94vh;
-    overflow-y: auto;
-
-    height: 80vh;
-  }
-
-  .input-and-button {
-    padding: 1%;
     background: $lightest-green;
+    height: 100vh;
 
-    height: 15vh;
-    height: auto;
-    width: 70%;
+    white-space: pre-line;
 
-    position: fixed;
-    bottom: 0;
+    .header {
+      background: $middle-green;
+      color: $font;
 
-    color: $font;
+      width: 100%;
+      height: 5vh;
 
-    .button-area {
       display: flex;
-      justify-content: space-between;
       align-items: center;
 
-      padding: 0 1%;
+      font-size: 18px;
+
+      padding-left: 2%;
     }
-  }
 
-  .fake-div {
-    // height: 1vh;
-    height: 1px;
-  }
+    .scrollbar {
+      // max-height: 94vh;
+      overflow-y: auto;
 
-  textarea {
-    width: 100%;
-    border: none;
-    padding: 10px 20px;
-    // font: 14px/22px "Lato", Arial, sans-serif;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    resize: none;
+      height: 80vh;
+    }
 
-    // background: $lightest-green;
-  }
+    .input-and-button {
+      padding: 1%;
+      background: $lightest-green;
 
-  button {
-    float: right;
-    color: grey;
-    font-size: 16px;
-    // text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    background: white;
-    height: 30px;
-    width: 100px;
+      height: 15vh;
+      height: auto;
+      width: 70%;
 
-    border-radius: 10px;
+      position: fixed;
+      bottom: 0;
 
-    transition: 0.5s;
+      color: $font;
 
-    // margin-bottom: 1vh;
+      .button-area {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
 
-    &:hover {
-      color: #333;
-      // background: darken(white, 7%);
-      background: rgb(179, 255, 172);
+        padding: 0 1%;
+      }
+    }
+
+    .fake-div {
+      // height: 1vh;
+      height: 1px;
+    }
+
+    textarea {
+      width: 100%;
+      border: none;
+      padding: 10px 20px;
+      // font: 14px/22px "Lato", Arial, sans-serif;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      resize: none;
+
+      // background: $lightest-green;
+    }
+
+    button {
+      float: right;
+      color: grey;
+      font-size: 16px;
+      // text-transform: uppercase;
+      border: none;
+      cursor: pointer;
+      font-weight: bold;
+      background: white;
+      height: 30px;
+      width: 100px;
+
+      border-radius: 10px;
+
+      transition: 0.5s;
+
+      // margin-bottom: 1vh;
+
+      &:hover {
+        color: #333;
+        // background: darken(white, 7%);
+        background: rgb(179, 255, 172);
+      }
     }
   }
 }

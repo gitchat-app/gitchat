@@ -10,32 +10,27 @@ class Profile extends Component {
     };
   }
 
-
-  getUserInfo = () => {
-    const userInfo = firebase.database().ref('users/', uid).set({
-      avatar: avatar,
-      email: email,
-      username: username
-    });
-  }
+  // getUserInfo = () => {
+  //   const userInfo = firebase.database().ref('users/', uid).set({
+  //     avatar: avatar,
+  //     email: email,
+  //     username: username
+  //   });
+  // }
 
   render() {
-    const user = firebase.auth().currentUser; 
+    const user = firebase.auth().currentUser;
     // const avatar = firebase.auth()
     // const email = firebase.auth()
-    // const uid = 
+    // const uid =
     // const username:
-    
-    
+
     return (
       <div>
         <h1>Profile</h1>
-        
+
         <h3>Full Name</h3>
-        <input 
-        value={user}
-        placeholder="full name"
-        />
+        <input value={user} placeholder="full name" />
 
         <h3>user name</h3>
         <h3>Email</h3>

@@ -1,17 +1,16 @@
 import React, { Component } from "react";
-
-import "./Chat.scss";
+import "./DMChat.scss";
 
 import firebase from "../../firebase";
+
 import MessageCard from "../MessageCard/MessageCard";
 
-class Chat extends Component {
+class DMChat extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      messages: {},
-
+      dmKey: "",
       input: ""
     };
 
@@ -21,7 +20,27 @@ class Chat extends Component {
 
     this.scrollToBottom = this.scrollToBottom.bind(this);
     this.onCtrlEnter = this.onCtrlEnter.bind(this);
+
+    this.makeKey = this.makeKey.bind(this);
   }
+
+  makeKey() {
+    let bothIds = [];
+    bothIds.push(this.state.currentUserId);
+    bothIds.push(this.props.currentUrlParams);
+    // console.log("bothIds", bothIds);
+
+    let key = bothIds.sort().join("-");
+    // console.log("key", key);
+
+    this.setState({ dmKey: key });
+
+    this.getMessages();
+  }
+
+  scrollToBottom = (options) => {
+    this.messagesEnd.scrollIntoView(options);
+  };
 
   onCtrlEnter(e) {
     // console.log("e.keyCode", e.keyCode);
@@ -32,79 +51,74 @@ class Chat extends Component {
     }
   }
 
-  scrollToBottom = (options) => {
-    this.messagesEnd.scrollIntoView(options);
-  };
+  changeInput(e) {
+    this.setState({ input: e.target.value });
+  }
 
   sendMessage(e) {
     if (e) {
       e.preventDefault();
     }
-
     // console.log(this.state.input);
-    let messagesRef = firebase
-      .database()
-      .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
+    let dmsRef = firebase.database().ref(`dms/${this.state.dmKey}`);
 
-    messagesRef.push({
+    dmsRef.push({
       content: this.state.input,
-      sender: this.state.user.uid,
+      sender: this.state.currentUserId,
       timeSent: firebase.database.ServerValue.TIMESTAMP
     });
 
     this.setState({ input: "" });
-  }
-
-  changeInput(e) {
-    this.setState({ input: e.target.value });
+    //SET DM in user to most recent message
   }
 
   getMessages() {
-    console.log("this.props", this.props);
-    let messagesRef = firebase
-      .database()
-      .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
-
-    // messagesRef.off();
-
-    messagesRef
+    console.log("GETTING MESSAGES");
+    console.log("this.state.dmKey", this.state.dmKey);
+    let dmRef = firebase.database().ref(`dms/${this.state.dmKey}`);
+    // let dmRef = firebase
+    //   .database()
+    //   .ref(`dms/Mx107G666sdK7uSolNcfqnH5fkn2-QDHOKB5cHOVzPKL5FDsx9MPXBsW2`);
+    dmRef
       .orderByChild("timeSent")
       .limitToLast(20)
       .on("value", (snap) => {
+        // console.log("snap.val()", snap.val());
         this.setState({ messages: snap.val() });
       });
   }
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      // console.log("NEW PROPS");
+      //   console.log("NEW PROPS");
+      //   console.log("this.props", this.props);
+      // this.setState
 
-      this.getMessages();
+      //needs to change the dmKey in state
+      this.makeKey();
     }
     this.scrollToBottom({ block: "end", behavior: "smooth" });
   }
 
   componentDidMount() {
-    this.getMessages();
     firebase.auth().onAuthStateChanged(
       function(user) {
         if (user) {
-          console.log("user", user);
-          this.setState({ user });
+          // console.log("user", user);
+          //   console.log("this.props", this.props);
+
+          this.setState({ currentUserId: user.uid });
+          this.makeKey();
         } else {
           // No user is signed in.
+          console.log("NO USER");
         }
       }.bind(this)
     );
-    // .then(console.log("THEN this.state", this.state));
-  }
-
-  componentWillUnmount() {
-    console.log("UNMOUNTING");
   }
 
   render() {
-    console.log("this.state", this.state);
+    // console.log("this.state", this.state);
 
     // console.log("this.props", this.props);
     let messageCards = [];
@@ -113,12 +127,9 @@ class Chat extends Component {
       let card = <MessageCard obj={this.state.messages[keys]} />;
       messageCards.push(card);
     }
-
     return (
-      <div className="chat-component">
-        <div className="header">{`#${this.props.channelName} | ${
-          this.props.channelSubtitle
-        }`}</div>
+      <div className="dm-chat">
+        <div className="header">{`Direct Message to userHere`}</div>
         <div class="scrollbar" id="style-7">
           {messageCards}
 
@@ -137,7 +148,7 @@ class Chat extends Component {
               rows="3"
               onChange={(e) => this.changeInput(e)}
               onKeyDown={this.onCtrlEnter}
-              placeholder={`Send a message in ${this.props.channelName}...`}
+              placeholder={`Send a message to ${this.props.channelName}...`}
             />
             <div className="button-area">
               <div>press ctrl + enter to send</div>
@@ -152,4 +163,4 @@ class Chat extends Component {
   }
 }
 
-export default Chat;
+export default DMChat;
