@@ -30,6 +30,18 @@ class Servers extends Component {
     // console.log("this.state", this.state);
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      // console.log("NEW PROPS");
+      // let serverRef = firebase
+      //   .database()
+      //   .ref(`servers/${this.props.match.params.id}`);
+      // serverRef.once("value").then((snap) => {
+      //   this.setState({ server: snap.val() });
+      // });
+    }
+  }
+
   componentDidMount() {
     let serverRef = firebase
       .database()

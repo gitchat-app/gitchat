@@ -5,6 +5,11 @@ import firebase from "../../firebase";
 
 import MessageCard from "../MessageCard/MessageCard";
 
+//notes: make the url for the dm just direct/idOfRecipient and pull it in via match.params and the current user in the componentDidMount and order them alphabetically and save that to state as the id for dms
+
+//to have a list of dms, consider having openDMs as an object on each member that will always have the most recent message and timestamp on it (so you can see everyone you have a dm with and they can be ordered by how recent they are)
+//this will need to update the dm for both user objects with the other user's id
+
 class DMChat extends Component {
   constructor(props) {
     super(props);
@@ -24,7 +29,7 @@ class DMChat extends Component {
     this.makeKey = this.makeKey.bind(this);
   }
 
-  makeKey() {
+  async makeKey() {
     let bothIds = [];
     bothIds.push(this.state.currentUserId);
     bothIds.push(this.props.currentUrlParams);
@@ -33,7 +38,7 @@ class DMChat extends Component {
     let key = bothIds.sort().join("-");
     // console.log("key", key);
 
-    this.setState({ dmKey: key });
+    await this.setState({ dmKey: key });
 
     this.getMessages();
   }
@@ -46,7 +51,7 @@ class DMChat extends Component {
     // console.log("e.keyCode", e.keyCode);
 
     if (e.keyCode === 13 && e.ctrlKey && this.state.input !== "") {
-      console.log("BOTH PRESSED AND NOT EMPTY STRING");
+      //   console.log("BOTH PRESSED AND NOT EMPTY STRING");
       this.sendMessage();
     }
   }
@@ -60,7 +65,30 @@ class DMChat extends Component {
       e.preventDefault();
     }
     // console.log(this.state.input);
+
     let dmsRef = firebase.database().ref(`dms/${this.state.dmKey}`);
+
+    let senderRef = firebase
+      .database()
+      .ref(
+        `users/${this.state.currentUserId}/dms/${this.props.currentUrlParams}`
+      );
+    let recipientRef = firebase
+      .database()
+      .ref(
+        `users/${this.props.currentUrlParams}/dms/${this.state.currentUserId}`
+      );
+
+    senderRef.set({
+      lastMessage: this.state.input,
+      sender: "you",
+      timeSent: firebase.database.ServerValue.TIMESTAMP
+    });
+    recipientRef.set({
+      lastMessage: this.state.input,
+      sender: this.state.currentUser.username,
+      timeSent: firebase.database.ServerValue.TIMESTAMP
+    });
 
     dmsRef.push({
       content: this.state.input,
@@ -69,16 +97,16 @@ class DMChat extends Component {
     });
 
     this.setState({ input: "" });
-    //SET DM in user to most recent message
+    //SET DM in BOTH users to most recent message
   }
 
   getMessages() {
-    console.log("GETTING MESSAGES");
-    console.log("this.state.dmKey", this.state.dmKey);
+    //this happens at the end of makeKey()
+
+    // console.log("GETTING MESSAGES");
+    // console.log("this.state.dmKey", this.state.dmKey);
     let dmRef = firebase.database().ref(`dms/${this.state.dmKey}`);
-    // let dmRef = firebase
-    //   .database()
-    //   .ref(`dms/Mx107G666sdK7uSolNcfqnH5fkn2-QDHOKB5cHOVzPKL5FDsx9MPXBsW2`);
+
     dmRef
       .orderByChild("timeSent")
       .limitToLast(20)
@@ -90,7 +118,7 @@ class DMChat extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      //   console.log("NEW PROPS");
+      //   console.log("NEW PROPS IN CHAT");
       //   console.log("this.props", this.props);
       // this.setState
 
@@ -106,6 +134,12 @@ class DMChat extends Component {
         if (user) {
           // console.log("user", user);
           //   console.log("this.props", this.props);
+          let userRef = firebase.database().ref(`users/${user.uid}`);
+
+          userRef.once("value", (snap) => {
+            // console.log("snap.val()", snap.val());
+            this.setState({ currentUser: snap.val() });
+          });
 
           this.setState({ currentUserId: user.uid });
           this.makeKey();
@@ -124,13 +158,13 @@ class DMChat extends Component {
     let messageCards = [];
 
     for (let keys in this.state.messages) {
-      let card = <MessageCard obj={this.state.messages[keys]} />;
+      let card = <MessageCard key={keys} obj={this.state.messages[keys]} />;
       messageCards.push(card);
     }
     return (
       <div className="dm-chat">
         <div className="header">{`Direct Message to userHere`}</div>
-        <div class="scrollbar" id="style-7">
+        <div className="scrollbar" id="style-7">
           {messageCards}
 
           <div

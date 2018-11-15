@@ -119,7 +119,7 @@ class Chat extends Component {
         <div className="header">{`#${this.props.channelName} | ${
           this.props.channelSubtitle
         }`}</div>
-        <div class="scrollbar" id="style-7">
+        <div className="scrollbar" id="style-7">
           {messageCards}
 
           <div

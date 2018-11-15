@@ -1,18 +1,10 @@
 import React, { Component } from "react";
 import "./DirectMessages.scss";
 
-// import MessageCard from "../../components/MessageCard/MessageCard";
-
 import DirectMessageSidebar from "../../components/DirectMessageSidebar/DirectMessageSidebar";
-
 import DMChat from "../../components/DMChat/DMChat";
 
 import firebase from "../../firebase";
-
-//notes: make the url for the dm just direct/idOfRecipient and pull it in via match.params and the current user in the componentDidMount and order them alphabetically and save that to state as the id for dms
-
-//to have a list of dms, consider having openDMs as an object on each member that will always have the most recent message and timestamp on it (so you can see everyone you have a dm with and they can be ordered by how recent they are)
-//this will need to update the dm for both user objects with the other user's id
 
 class DirectMessages extends Component {
   constructor(props) {
@@ -23,17 +15,15 @@ class DirectMessages extends Component {
     };
   }
 
-  // componentDidUpdate(prevProps) {
-  //   if (this.props !== prevProps) {
-  //     console.log("NEW PROPS");
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      console.log("NEW PROPS");
+      console.log("this.props", this.props);
+      // this.setState
 
-  //     // this.setState
-  //     //needs to change the dmKey in state
-
-  //     this.getMessages();
-  //   }
-  //   this.scrollToBottom({ block: "end", behavior: "smooth" });
-  // }
+      // this.mountFunction();
+    }
+  }
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged(
@@ -44,7 +34,6 @@ class DirectMessages extends Component {
 
           this.setState({ currentUserId: user.uid });
         } else {
-          // No user is signed in.
           console.log("NO USER");
         }
       }.bind(this)
@@ -53,14 +42,12 @@ class DirectMessages extends Component {
 
   render() {
     console.log("this.state", this.state);
+    console.log("re-rendering DM VIEW");
     return (
       <div className="dm-component">
         <DirectMessageSidebar />
 
-        <DMChat
-          // currentUserId={this.state.currentUserId}
-          currentUrlParams={this.props.match.params.id}
-        />
+        <DMChat currentUrlParams={this.props.match.params.id} />
       </div>
     );
   }
