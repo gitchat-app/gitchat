@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import firebase from "../../firebase";
 import ServerModal from "../ServerModal/ServerModal";
 import SingleServer from "../SingleServer/SingleServer";
-import { Link } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 import "./ServerNav.scss";
 
 class ServerNav extends Component {
@@ -20,49 +20,37 @@ class ServerNav extends Component {
   }
 
   componentDidMount() {
-    this.getServers();
-    console.log(this.props);
+    // console.log(this.props);
     firebase
-      .auth()
-      .onAuthStateChanged(user => {
-        if (!user) {
-          window.location.assign("http://localhost:3000/login");
-        } else {
-          console.log(user);
-          const ref = firebase.database().ref(`users/${user.uid}`);
-          ref.once("value", snapshot => {
-            console.log("snapshot:", snapshot.val());
-            this.setState({ user: snapshot.val() });
-          });
-        }
-      });
-  }
-
-  componentDidUpdate(prevProps) {
-    if (this.props !== prevProps) {
-      this.getServers();
-    }
-  }
-
-  getServers = () => {
-    const { servers, user } = this.state;
-    const ref = firebase.database().ref("servers");
-    ref.off();
-    ref.on("value", snapshot => {
-      snapshot.forEach(childSnap => {
-        // console.log('childSnap: ', childSnap.key);
-        // console.log("childSnap: ", childSnap.child("/members").val());
-        childSnap.child("/members").forEach(grandChildSnap => {
-          console.log(grandChildSnap.key)
-          if (grandChildSnap.key === user.uid) {
-            servers.push(snapshot.val());
-          }
-        })
-
-      })
-      // this.setState({ servers: snapshot.val() });
+    .auth()
+    .onAuthStateChanged(user => {
+      if (!user) {
+        this.props.history.push('/login');
+      } else {
+        // console.log(user);
+        const ref = firebase.database().ref(`users/${user.uid}`);
+        ref.on("value", snapshot => {
+          // console.log("snapshot:", snapshot.val());
+          this.setState({ user: snapshot.val(), servers: snapshot.val().servers });
+        });
+      }
     });
   }
+
+  // componentDidUpdate(prevProps) {
+  //   if (this.props !== prevProps) {
+  //     this.getServers();
+  //   }
+  // }
+
+  // getServers = () => {
+  //   const { servers, user } = this.state;
+  //   console.log(user.uid);
+  //   const ref = firebase.database().ref(`users/${user.uid}/servers`);
+  //   ref.on("value", snapshot => {
+  //     this.setState({ servers: snapshot.val() });
+  //   });
+  // }
 
   toggleNew = () => {
     this.setState({ modalState: "new" })
@@ -98,45 +86,79 @@ class ServerNav extends Component {
 
   addServer = e => {
     e.preventDefault();
-    const serverRef = firebase.database().ref("servers");
     const { icon, channels, name, user } = this.state;
-    serverRef.push({
-      channels: { general: "home" },
-      icon: icon,
-      members: { [user.uid]: user.username },
-      name: name,
-      admins: { [user.uid]: user.username }
-    });
+    const serverRef = firebase.database().ref("servers");
+    serverRef
+      .push({
+        channels: { general: "home" },
+        icon: icon,
+        members: { [user.uid]: user.username },
+        name: name,
+        admins: { [user.uid]: user.username }
+      });
+    serverRef
+      .endAt()
+      .limitToLast(1)
+      .on("child_added", snapshot => {
+        const usersRef = firebase.database().ref(`users/${user.uid}/servers/${snapshot.key}`);
+        usersRef.set(snapshot.val().name);
+      });
     this.clearInputs();
-    this.setState({isOpen: false})
+    this.setState({isOpen: false});
   }
 
   addMember = e => {
     e.preventDefault();
-    const { name } = this.state;
-    const membersRef = firebase.database().ref(`servers/${name}/members`);
-    membersRef.push({
-      // this.props.user.id;
-    });
+    const { name, user } = this.state;
+    const serversRef = firebase.database().ref(`servers/${name}`);
+    const membersRef = firebase.database().ref(`servers/${name}/members/${user.uid}`);
+    const usersRef = firebase.database().ref(`users/${user.uid}/servers/${name}`);
+    membersRef.set(user.username);
+    serversRef.once("value", snapshot => {
+      usersRef.set(snapshot.val().name);
+    })
     this.clearInputs();
+    this.setState({ isOpen: false });
   }
 
   clearInputs = () => {
-    this.setState({ channels: "", icon: '', name: '', })
+    this.setState({ channels: '', icon: '', name: '' });
   }
 
   render() {
     const { servers, isOpen, channels, icon, name, modalState, user } = this.state;
+    const { pathname } = this.props.location;
     let serverList = [];
+    let view = "/direct";
+    let viewText = "Direct Messages";
+    let display = null;
+    console.log(this.state);
     for (let key in servers) {
       let singleServer = <div className="serverList-cont" key={key}><SingleServer objKey={key} /></div>;
       serverList.push(singleServer);
     }
+    if(pathname === '/dashboard') {
+      view = "/direct";
+      viewText = "Direct Messages";
+    } else {
+      view = "/dashboard";
+      viewText = "Dashboard";
+    }
+    if (!firebase.auth().currentUser) {
+      display="none"
+    }
     return (
-      <div className="main-nav-cont">
-        <img src={user.avatar} alt={user.username} />
-        <p>{user.username}</p>
-        <Link to='/' onClick={() => firebase.auth().signOut()}>Signout</Link>
+      <div className="main-nav-cont" style={{"display": display}}>
+        {!user 
+          ? <p>Loading...</p> 
+          : <> 
+            <img src={user.avatar} alt={user.username} />
+            <h2>{user.username}</h2>
+          </>
+        }
+        <NavLink to='/' className="signout-link" onClick={() => firebase.auth().signOut()}>Log out</NavLink>
+        <NavLink to={view} className="toggle-link">{viewText}</NavLink>
+        <h3>My Servers</h3>
         {serverList}
         <button
           onClick={() => this.handleOpenModal()}>+</button>
@@ -161,4 +183,4 @@ class ServerNav extends Component {
   }
 }
 
-export default ServerNav;
+export default withRouter(ServerNav);

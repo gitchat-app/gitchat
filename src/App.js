@@ -1,40 +1,44 @@
 import React, { Component } from "react";
-import "./App.scss";
-import firebase, { auth, provider } from "./firebase";
-
+import ServerNav from "./components/ServerNav/ServerNav";
+import firebase from "./firebase";
 import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
 import routes from "./routes";
-import store from "./ducks/store";
+import "./App.scss";
 
 class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      user: null
-    }
-  }
-
   componentDidMount() {
-    // console.log(firebase.database());
-
-    // const usersRef = firebase.database().ref("users");
-    // const testUser = {
-    //   username: "testing"
-    // };
-
-    // usersRef.push(testUser)
-    // console.log("usersRef", usersRef);
+    firebase
+      .auth()
+      .onAuthStateChanged(user => {
+        if (!user) {
+          this.props.history.push('/login');
+        } else {
+      console.log(user);
+        let connectedRef = firebase.database().ref(".info/connected");
+        let onlineRef = firebase.database().ref(`onlineUsers/${user.uid}`);
+        let userRef = firebase.database().ref(`users/${user.uid}/status`);
+        connectedRef.on("value", snap => {
+          if (snap.val() === true) {
+            console.log("connected");
+            onlineRef.onDisconnect().remove();
+            onlineRef.set(true);
+            userRef.set('online');
+            userRef.onDisconnect().set("offline");
+          } else {
+            console.log("not connected");
+          }
+        });
+        }
+      });
   }
-
   render() {
     return (
-      // <Provider store={store}>
-
-        <BrowserRouter>
-          <div className="App">{routes}</div>
-        </BrowserRouter>
-
+      <BrowserRouter>
+        <div className="App">
+          <ServerNav />
+          {routes}
+        </div>
+      </BrowserRouter>
     );
   }
 }

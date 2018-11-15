@@ -31,7 +31,8 @@ class Username extends Component {
           uid: user.uid,
           email: user.email,
           username: this.state.username,
-          avatar: "http://laurauinteriordesign.com/wp-content/uploads/2018/03/avatar-placeholder.png"
+          avatar: "http://laurauinteriordesign.com/wp-content/uploads/2018/03/avatar-placeholder.png",
+          servers: {"-LRJIG0Y_f2mtEVOL5CE": "Global Server"}
         });
       }
     });
