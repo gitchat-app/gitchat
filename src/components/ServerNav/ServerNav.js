@@ -104,7 +104,7 @@ class ServerNav extends Component {
         usersRef.set(snapshot.val().name);
       });
     this.clearInputs();
-    this.setState({isOpen: false});
+    this.setState({isOpen: false, modalState: "default"});
   }
 
   addMember = e => {
@@ -118,7 +118,7 @@ class ServerNav extends Component {
       usersRef.set(snapshot.val().name);
     })
     this.clearInputs();
-    this.setState({ isOpen: false });
+    this.setState({ isOpen: false, modalState: "default" });
   }
 
   clearInputs = () => {
@@ -132,7 +132,7 @@ class ServerNav extends Component {
     let view = "/direct";
     let viewText = "Direct Messages";
     let display = null;
-    console.log(this.state);
+    console.log(this.state.servers);
     for (let key in servers) {
       let singleServer = <div className="serverList-cont" key={key}><SingleServer objKey={key} /></div>;
       serverList.push(singleServer);
@@ -152,7 +152,9 @@ class ServerNav extends Component {
         {!user 
           ? <p>Loading...</p> 
           : <> 
-            <img src={user.avatar} alt={user.username} />
+            <NavLink to="/profile" className="profile-link">
+              <img src={user.avatar} alt={user.username} />
+            </NavLink>
             <h2>{user.username}</h2>
           </>
         }

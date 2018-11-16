@@ -5,8 +5,8 @@
   align-items: center;
   justify-content: flex-start;
   background: $darkest-green;
-  width: 6.5vw;
-  height: 100vh;
+  width: 6em;
+  // height: 100vh;
   color: $font;
   overflow: auto;
 
@@ -75,6 +75,11 @@
     transition: .3s;
     background: $font;
     color: $darkest-green;
+  }
+
+  .profile-link {
+    // display: flex;
+    text-align: center;
   }
 
   h3 {

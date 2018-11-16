@@ -29,24 +29,29 @@ class SingleServer extends Component {
 
   // getInitials = () => {
   //   const { icon, name } = this.state;
-  //   let initials = "";
+  //   // let initials = "";
   //   // if(!icon) {
-  //   // console.log("test")
-  //   initials = name.split(' ').slice(0, 2).map(val => val.split('')[0]).join('');
+  //   console.log(name)
   //   // }
-  //   return (<div className="default-icon">{initials}</div>);
+  //   console.log(initials);
+  //   return initials;
   // }
-
+  
   render() {
     // console.log(this.state);
     const { name, members, icon, channels } = this.state;
+    // let initials = name.toUpperCase().split(' ').slice(0, 2).map(val => val.split('')[0]).join('');
     const { objKey } = this.props;
     return (
       <div className="single-server-main-cont">
-        {/* {!icon
-          ? this.getInitials()
-        } */}
-        <NavLink className="server-link" to={`/server/${objKey}`}><img src={icon} alt={name} /></NavLink>
+        <NavLink className="server-link" to={`/server/${objKey}`}>
+          <img
+            className="form-img"
+            src={icon}
+            alt=""
+            // onError={(e) => {e.target.src = initials}}
+          />
+        </NavLink>
         <p>{name}</p>
       </div>
     );
