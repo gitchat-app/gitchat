@@ -132,7 +132,10 @@ class Profile extends Component {
               </button>
             </div>
             <br />
-            {/* <div>
+            {/* 
+            issue: remove() removes incorrectly
+            
+            <div>
               <button
                 onClick={() =>
                   // clicking 'OK' returns true, 'Cancel' false
