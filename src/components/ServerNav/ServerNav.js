@@ -173,6 +173,7 @@ class ServerNav extends Component {
             <NavLink to="/profile" className="profile-link">
               <img src={user.avatar} alt={user.username} />
             </NavLink>
+
             <h2>{user.username}</h2>
           </>
         )}

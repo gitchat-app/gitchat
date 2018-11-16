@@ -25,7 +25,7 @@ class Username extends Component {
     const user = firebase.auth().currentUser;
     const authRef = firebase.database();
     authRef.ref(`users/${user.uid}`).once("value", snapshot => {
-      if (!snapshot.val()) {
+      if (!snapshot.val().username) {
         authRef.ref(`users/${user.uid}`).set({
           name: user.displayName,
           uid: user.uid,
