@@ -41,6 +41,7 @@ class DirectMessageSidebar extends Component {
               to={`/direct/${key}`}
               className="dm-link"
               activeClassName="dm-link-selected"
+              key={key}
             >
               Message {snap.val().username}
             </NavLink>

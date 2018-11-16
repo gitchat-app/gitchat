@@ -3,7 +3,6 @@ import "./Servers.scss";
 
 import firebase from "../../firebase";
 import Channels from "./components/Channels";
-import Users from "./components/Users";
 import Chat from "../../components/Chat/Chat";
 
 class Servers extends Component {
@@ -70,9 +69,6 @@ class Servers extends Component {
               channelName={this.state.currentChannelName}
               channelSubtitle={this.state.currentChannelSubtitle}
             />
-          </div>
-          <div className="right">
-            <Users serverName={this.props.match.params.id} />
           </div>
         </div>
       </div>

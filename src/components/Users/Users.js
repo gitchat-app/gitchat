@@ -1,14 +1,14 @@
 import React, { Component } from "react";
 import "./Users.scss";
 
-import firebase from "../../../firebase";
+import firebase from "../../firebase";
 
 class Users extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      memberObj: {}
+      allMembers: {}
     };
   }
 
@@ -21,20 +21,19 @@ class Users extends Component {
     membersRef.once("value").then((snap) => {
       //   console.log("snap.val()", snap.val());
 
-      this.setState({ memberObj: snap.val() });
+      this.setState({ allMembers: snap.val() });
     });
   }
 
   render() {
     let usernames = [];
-    for (let key in this.state.memberObj) {
-      usernames.push(<div>{this.state.memberObj[key]}</div>);
+    for (let key in this.state.allMembers) {
+      usernames.push(<div key={key}>{this.state.allMembers[key]}</div>);
     }
 
     return (
       <div className="users-component">
         <h1>All Users</h1>
-        {/* {this.state.members} */}
         {usernames}
 
         <h1>Online</h1>

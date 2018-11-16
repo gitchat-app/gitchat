@@ -4,6 +4,7 @@ import "./Chat.scss";
 
 import firebase from "../../firebase";
 import MessageCard from "../MessageCard/MessageCard";
+import Users from "../Users/Users";
 
 class Chat extends Component {
   constructor(props) {
@@ -109,7 +110,7 @@ class Chat extends Component {
     let messageCards = [];
 
     for (let keys in this.state.messages) {
-      let card = <MessageCard obj={this.state.messages[keys]} />;
+      let card = <MessageCard key={keys} obj={this.state.messages[keys]} />;
       messageCards.push(card);
     }
 
@@ -118,33 +119,40 @@ class Chat extends Component {
         <div className="header">{`#${this.props.channelName} | ${
           this.props.channelSubtitle
         }`}</div>
-        <div className="scrollbar" id="style-7">
-          {messageCards}
+        <div className="all">
+          <div className="chat-window">
+            <div className="scrollbar" id="style-7">
+              {messageCards}
 
-          <div
-            className="fake-div"
-            style={{ float: "left", clear: "both" }}
-            ref={(el) => {
-              this.messagesEnd = el;
-            }}
-          />
-        </div>
-        <div className="input-and-button">
-          <form onSubmit={(e) => this.sendMessage(e)}>
-            <textarea
-              value={this.state.input}
-              rows="3"
-              onChange={(e) => this.changeInput(e)}
-              onKeyDown={this.onCtrlEnter}
-              placeholder={`Send a message in ${this.props.channelName}...`}
-            />
-            <div className="button-area">
-              <div>press ctrl + enter to send</div>
-              <button disabled={this.state.input === "" ? true : false}>
-                Send
-              </button>
+              <div
+                className="fake-div"
+                style={{ float: "left", clear: "both" }}
+                ref={(el) => {
+                  this.messagesEnd = el;
+                }}
+              />
             </div>
-          </form>
+            <div className="input-and-button">
+              <form onSubmit={(e) => this.sendMessage(e)}>
+                <textarea
+                  value={this.state.input}
+                  rows="3"
+                  onChange={(e) => this.changeInput(e)}
+                  onKeyDown={this.onCtrlEnter}
+                  placeholder={`Send a message in ${this.props.channelName}...`}
+                />
+                <div className="button-area">
+                  <div>press ctrl + enter to send</div>
+                  <button disabled={this.state.input === "" ? true : false}>
+                    Send
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className="users">
+            <Users serverName={this.props.serverName} />
+          </div>
         </div>
       </div>
     );

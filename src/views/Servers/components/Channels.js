@@ -61,6 +61,7 @@ class Channels extends Component {
     for (let key in this.state.channels) {
       let newDiv = (
         <button
+          key={key}
           className="channel-button"
           onClick={() => {
             this.className = "channel-button-active";
