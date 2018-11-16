@@ -106,8 +106,8 @@ class ServerNav extends Component {
         usersRef.set(snapshot.val().name);
       });
     this.clearInputs();
-    this.setState({isOpen: false, modalState: "default"});
-  }
+    this.setState({ isOpen: false, modalState: "default" });
+  };
 
   addMember = (e) => {
     e.preventDefault();
@@ -125,7 +125,7 @@ class ServerNav extends Component {
     });
     this.clearInputs();
     this.setState({ isOpen: false, modalState: "default" });
-  }
+  };
 
   clearInputs = () => {
     this.setState({ channels: "", icon: "", name: "" });
@@ -166,10 +166,11 @@ class ServerNav extends Component {
       display = "none";
     }
     return (
-      <div className="main-nav-cont" style={{"display": display}}>
-        {!user 
-          ? <p>Loading...</p> 
-          : <> 
+      <div className="main-nav-cont" style={{ display: display }}>
+        {!user ? (
+          <p>Loading...</p>
+        ) : (
+          <>
             <NavLink to="/profile" className="profile-link">
               <img src={user.avatar} alt={user.username} />
             </NavLink>
@@ -183,8 +184,12 @@ class ServerNav extends Component {
         >
           Log out
         </NavLink>
-        <NavLink to={view} className="toggle-link">
+        {/* <NavLink to={view} className="toggle-link">
           {viewText}
+        </NavLink> */}
+
+        <NavLink to="/dashboard" className="toggle-link">
+          Dashboard
         </NavLink>
         <h3>My Servers</h3>
         {serverList}

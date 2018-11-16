@@ -1,4 +1,4 @@
-@import '../../index.scss';
+@import "../../index.scss";
 
 .main-dash-cont {
   background: $middle-green;
@@ -8,14 +8,8 @@
   display: flex;
   overflow: auto;
 
-  h1:first-child {
-    text-align: center;
-    font-size: 24px;
-    margin: .3em auto;
-  }
-
   h1 {
-    margin: .2em auto .2em .2em;
+    margin: 0.2em auto 0.2em 0.2em;
     font-size: 50px;
   }
 
@@ -28,14 +22,14 @@
     justify-content: flex-start;
 
     h3 {
-      margin: .3em auto;
+      margin: 0.3em auto;
       font-size: 24px;
     }
-    
+
     h4 {
       font-size: 20px;
     }
-  
+
     h5 {
       font-size: 12px;
     }
@@ -56,14 +50,11 @@
         border-radius: 50%;
       }
 
-
       .online-status-color {
         width: 10px;
         height: 10px;
         border-radius: 50%;
       }
     }
-
-
   }
 }
