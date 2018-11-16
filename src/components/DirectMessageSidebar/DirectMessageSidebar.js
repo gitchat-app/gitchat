@@ -93,8 +93,10 @@ class DirectMessageSidebar extends Component {
 
     // console.log("RENDERING this.state", this.state);
     return (
+      // <NavLink>Dashboard</NavLink>
+
       <div className="dm-sidebar">
-        <h1>Direct Messages</h1>
+        <h2>Direct Messages</h2>
         {linkMap}
       </div>
     );
