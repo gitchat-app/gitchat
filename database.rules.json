@@ -1,0 +1,16 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    "messages": {
+      ".indexOn": [
+        "timeSent"
+      ]
+    },
+    "dms": {
+      ".indexOn": [
+        "timeSent"
+      ]
+    }
+  }
+}
