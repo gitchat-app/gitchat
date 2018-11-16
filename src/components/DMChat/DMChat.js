@@ -26,10 +26,8 @@ class DMChat extends Component {
     let bothIds = [];
     bothIds.push(this.state.currentUserId);
     bothIds.push(this.props.currentUrlParams);
-    // console.log("bothIds", bothIds);
 
     let key = bothIds.sort().join("-");
-    // console.log("key", key);
 
     await this.setState({ dmKey: key });
 
@@ -41,8 +39,6 @@ class DMChat extends Component {
   };
 
   onCtrlEnter(e) {
-    // console.log("e.keyCode", e.keyCode);
-
     if (e.keyCode === 13 && e.ctrlKey && this.state.input !== "") {
       //   console.log("BOTH PRESSED AND NOT EMPTY STRING");
       this.sendMessage();
@@ -57,7 +53,6 @@ class DMChat extends Component {
     if (e) {
       e.preventDefault();
     }
-    // console.log(this.state.input);
 
     let dmsRef = firebase.database().ref(`dms/${this.state.dmKey}`);
 
@@ -90,38 +85,28 @@ class DMChat extends Component {
     });
 
     this.setState({ input: "" });
-    //SET DM in BOTH users to most recent message
   }
 
   getMessages() {
     //this happens at the end of makeKey()
 
-    // console.log("GETTING MESSAGES");
-    // console.log("this.state.dmKey", this.state.dmKey);
     let dmRef = firebase.database().ref(`dms/${this.state.dmKey}`);
 
     dmRef
       .orderByChild("timeSent")
       .limitToLast(20)
       .on("value", (snap) => {
-        // console.log("snap.val()", snap.val());
         this.setState({ messages: snap.val() });
       });
   }
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      //   console.log("NEW PROPS IN CHAT");
-      //   console.log("this.props", this.props);
-      // this.setState
-
-      //needs to change the dmKey in state
       this.makeKey();
       firebase
         .database()
         .ref(`users/${this.props.currentUrlParams}`)
         .once("value", (snap) => {
-          console.log("snap.val()", snap.val());
           this.setState({ recipientUsername: snap.val().username });
         });
     }
@@ -132,19 +117,15 @@ class DMChat extends Component {
     firebase.auth().onAuthStateChanged(
       function(user) {
         if (user) {
-          // console.log("user", user);
-          //   console.log("this.props", this.props);
           let userRef = firebase.database().ref(`users/${user.uid}`);
 
           userRef.once("value", (snap) => {
-            // console.log("snap.val()", snap.val());
             this.setState({ currentUser: snap.val() });
           });
 
           this.setState({ currentUserId: user.uid });
           this.makeKey();
         } else {
-          // No user is signed in.
           console.log("NO USER");
         }
       }.bind(this)
@@ -154,7 +135,6 @@ class DMChat extends Component {
       .database()
       .ref(`users/${this.props.currentUrlParams}`)
       .once("value", (snap) => {
-        console.log("snap.val()", snap.val());
         this.setState({ recipientUsername: snap.val().username });
       });
   }
