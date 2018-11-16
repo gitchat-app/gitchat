@@ -60,7 +60,7 @@ class Chat extends Component {
   }
 
   getMessages() {
-    console.log("this.props", this.props);
+    // console.log("this.props", this.props);
     let messagesRef = firebase
       .database()
       .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
@@ -89,14 +89,13 @@ class Chat extends Component {
     firebase.auth().onAuthStateChanged(
       function(user) {
         if (user) {
-          console.log("user", user);
+          // console.log("user", user);
           this.setState({ user });
         } else {
-          // No user is signed in.
+          console.log("NO USER");
         }
       }.bind(this)
     );
-    // .then(console.log("THEN this.state", this.state));
   }
 
   componentWillUnmount() {
@@ -104,7 +103,7 @@ class Chat extends Component {
   }
 
   render() {
-    console.log("this.state", this.state);
+    // console.log("this.state", this.state);
 
     // console.log("this.props", this.props);
     let messageCards = [];

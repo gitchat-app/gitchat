@@ -11,7 +11,7 @@ class Servers extends Component {
     super();
 
     this.state = {
-      currentChannelName: "general",
+      currentChannelName: "null",
       currentChannelSubtitle: "",
       server: {
         name: ""
@@ -32,13 +32,13 @@ class Servers extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      // console.log("NEW PROPS");
-      // let serverRef = firebase
-      //   .database()
-      //   .ref(`servers/${this.props.match.params.id}`);
-      // serverRef.once("value").then((snap) => {
-      //   this.setState({ server: snap.val() });
-      // });
+      console.log("NEW PROPS");
+      let serverRef = firebase
+        .database()
+        .ref(`servers/${this.props.match.params.id}`);
+      serverRef.once("value").then((snap) => {
+        this.setState({ server: snap.val() });
+      });
     }
   }
 
