@@ -1,7 +1,7 @@
 @import "../../index.scss";
 
 .dm-chat {
-  width: 100%;
+  width: 90vw;
   background: $lightest-green;
   height: 100vh;
 
@@ -35,7 +35,7 @@
 
     height: 15vh;
     height: auto;
-    width: 70%;
+    width: 80%;
 
     position: fixed;
     bottom: 0;

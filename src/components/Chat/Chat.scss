@@ -24,6 +24,20 @@
     padding-left: 2%;
   }
 
+  .all {
+    display: flex;
+
+    .chat-window {
+      width: 85%;
+    }
+
+    .users {
+      width: 15vw;
+      height: 95vh;
+      z-index: 1;
+    }
+  }
+
   .scrollbar {
     // max-height: 94vh;
     overflow-y: auto;
@@ -37,7 +51,7 @@
 
     height: 15vh;
     height: auto;
-    width: 70%;
+    width: 65%;
 
     position: fixed;
     bottom: 0;
