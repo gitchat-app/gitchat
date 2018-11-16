@@ -1,7 +1,7 @@
 @import "../../index.scss";
 
 .dm-chat {
-  width: 90vw;
+  width: 79vw;
   background: $lightest-green;
   height: 100vh;
 
@@ -33,7 +33,7 @@
     padding: 1%;
     background: $lightest-green;
 
-    height: 15vh;
+    height: 10vh;
     height: auto;
     width: 80%;
 
@@ -109,27 +109,12 @@
 
 #style-7::-webkit-scrollbar-thumb {
   border-radius: 10px;
-  // background-image: -webkit-gradient(
-  //   linear,
-  //   left bottom,
-  //   left top,
-  //   color-stop(0.44, rgba(141, 141, 141, 0.8)),
-  //   color-stop(0.72, rgba(36, 36, 36, 0.8)),
-  //   color-stop(0.86, rgba(0, 0, 0, 0.8))
-  // );
 
   background: rgba(0, 0, 0, 0.6);
 }
 #style-7::-webkit-scrollbar-thumb:hover {
   border-radius: 10px;
   cursor: pointer;
-  // background-image: -webkit-gradient(
-  //   linear,
-  //   left bottom,
-  //   left top,
-  //   color-stop(0.44, rgba(141, 141, 141, 0.9)),
-  //   color-stop(0.72, rgba(36, 36, 36, 0.9)),
-  //   color-stop(0.86, rgba(0, 0, 0, 0.9))
-  // );
+
   background: rgba(0, 0, 0, 0.7);
 }
