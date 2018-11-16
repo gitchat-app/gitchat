@@ -3,7 +3,6 @@ import "./Servers.scss";
 
 import firebase from "../../firebase";
 import Channels from "./components/Channels";
-import Users from "./components/Users";
 import Chat from "../../components/Chat/Chat";
 
 class Servers extends Component {
@@ -11,7 +10,7 @@ class Servers extends Component {
     super();
 
     this.state = {
-      currentChannelName: "general",
+      currentChannelName: "null",
       currentChannelSubtitle: "",
       server: {
         name: ""
@@ -32,13 +31,13 @@ class Servers extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      // console.log("NEW PROPS");
-      // let serverRef = firebase
-      //   .database()
-      //   .ref(`servers/${this.props.match.params.id}`);
-      // serverRef.once("value").then((snap) => {
-      //   this.setState({ server: snap.val() });
-      // });
+      console.log("NEW PROPS");
+      let serverRef = firebase
+        .database()
+        .ref(`servers/${this.props.match.params.id}`);
+      serverRef.once("value").then((snap) => {
+        this.setState({ server: snap.val() });
+      });
     }
   }
 
@@ -70,9 +69,6 @@ class Servers extends Component {
               channelName={this.state.currentChannelName}
               channelSubtitle={this.state.currentChannelSubtitle}
             />
-          </div>
-          <div className="right">
-            <Users serverName={this.props.match.params.id} />
           </div>
         </div>
       </div>

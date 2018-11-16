@@ -20,14 +20,15 @@ class DirectMessageSidebar extends Component {
   }
 
   mapLinks() {
-    // console.log("IN MAP LINKS this.state", this.state);
+    console.log("IN MAP LINKS this.state", this.state);
 
-    this.setState({ links: [] });
+    let newLinks = this.state.links;
+    let keysArr = [];
 
     for (let key in this.state.openDMs) {
-      // console.log("key", key);
+      console.log("key", key);
 
-      let newLinks = this.state.links;
+      keysArr.push(key);
 
       firebase
         .database()
@@ -40,6 +41,7 @@ class DirectMessageSidebar extends Component {
               to={`/direct/${key}`}
               className="dm-link"
               activeClassName="dm-link-selected"
+              key={key}
             >
               Message {snap.val().username}
             </NavLink>
@@ -47,30 +49,30 @@ class DirectMessageSidebar extends Component {
 
           newLinks.push(newLink);
 
+          console.log("keysArr", keysArr);
+
           this.setState({ links: newLinks });
         });
     }
   }
 
   mountFunction() {
-    // console.log("MOUNT FUNC");
+    console.log("MOUNT FUNC");
     firebase.auth().onAuthStateChanged(
       function(user) {
         if (user) {
-          // console.log("user", user);
-          // User is signed in.
-
           let userDMsRef = firebase.database().ref(`users/${user.uid}/dms`);
 
-          userDMsRef.on("value", (snap) => {
-            // console.log("snap.val()", snap.val());
-            this.setState({ openDMs: snap.val() });
-            this.mapLinks();
-          });
-
-          // console.log("this.state", this.state);
-
-          this.mapLinks();
+          userDMsRef
+            .once("value", (snap) => {
+              // console.log("snap.val()", snap.val());
+              this.setState({ openDMs: snap.val() });
+            })
+            .then(() => {
+              console.log("THEN");
+              this.setState({ links: [] });
+              this.mapLinks();
+            });
         } else {
           // No user is signed in.
         }
@@ -81,6 +83,7 @@ class DirectMessageSidebar extends Component {
   componentDidMount() {
     this.mountFunction();
   }
+
   render() {
     let linkMap = [];
 
@@ -89,7 +92,6 @@ class DirectMessageSidebar extends Component {
     });
 
     // console.log("RENDERING this.state", this.state);
-    // console.log("this.state.links", this.state.links);
     return (
       <div className="dm-sidebar">
         <h1>Direct Messages</h1>

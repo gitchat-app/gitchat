@@ -10,9 +10,26 @@ class Channels extends Component {
     this.state = {
       channels: {}
     };
+
+    this.getChannels = this.getChannels.bind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.serverId !== prevProps.serverId) {
+      console.log("NEW CHANNEL PROPS");
+      console.log("this.props", this.props);
+
+      this.getChannels();
+    }
   }
 
   componentDidMount() {
+    this.getChannels();
+  }
+
+  getChannels() {
+    console.log("GETTING CHANNELS");
+
     let channelsRef = firebase
       .database()
       .ref(`servers/${this.props.serverId}/channels`);
@@ -35,12 +52,16 @@ class Channels extends Component {
         }
       });
   }
+
   render() {
+    console.log("CHANNELS this.props", this.props);
+
     let channelsArr = [];
 
     for (let key in this.state.channels) {
       let newDiv = (
         <button
+          key={key}
           className="channel-button"
           onClick={() => {
             this.className = "channel-button-active";

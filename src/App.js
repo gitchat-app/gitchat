@@ -19,11 +19,14 @@ class App extends Component {
         let userRef = firebase.database().ref(`users/${user.uid}/status`);
         connectedRef.on("value", snap => {
           if (snap.val() === true) {
+            let sessionRef = firebase.database().ref(`users/${user.uid}`);
             console.log("connected");
             onlineRef.onDisconnect().remove();
             onlineRef.set(true);
             userRef.set('online');
             userRef.onDisconnect().set("offline");
+            sessionRef.child('ended').onDisconnect().set(firebase.database.ServerValue.TIMESTAMP);
+            sessionRef.child('began').set(firebase.database.ServerValue.TIMESTAMP);
           } else {
             console.log("not connected");
           }
