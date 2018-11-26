@@ -16,8 +16,8 @@ class Channels extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props.serverId !== prevProps.serverId) {
-      console.log("NEW CHANNEL PROPS");
-      console.log("this.props", this.props);
+      // console.log("NEW CHANNEL PROPS");
+      // console.log("this.props", this.props);
 
       this.getChannels();
     }
@@ -28,7 +28,7 @@ class Channels extends Component {
   }
 
   getChannels() {
-    console.log("GETTING CHANNELS");
+    // console.log("GETTING CHANNELS");
 
     let channelsRef = firebase
       .database()
@@ -54,7 +54,7 @@ class Channels extends Component {
   }
 
   render() {
-    console.log("CHANNELS this.props", this.props);
+    // console.log("CHANNELS this.props", this.props);
 
     let channelsArr = [];
 

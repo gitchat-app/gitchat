@@ -126,7 +126,7 @@ class Chat extends Component {
 
               <div
                 className="fake-div"
-                style={{ float: "left", clear: "both" }}
+                // style={{ float: "left", clear: "both" }}
                 ref={(el) => {
                   this.messagesEnd = el;
                 }}
