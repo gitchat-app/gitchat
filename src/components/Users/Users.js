@@ -28,7 +28,7 @@ class Users extends Component {
       // console.log("snap.val()", snap.val());
 
       let keys = Object.keys(snap.val());
-      console.log("keys", keys);
+      // console.log("keys", keys);
 
       this.setState({ onlineUsers: keys });
     });
@@ -40,8 +40,8 @@ class Users extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      console.log("NEW PROPS");
-      console.log("this.props", this.props);
+      // console.log("NEW PROPS");
+      // console.log("this.props", this.props);
 
       this.getUsers();
     }
@@ -52,7 +52,7 @@ class Users extends Component {
     let offlineList = [];
     for (let key in this.state.members) {
       if (this.state.onlineUsers.includes(key)) {
-        console.log("they're online");
+        // console.log("they're online");
         let colorStatus = "#e0e0e0";
 
         let singleUser = (
@@ -69,7 +69,7 @@ class Users extends Component {
 
         onlineList.push(singleUser);
       } else {
-        console.log("they're offline");
+        // console.log("they're offline");
         let colorStatus = "#5a7164";
 
         let singleUser = (

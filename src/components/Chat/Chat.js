@@ -101,6 +101,11 @@ class Chat extends Component {
 
   componentWillUnmount() {
     console.log("UNMOUNTING");
+    let messagesRef = firebase
+      .database()
+      .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
+
+    messagesRef.off();
   }
 
   render() {

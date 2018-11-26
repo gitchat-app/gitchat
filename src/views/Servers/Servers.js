@@ -61,6 +61,7 @@ class Servers extends Component {
               serverId={this.props.match.params.id}
               serverName={this.state.server.name}
               changeChannel={this.changeChannel}
+              currentChannel={this.state.currentChannelName}
             />
           </div>
           <div className="middle">
