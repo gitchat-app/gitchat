@@ -78,7 +78,7 @@ class Dashboard extends Component {
         <DirectMessageSidebar />
         <div className="dash-list-cont">
           <h1>Dashboard</h1>
-          <div className="server-dash-cont">
+          <div className="scrollbar" id="style-7">
             {dashList}
           </div>
         </div>
