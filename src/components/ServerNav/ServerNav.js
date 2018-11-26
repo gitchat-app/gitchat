@@ -16,7 +16,9 @@ class ServerNav extends Component {
       icon: "",
       name: "",
       user: {}
-    };
+    }
+
+    this.uploadImage = this.uploadImage.bind(this);
   }
 
   componentDidMount() {
@@ -131,6 +133,16 @@ class ServerNav extends Component {
     this.setState({ channels: "", icon: "", name: "" });
   };
 
+  async uploadImage(e) {
+    let uploader = document.getElementById('uploader').files[0];
+    let fileRef = firebase.storage().ref(`server_images/${uploader.name}`);
+    await fileRef.put(uploader);
+    await fileRef.getDownloadURL().then(url => {
+      console.log(url);
+      this.setState({icon: url});
+    });
+  }
+
   render() {
     const {
       servers,
@@ -208,6 +220,7 @@ class ServerNav extends Component {
           toggleNew={this.toggleNew}
           toggleJoin={this.toggleJoin}
           toggleDefault={this.toggleDefault}
+          uploadImage={this.uploadImage}
           modalState={modalState}
           channels={channels}
           icon={icon}

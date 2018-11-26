@@ -17,7 +17,8 @@
 
   .dash-list-cont {
     width: 75%;
-    height: 100%;      
+    height: 100vh;
+    overflow: auto;      
 
 
     .server-dash-cont {

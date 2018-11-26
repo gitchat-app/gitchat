@@ -6,8 +6,10 @@ class Username extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      username: ""
+      username: "",
+      avatar: ""
     };
+    this.uploadImage = this.uploadImage.bind(this);
   }
 
   componentDidMount() {
@@ -21,9 +23,22 @@ class Username extends Component {
     });
   }
 
+  async uploadImage() {
+    let uploader = document.getElementById('uploader').files[0];
+    let fileRef = firebase.storage().ref(`user_avatars/${uploader.name}`);
+    await fileRef.put(uploader);
+    await fileRef.getDownloadURL().then(url => {
+      console.log(url);
+      this.setState({ avatar: url });
+    });
+  }
+
   createUser = () => {
     const user = firebase.auth().currentUser;
     const authRef = firebase.database();
+    let img = this.state.avatar 
+    ? this.state.avatar 
+    : "http://laurauinteriordesign.com/wp-content/uploads/2018/03/avatar-placeholder.png"
     authRef.ref(`users/${user.uid}`).once("value", (snapshot) => {
       if (!snapshot.val().username) {
         authRef.ref(`users/${user.uid}`).set({
@@ -31,8 +46,7 @@ class Username extends Component {
           uid: user.uid,
           email: user.email,
           username: this.state.username,
-          avatar:
-            "http://laurauinteriordesign.com/wp-content/uploads/2018/03/avatar-placeholder.png",
+          avatar: img,
           servers: { "-LRJIG0Y_f2mtEVOL5CE": "Global Server" }
         });
       }
@@ -54,11 +68,17 @@ class Username extends Component {
           value={this.state.username}
           onChange={(e) => this.setState({ username: e.target.value })}
         />
+        <p>Upload custom avatar</p>
+        <input
+          type="file"
+          id="uploader"
+          onChange={e => this.uploadImage(e)}
+        />
         <button
           disabled={this.state.username === "" ? true : false}
           onClick={() => this.createUser()}
         >
-          Add user name
+          Create user
         </button>
       </div>
     );
