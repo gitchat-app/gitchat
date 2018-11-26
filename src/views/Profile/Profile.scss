@@ -1,7 +1,5 @@
 @import "../../index.scss";
-
 .profile {
-  border: 1px solid red;
   display: flex;
   flex-direction: column;
   width: 100%;
@@ -20,16 +18,9 @@
     margin: 0.3em auto;
     font-size: 24px;
   }
-  avatar-img-wrapper {
-    border: 1px solid red;
-    width: 30%;
-  }
-  avatar-img {
-    border: 1px solid red;
-    margin: auto;
-    padding: auto;
-    width: 30%;
-    // height: 40%;
+  
+  .avatar-img {
+    width: 20vw;
   }
 
   button {
@@ -52,12 +43,5 @@
       // background: darken(white, 7%);
       background: rgb(179, 255, 172);
     }
-  }
-  form-img-wrapper {
-    border: 1px solid red;
-    margin: auto;
-    padding: auto;
-    width: 30%;
-    // height: 40%;
   }
 }
