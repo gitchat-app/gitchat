@@ -7,10 +7,14 @@ class Users extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      onlineUsers: []
+    };
+
+    this.getUsers = this.getUsers.bind(this);
   }
 
-  componentDidMount() {
+  getUsers() {
     const onlineUsersRef = firebase.database().ref("onlineUsers");
     const membersRef = firebase
       .database()
@@ -28,6 +32,19 @@ class Users extends Component {
 
       this.setState({ onlineUsers: keys });
     });
+  }
+
+  componentDidMount() {
+    this.getUsers();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      console.log("NEW PROPS");
+      console.log("this.props", this.props);
+
+      this.getUsers();
+    }
   }
 
   render() {
