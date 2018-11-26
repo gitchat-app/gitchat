@@ -47,6 +47,7 @@ export default function ServerModal(props) {
                   onChange={handleIconInput}
                   value={icon}
                   type="text"
+                  required
                   placeholder="Enter server icon URL"
                 />
               </div>

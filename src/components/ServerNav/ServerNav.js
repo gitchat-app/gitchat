@@ -193,7 +193,9 @@ class ServerNav extends Component {
           Dashboard
         </NavLink>
         <h3>My Servers</h3>
+        <div className="server-scroll-cont">
         {serverList}
+        </div>
         <button onClick={() => this.handleOpenModal()}>+</button>
         <ServerModal
           isOpen={isOpen}

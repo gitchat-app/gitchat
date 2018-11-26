@@ -7,7 +7,7 @@
   background: $darkest-green;
   min-width: 6vw;
   max-width: 6vw;
-  // height: 100vh;
+  height: 100vh;
   color: $font;
   // overflow: auto;
 
@@ -90,8 +90,16 @@
     // border-top: .25px solid $font;
     margin: 0.3em auto;
   }
+  .server-scroll-cont {
+    height: 70%;
+    overflow: auto;
+  }
 
   .serverList-cont {
     width: 90%;
+
+    img {
+      height: 10vh;
+    }
   }
 }
