@@ -40,24 +40,23 @@ class Profile extends Component {
 
   render() {
     const uid = firebase.database();
-    console.log(uid)
-    
+    console.log(uid);
+
     return (
       <div className="profile">
-        <h1>Profile</h1>
         <br />
         {this.state.edit === false ? (
           <>
-            <div>
-              {/* <img src={this.state.user.avatar} alt="avatar_image" /> */}
+            <div className="avatar-img-wrapper">
               <img
-                className="form-img"
+                className="avatar-img"
                 src={this.state.avatar}
                 alt=""
                 onError={
                   e =>
                     (e.target.src =
-                      "https://www.biber.com/dta/themes/biber/core/assets/images/no-featured-175.jpg") // when this.state.imgurl doesn't lead to an img, use the url above
+                      "https://www.biber.com/dta/themes/biber/core/assets/images/no-featured-175.jpg") 
+                      // use when this.state.imgurl doesn't lead to an img
                 }
               />
             </div>
@@ -132,26 +131,6 @@ class Profile extends Component {
               </button>
             </div>
             <br />
-            {/* 
-            issue: remove() removes incorrectly
-            
-            <div>
-              <button
-                onClick={() =>
-                  // clicking 'OK' returns true, 'Cancel' false
-                  window.confirm("Confirm: Yes, delete my account")
-                    // ? this.state.uid.remove()
-                    ? 
-                    (
-                      firebase.database().ref(`users/${this.state.uid}`).remove();
-                    // need to exit to home page
-                    )
-                    : null
-                }
-              >
-                Delete Account
-              </button>
-            </div> */}
           </>
         )}
       </div>
