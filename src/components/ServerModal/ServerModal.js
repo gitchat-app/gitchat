@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 import "./ServerModal.scss";
 
 export default function ServerModal(props) {
-  const { isOpen, handleCloseModal, name, icon, handleNameInput, handleIconInput, addServer, modalState, toggleNew, toggleJoin, toggleDefault, addMember } = props;
+  const { isOpen, handleCloseModal, name, icon, handleNameInput, handleIconInput, addServer, modalState, toggleNew, toggleJoin, toggleDefault, addMember, uploadImage } = props;
   return (
     <div id="main-server-modal">
       <ReactModal
@@ -49,6 +49,11 @@ export default function ServerModal(props) {
                   type="text"
                   required
                   placeholder="Enter server icon URL"
+                />
+                <input
+                  type="file"
+                  id="uploader"
+                  onChange={e => uploadImage(e)}
                 />
               </div>
               <div className="add-server-btn-cont">
