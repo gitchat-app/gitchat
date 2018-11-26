@@ -47,19 +47,17 @@ class Profile extends Component {
         <br />
         {this.state.edit === false ? (
           <>
-            <div className="avatar-img-wrapper">
-              <img
-                className="avatar-img"
-                src={this.state.avatar}
-                alt=""
-                onError={
-                  e =>
-                    (e.target.src =
-                      "https://www.biber.com/dta/themes/biber/core/assets/images/no-featured-175.jpg") 
-                      // use when this.state.imgurl doesn't lead to an img
-                }
-              />
-            </div>
+            <img
+              className="avatar-img"
+              src={this.state.avatar}
+              alt=""
+              onError={
+                e =>
+                  (e.target.src =
+                    "https://www.biber.com/dta/themes/biber/core/assets/images/no-featured-175.jpg")
+                // use when this.state.imgurl doesn't lead to an img
+              }
+            />
             <br />
             <h3>{this.state.user.username}</h3>
             <br />
@@ -73,18 +71,25 @@ class Profile extends Component {
           </>
         ) : (
           <>
+          <img
+              className="avatar-img"
+              src={this.state.avatar}
+              alt=""
+              onError={
+                e =>
+                  (e.target.src =
+                    "https://www.biber.com/dta/themes/biber/core/assets/images/no-featured-175.jpg")
+                // use when this.state.imgurl doesn't lead to an img
+              }
+            />
+            <br />
+
             <h3>Avatar URL</h3>
             <input
               value={this.state.avatar}
               placeholder="Avatar"
               onChange={e => this.setState({ avatar: e.target.value })}
             />
-
-            {/* 
-            SAMPLE USER ENTERED URL: 
-            https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50 
-            DEFAULT: http://laurauinteriordesign.com/wp-content/uploads/2018/03/avatar-placeholder.png
-            */}
 
             <h3>username</h3>
             <input
