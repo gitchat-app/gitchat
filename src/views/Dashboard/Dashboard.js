@@ -14,6 +14,7 @@ class Dashboard extends Component {
     }
   }
   componentDidMount() {
+    const { users } = this.state;
     const usersRef = firebase.database().ref("users");
     usersRef.on("value", snapshot => {
       // console.log("snapshot:", snapshot.val());
@@ -21,14 +22,18 @@ class Dashboard extends Component {
     });
     const serverRef = firebase.database().ref("servers");
     serverRef.on("value", snapshot => {
-      // console.log("snapshot:", snapshot.val());
+      // console.log("snapshot:", snapshot.child());
+      // snapshot.forEach(childSnap => {
+      //   let key = childSnap.key;
+      //   console.log(childSnap.child(`members`).val())
+      // })
       this.setState({ servers: snapshot.val() });
     });  
   }
 
   render() {
     const { users, servers } = this.state;
-    console.log(this.state);
+    console.log(this.props);
     let onlineList = [];
     let offlineList = [];
     let dashList = [];
@@ -37,7 +42,7 @@ class Dashboard extends Component {
       let loggedOff = moment
         .unix(users[key].ended / 1000)
         .fromNow();
-      console.log(moment.unix(users[key].ended / 1000).fromNow());
+      // console.log(moment.unix(users[key].ended / 1000).fromNow());
       if (users[key].status === "online") {
         colorStatus = "#e0e0e0";
       } else if (users[key].status === "idle") {
@@ -45,7 +50,7 @@ class Dashboard extends Component {
       } else if (users[key].status === "offline") {
         colorStatus = "#5a7164";
       }
-      console.log(users[key].status);
+      // console.log(users[key].status);
       let singleUser = <div className="userList-cont" key={key}>
         <div style={{"background": colorStatus}} className="online-status-color"></div>
         <p>{users[key].username}</p>
@@ -54,15 +59,18 @@ class Dashboard extends Component {
       if (users[key].status === "online") {
         onlineList.push(singleUser);
       } else if (users[key].status === "offline") {
-        offlineList.push(<>{singleUser}<h5>Logged off {loggedOff}...</h5></>);
+        setTimeout(offlineList.push(<>{singleUser}<h5>Logged off {loggedOff}...</h5></>), 10000);
       }
     }
     for (let key in servers) {
       let singleServer = (
-        <div className="dashList-cont" key={key}>
+        <div className="dash-server-card" key={key}>
           <SingleServer objKey={key} />
         </div>
       );
+      console.log(Object.keys(servers[key].members));
+      let keys = Object.keys(servers[key].members);
+      // keys.map(key => key === users.uid ? null : dashList.push(singleServer))
       dashList.push(singleServer);
     }
     return (
