@@ -11,4 +11,33 @@
   h1 {
     font-size: 20px;
   }
+
+  .online {
+    margin-bottom: 20px;
+  }
+
+  .user-list-item {
+    display: flex;
+    align-items: center;
+    // justify-content: space-between;
+    width: 50%;
+    // height: 6%;
+    height: 30px;
+
+    p {
+      font-size: 18px;
+      margin-left: 5px;
+    }
+
+    img {
+      width: 30%;
+      border-radius: 50%;
+    }
+
+    .online-status-color {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+    }
+  }
 }

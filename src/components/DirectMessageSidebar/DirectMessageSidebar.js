@@ -88,7 +88,11 @@ class DirectMessageSidebar extends Component {
     let linkMap = [];
 
     this.state.links.forEach((e, i, arr) => {
-      linkMap.push(<div className="dm-link-div">{e}</div>);
+      linkMap.push(
+        <div className="dm-link-div" key={i}>
+          {e}
+        </div>
+      );
     });
 
     // console.log("RENDERING this.state", this.state);

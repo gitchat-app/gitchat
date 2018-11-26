@@ -3,29 +3,65 @@
 .channels {
   display: flex;
   flex-direction: column;
-  background: $dark-green;
+  align-items: center;
 
-  padding: 5%;
+  background: $middle-green;
+
+  // padding: 5%;
 
   height: 100%;
 
   color: whitesmoke;
 
+  width: 100%;
+
   .header {
+    background: $dark-green;
+    padding: 5%;
+
+    width: 100%;
+
+    min-height: 2em;
+
     font-size: 24px;
+    margin-bottom: 20px;
   }
 
-  .channel-button {
-    margin: 2%;
-    height: 30px;
-    font-size: 16px;
+  .channel-button-inactive {
+    cursor: pointer;
+
+    padding: 2%;
+
+    margin: 1% 0;
+    height: 40px;
+    width: 90%;
+    font-size: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    border-radius: 4px;
   }
 
-  // .channel-button {
-  //   background: green;
-  // }
+  .channel-button-inactive:hover {
+    background: lighten($middle-green, 5%);
+  }
 
-  // .channel-button-active {
-  //   background: lightgreen;
-  // }
+  .channel-button-active {
+    background: $lightest-green;
+
+    padding: 2%;
+
+    margin: 1% 0;
+    height: 40px;
+    width: 90%;
+    font-size: 20px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+
+    border-radius: 4px;
+  }
 }
