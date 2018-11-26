@@ -5,7 +5,8 @@
   align-items: center;
   justify-content: flex-start;
   background: $darkest-green;
-  width: 6vw;
+  min-width: 6vw;
+  max-width: 6vw;
   // height: 100vh;
   color: $font;
   // overflow: auto;
@@ -80,6 +81,8 @@
   .profile-link {
     // display: flex;
     text-align: center;
+    width: 100%;
+  
   }
 
   h3 {
