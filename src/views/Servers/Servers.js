@@ -21,7 +21,7 @@ class Servers extends Component {
   }
 
   changeChannel(newChannel) {
-    console.log("newChannel", newChannel);
+    // console.log("newChannel", newChannel);
     this.setState({
       currentChannelName: newChannel.name,
       currentChannelSubtitle: newChannel.subtitle
@@ -31,7 +31,7 @@ class Servers extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      console.log("NEW PROPS");
+      // console.log("NEW PROPS");
       let serverRef = firebase
         .database()
         .ref(`servers/${this.props.match.params.id}`);
@@ -52,7 +52,7 @@ class Servers extends Component {
   }
 
   render() {
-    console.log("this.state", this.state);
+    // console.log("this.state", this.state);
     return (
       <div className="server-page">
         <div className="body">
@@ -61,6 +61,7 @@ class Servers extends Component {
               serverId={this.props.match.params.id}
               serverName={this.state.server.name}
               changeChannel={this.changeChannel}
+              currentChannel={this.state.currentChannelName}
             />
           </div>
           <div className="middle">

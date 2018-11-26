@@ -1,8 +1,6 @@
 @import "../../index.scss";
 
 .chat-component {
-  // padding: 0 2%;
-  // font-family: Arial;
   width: 100%;
   background: $lightest-green;
   height: 100vh;
@@ -43,13 +41,20 @@
     overflow-y: auto;
 
     height: 80vh;
+
+    .fake-div {
+      // height: 5vh;
+      // height: 1px;
+      // margin-top: 5px;
+      height: 0px;
+    }
   }
 
   .input-and-button {
     padding: 1%;
     background: $lightest-green;
 
-    height: 15vh;
+    // height: 15vh;
     height: auto;
     width: 65%;
 
@@ -65,11 +70,6 @@
 
       padding: 0 1%;
     }
-  }
-
-  .fake-div {
-    // height: 1vh;
-    height: 1px;
   }
 
   textarea {

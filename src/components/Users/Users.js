@@ -8,37 +8,97 @@ class Users extends Component {
     super(props);
 
     this.state = {
-      allMembers: {}
+      onlineUsers: []
     };
+
+    this.getUsers = this.getUsers.bind(this);
   }
 
-  componentDidMount() {
-    const usersRef = firebase.database().ref("users");
+  getUsers() {
+    const onlineUsersRef = firebase.database().ref("onlineUsers");
     const membersRef = firebase
       .database()
       .ref(`servers/${this.props.serverName}/members`);
 
-    membersRef.once("value").then((snap) => {
-      //   console.log("snap.val()", snap.val());
+    membersRef.on("value", (snap) => {
+      this.setState({ members: snap.val() });
+    });
 
-      this.setState({ allMembers: snap.val() });
+    onlineUsersRef.on("value", (snap) => {
+      // console.log("snap.val()", snap.val());
+
+      let keys = Object.keys(snap.val());
+      // console.log("keys", keys);
+
+      this.setState({ onlineUsers: keys });
     });
   }
 
+  componentDidMount() {
+    this.getUsers();
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props !== prevProps) {
+      // console.log("NEW PROPS");
+      // console.log("this.props", this.props);
+
+      this.getUsers();
+    }
+  }
+
   render() {
-    let usernames = [];
-    for (let key in this.state.allMembers) {
-      usernames.push(<div key={key}>{this.state.allMembers[key]}</div>);
+    let onlineList = [];
+    let offlineList = [];
+    for (let key in this.state.members) {
+      if (this.state.onlineUsers.includes(key)) {
+        // console.log("they're online");
+        let colorStatus = "#e0e0e0";
+
+        let singleUser = (
+          <div className="user-list-item" key={key}>
+            <div
+              style={{ background: colorStatus }}
+              className="online-status-color"
+            />
+            <p>{this.state.members[key]}</p>
+            {/* <img src={[key].avatar} alt="" /> */}
+          </div>
+        );
+        // console.log("singleUser", singleUser);
+
+        onlineList.push(singleUser);
+      } else {
+        // console.log("they're offline");
+        let colorStatus = "#5a7164";
+
+        let singleUser = (
+          <div className="user-list-item" key={key}>
+            <div
+              style={{ background: colorStatus }}
+              className="online-status-color"
+            />
+            <p>{this.state.members[key]}</p>
+            {/* <img src={[key].avatar} alt="" /> */}
+          </div>
+        );
+        // console.log("singleUser", singleUser);
+
+        offlineList.push(singleUser);
+      }
     }
 
     return (
       <div className="users-component">
-        <h1>All Users</h1>
-        {usernames}
+        <div className="online">
+          <h1>Online</h1>
+          {onlineList}
+        </div>
 
-        <h1>Online</h1>
-
-        <h1>Offline</h1>
+        <div className="offline">
+          <h1>Offline</h1>
+          <div> {offlineList}</div>
+        </div>
       </div>
     );
   }

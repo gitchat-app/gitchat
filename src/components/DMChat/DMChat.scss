@@ -27,15 +27,20 @@
     overflow-y: auto;
 
     height: 80vh;
+
+    .fake-div {
+      // height: 1vh;
+      height: 1px;
+    }
   }
 
   .input-and-button {
     padding: 1%;
     background: $lightest-green;
 
-    height: 10vh;
+    // height: 15vh;
     height: auto;
-    width: 80%;
+    width: 78%;
 
     position: fixed;
     bottom: 0;
@@ -49,11 +54,6 @@
 
       padding: 0 1%;
     }
-  }
-
-  .fake-div {
-    // height: 1vh;
-    height: 1px;
   }
 
   textarea {

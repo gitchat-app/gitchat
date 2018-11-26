@@ -101,6 +101,11 @@ class Chat extends Component {
 
   componentWillUnmount() {
     console.log("UNMOUNTING");
+    let messagesRef = firebase
+      .database()
+      .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
+
+    messagesRef.off();
   }
 
   render() {
@@ -126,7 +131,7 @@ class Chat extends Component {
 
               <div
                 className="fake-div"
-                style={{ float: "left", clear: "both" }}
+                // style={{ float: "left", clear: "both" }}
                 ref={(el) => {
                   this.messagesEnd = el;
                 }}
