@@ -71,7 +71,7 @@ class Profile extends Component {
           </>
         ) : (
           <>
-          <img
+            <img
               className="avatar-img"
               src={this.state.avatar}
               alt=""
