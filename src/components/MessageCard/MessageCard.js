@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./MessageCard.scss";
 
 import moment from "moment";
+import Markdown from "react-markdown";
 
 import firebase from "../../firebase";
 
@@ -52,7 +53,8 @@ class MessageCard extends Component {
             <div className="timestamp"> {timestamp}</div>
           </div>
 
-          <div className="body">{this.props.obj.content}</div>
+          {/* <div className="body">{this.props.obj.content}</div> */}
+          <Markdown source={this.props.obj.content} />
         </div>
       </div>
     );

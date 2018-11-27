@@ -5,42 +5,30 @@ import "./Chat.scss";
 import firebase from "../../firebase";
 import MessageCard from "../MessageCard/MessageCard";
 import Users from "../Users/Users";
+import ChatInput from "../ChatInput/ChatInput";
 
 class Chat extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      messages: {},
-
-      input: ""
+      messages: {}
     };
 
     this.sendMessage = this.sendMessage.bind(this);
-    this.changeInput = this.changeInput.bind(this);
     this.getMessages = this.getMessages.bind(this);
 
     this.scrollToBottom = this.scrollToBottom.bind(this);
-    this.onCtrlEnter = this.onCtrlEnter.bind(this);
-  }
-
-  onCtrlEnter(e) {
-    // console.log("e.keyCode", e.keyCode);
-
-    if (e.keyCode === 13 && e.ctrlKey && this.state.input !== "") {
-      console.log("BOTH PRESSED AND NOT EMPTY STRING");
-      this.sendMessage();
-    }
   }
 
   scrollToBottom = (options) => {
     this.messagesEnd.scrollIntoView(options);
   };
 
-  sendMessage(e) {
-    if (e) {
-      e.preventDefault();
-    }
+  sendMessage(input) {
+    // if (e) {
+    //   e.preventDefault();
+    // }
 
     // console.log(this.state.input);
     let messagesRef = firebase
@@ -48,16 +36,10 @@ class Chat extends Component {
       .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
 
     messagesRef.push({
-      content: this.state.input,
+      content: input,
       sender: this.state.user.uid,
       timeSent: firebase.database.ServerValue.TIMESTAMP
     });
-
-    this.setState({ input: "" });
-  }
-
-  changeInput(e) {
-    this.setState({ input: e.target.value });
   }
 
   getMessages() {
@@ -70,9 +52,10 @@ class Chat extends Component {
 
     messagesRef
       .orderByChild("timeSent")
-      .limitToLast(20)
-      .on("value", (snap) => {
-        this.setState({ messages: snap.val() });
+      .limitToLast(200)
+      .on("value", async (snap) => {
+        await this.setState({ messages: snap.val() });
+        this.scrollToBottom({ block: "end", behavior: "smooth" });
       });
   }
 
@@ -82,7 +65,6 @@ class Chat extends Component {
 
       this.getMessages();
     }
-    this.scrollToBottom({ block: "end", behavior: "smooth" });
   }
 
   componentDidMount() {
@@ -129,31 +111,26 @@ class Chat extends Component {
             <div className="scrollbar" id="style-7">
               {messageCards}
 
+              {/* <div style={{ height: "50px" }} /> */}
               <div
                 className="fake-div"
-                // style={{ float: "left", clear: "both" }}
+                style={{ position: "relative" }}
+                ref={(e) => {
+                  this.messagesEnd = e;
+                }}
+              />
+              {/* <div
+                className="fake-div"
+                style={{ float: "left", clear: "both" }}
                 ref={(el) => {
                   this.messagesEnd = el;
                 }}
-              />
+              /> */}
             </div>
-            <div className="input-and-button">
-              <form onSubmit={(e) => this.sendMessage(e)}>
-                <textarea
-                  value={this.state.input}
-                  rows="3"
-                  onChange={(e) => this.changeInput(e)}
-                  onKeyDown={this.onCtrlEnter}
-                  placeholder={`Send a message in ${this.props.channelName}...`}
-                />
-                <div className="button-area">
-                  <div>press ctrl + enter to send</div>
-                  <button disabled={this.state.input === "" ? true : false}>
-                    Send
-                  </button>
-                </div>
-              </form>
-            </div>
+            <ChatInput
+              sendMessage={this.sendMessage}
+              placeholder={`Send a message in #${this.props.channelName}`}
+            />
           </div>
           <div className="users">
             <Users serverName={this.props.serverName} />

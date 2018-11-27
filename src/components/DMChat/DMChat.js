@@ -2,22 +2,20 @@ import React, { Component } from "react";
 import "./DMChat.scss";
 import firebase from "../../firebase";
 import MessageCard from "../MessageCard/MessageCard";
+import ChatInput from "../ChatInput/ChatInput";
 
 class DMChat extends Component {
   constructor(props) {
     super(props);
 
     this.state = {
-      dmKey: "",
-      input: ""
+      dmKey: ""
     };
 
     this.sendMessage = this.sendMessage.bind(this);
-    this.changeInput = this.changeInput.bind(this);
     this.getMessages = this.getMessages.bind(this);
 
     this.scrollToBottom = this.scrollToBottom.bind(this);
-    this.onCtrlEnter = this.onCtrlEnter.bind(this);
 
     this.makeKey = this.makeKey.bind(this);
   }
@@ -45,14 +43,10 @@ class DMChat extends Component {
     }
   }
 
-  changeInput(e) {
-    this.setState({ input: e.target.value });
-  }
-
-  sendMessage(e) {
-    if (e) {
-      e.preventDefault();
-    }
+  sendMessage(input) {
+    // if (e) {
+    //   e.preventDefault();
+    // }
 
     let dmsRef = firebase.database().ref(`dms/${this.state.dmKey}`);
 
@@ -68,18 +62,18 @@ class DMChat extends Component {
       );
 
     senderRef.set({
-      lastMessage: this.state.input,
+      lastMessage: input,
       sender: "you",
       timeSent: firebase.database.ServerValue.TIMESTAMP
     });
     recipientRef.set({
-      lastMessage: this.state.input,
+      lastMessage: input,
       sender: this.state.currentUser.username,
       timeSent: firebase.database.ServerValue.TIMESTAMP
     });
 
     dmsRef.push({
-      content: this.state.input,
+      content: input,
       sender: this.state.currentUserId,
       timeSent: firebase.database.ServerValue.TIMESTAMP
     });
@@ -151,35 +145,23 @@ class DMChat extends Component {
         <div className="header">{`Direct Message to ${
           this.state.recipientUsername
         }`}</div>
-        <div className="scrollbar" id="style-7">
-          {messageCards}
+        <div className="chat-window">
+          <div className="scrollbar" id="style-7">
+            {messageCards}
 
-          <div
-            className="fake-div"
-            style={{ float: "left", clear: "both" }}
-            ref={(el) => {
-              this.messagesEnd = el;
-            }}
-          />
-        </div>
-        <div className="input-and-button">
-          <form onSubmit={(e) => this.sendMessage(e)}>
-            <textarea
-              value={this.state.input}
-              rows="3"
-              onChange={(e) => this.changeInput(e)}
-              onKeyDown={this.onCtrlEnter}
-              placeholder={`Send a message to ${
-                this.state.recipientUsername
-              }...`}
+            <div
+              className="fake-div"
+              style={{ float: "left", clear: "both" }}
+              ref={(el) => {
+                this.messagesEnd = el;
+              }}
             />
-            <div className="button-area">
-              <div>press ctrl + enter to send</div>
-              <button disabled={this.state.input === "" ? true : false}>
-                Send
-              </button>
-            </div>
-          </form>
+          </div>
+
+          <ChatInput
+            sendMessage={this.sendMessage}
+            placeholder={`Send a message to ${this.state.recipientUsername}`}
+          />
         </div>
       </div>
     );

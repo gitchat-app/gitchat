@@ -100,8 +100,10 @@ class DirectMessageSidebar extends Component {
       // <NavLink>Dashboard</NavLink>
 
       <div className="dm-sidebar">
-        <h2>Direct Messages</h2>
-        {linkMap}
+        <div id="dm-sidebar-header">
+          <h2>Direct Messages</h2>
+        </div>
+        <div>{linkMap}</div>
       </div>
     );
   }
