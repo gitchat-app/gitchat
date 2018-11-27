@@ -44,7 +44,7 @@ class ChatInput extends Component {
             rows="3"
             onChange={(e) => this.changeInput(e)}
             onKeyDown={this.onCtrlEnter}
-            placeholder={`Send a message in ${this.props.channelName}...`}
+            placeholder={this.props.placeholder}
           />
           <div className="button-area">
             <div>press ctrl + enter to send</div>

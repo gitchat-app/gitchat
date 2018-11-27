@@ -111,15 +111,26 @@ class Chat extends Component {
             <div className="scrollbar" id="style-7">
               {messageCards}
 
+              {/* <div style={{ height: "50px" }} /> */}
               <div
                 className="fake-div"
-                // style={{ float: "left", clear: "both" }}
+                style={{ position: "relative" }}
+                ref={(e) => {
+                  this.messagesEnd = e;
+                }}
+              />
+              {/* <div
+                className="fake-div"
+                style={{ float: "left", clear: "both" }}
                 ref={(el) => {
                   this.messagesEnd = el;
                 }}
-              />
+              /> */}
             </div>
-            <ChatInput sendMessage={this.sendMessage} />
+            <ChatInput
+              sendMessage={this.sendMessage}
+              placeholder={`Send a message in #${this.props.channelName}`}
+            />
           </div>
           <div className="users">
             <Users serverName={this.props.serverName} />

@@ -158,7 +158,10 @@ class DMChat extends Component {
             />
           </div>
 
-          <ChatInput sendMessage={this.sendMessage} />
+          <ChatInput
+            sendMessage={this.sendMessage}
+            placeholder={`Send a message to ${this.state.recipientUsername}`}
+          />
         </div>
       </div>
     );

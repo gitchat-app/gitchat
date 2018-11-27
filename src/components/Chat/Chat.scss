@@ -24,26 +24,22 @@
 
   .all {
     display: flex;
+    height: 95vh;
 
     .chat-window {
       width: 85%;
-      height: 95vh;
+      height: 100%;
     }
 
     .users {
       width: 15vw;
-      height: 95vh;
+      height: 100%;
       z-index: 1;
     }
   }
 
   .scrollbar {
-    // max-height: 94vh;
-    // overflow-y: auto;
-
-    overflow-y: scroll;
-
-    // overflow: force;
+    overflow-y: auto;
 
     height: 80%;
 
@@ -51,7 +47,7 @@
       // height: 5vh;
       // height: 1px;
       // margin-top: 5px;
-      height: 0px;
+      height: 1px;
     }
   }
 }
@@ -65,6 +61,8 @@
 
 #style-7::-webkit-scrollbar {
   width: 10px;
+  //   height: 90%;
+  //   background-color: #f5f5f5;
 }
 
 #style-7::-webkit-scrollbar-thumb {
