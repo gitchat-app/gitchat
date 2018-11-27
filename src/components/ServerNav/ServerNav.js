@@ -205,7 +205,7 @@ class ServerNav extends Component {
           Dashboard
         </NavLink>
         <h3>My Servers</h3>
-        <div className="scrollbar" id="style-7">
+        <div className="scrollbar" id="style-9">
         {serverList}
         </div>
         <button onClick={() => this.handleOpenModal()}>+</button>

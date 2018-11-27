@@ -9,57 +9,95 @@ class Dashboard extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      users: {},
-      servers: {}
+      user: {},
+      userServers: [],
+      servers: {},
+      friends: {}
     }
   }
   componentDidMount() {
-    const { users } = this.state;
-    const usersRef = firebase.database().ref("users");
-    usersRef.on("value", snapshot => {
-      // console.log("snapshot:", snapshot.val());
-      this.setState({ users: snapshot.val() });
-    });
+    const { user, servers, userServers } = this.state;
+    const friendsRef = firebase.database().ref("users");
     const serverRef = firebase.database().ref("servers");
+    firebase.auth().onAuthStateChanged((user) => {
+      if (!user) {
+        this.props.history.push("/login");
+      } else {
+        // console.log(user);
+        const ref = firebase.database().ref(`users/${user.uid}`);
+        ref.on("value", (snapshot) => {
+          // console.log("snapshot:", snapshot.val());
+          this.setState({
+            user: snapshot.val(),
+            userServers: Object.keys(snapshot.val().servers)
+          });
+        });
+      }
+    });
+    friendsRef.on("value", snapshot => {
+      // console.log("snapshot:", snapshot.val());
+      this.setState({ friends: snapshot.val() });
+    });
     serverRef.on("value", snapshot => {
-      // console.log("snapshot:", snapshot.child());
+      console.log("snapshot:", snapshot.val());
+      // let allServers = [];
+      // let serverCopy = servers.slice();
       // snapshot.forEach(childSnap => {
-      //   let key = childSnap.key;
-      //   console.log(childSnap.child(`members`).val())
-      // })
+        // allServers.push(childSnap.key);
+        // let key = childSnap.key;
+        // childSnap.
+        // childSnap.child("members").forEach(member => {
+        //   console.log(member.key, user.uid);
+        //   if(member.key !== user) {
+        //     serverCopy.push(key);
+        //   }
+        // });
+        // allServers.filter(userKey => {
+        //   // userKey !== key ? serverCopy.push(key) : null
+        //   console.log(userKey, key);
+        //   return serverCopy;
+        // });
+        // console.log(childSnap.child(`members`).val());
+        // if(childSnap.val())
+      // });
+      // console.log(allServers);
+      // allServers.map(server => {
+      //   return userServers.map(key => console.log('key : ', key ))
+      //   })
+      //   !== server ? serverCopy.push(server) : null));
       this.setState({ servers: snapshot.val() });
     });  
   }
 
   render() {
-    const { users, servers } = this.state;
-    console.log(this.props);
+    const { userServers, servers, friends, user } = this.state;
+    console.log(this.state);
     let onlineList = [];
     let offlineList = [];
     let dashList = [];
     let colorStatus = "";
-    for (let key in users) {
+    for (let key in friends) {
       let loggedOff = moment
-        .unix(users[key].ended / 1000)
+        .unix(friends[key].ended / 1000)
         .fromNow();
       // console.log(moment.unix(users[key].ended / 1000).fromNow());
-      if (users[key].status === "online") {
+      if (friends[key].status === "online") {
         colorStatus = "#e0e0e0";
-      } else if (users[key].status === "idle") {
+      } else if (friends[key].status === "idle") {
         colorStatus = "orange";
-      } else if (users[key].status === "offline") {
+      } else if (friends[key].status === "offline") {
         colorStatus = "#5a7164";
       }
       // console.log(users[key].status);
       let singleUser = <div className="userList-cont" key={key}>
         <div style={{"background": colorStatus}} className="online-status-color"></div>
-        <p>{users[key].username}</p>
-        <img src={users[key].avatar} alt="" />
+        <p>{friends[key].username}</p>
+        <img src={friends[key].avatar} alt="" />
         </div>;
-      if (users[key].status === "online") {
+      if (friends[key].status === "online") {
         onlineList.push(singleUser);
-      } else if (users[key].status === "offline") {
-        setTimeout(offlineList.push(<>{singleUser}<h5>Logged off {loggedOff}...</h5></>), 10000);
+      } else if (friends[key].status === "offline") {
+        offlineList.push(<>{singleUser}<h5>Logged off {loggedOff}...</h5></>);
       }
     }
     for (let key in servers) {
@@ -68,17 +106,37 @@ class Dashboard extends Component {
           <SingleServer objKey={key} />
         </div>
       );
-      console.log(Object.keys(servers[key].members));
+      // console.log(Object.keys(servers[key].members));
+      // console.log('servers[key].members: ', servers[key].members);
       let keys = Object.keys(servers[key].members);
-      // keys.map(key => key === users.uid ? null : dashList.push(singleServer))
       dashList.push(singleServer);
+      for(let member in servers[key].members) {
+        console.log(member);
+        
+        if(member === user.uid) {
+          dashList.splice()
+        }
+      }
+      // userServers.map(userKey => {
+      //   if(userKey !== key) {
+      //     dashList.push(singleServer);
+      //   }
+      //   return dashList;
+      // });
     }
+    // let dashList = servers.map((server, i) => {
+    //   console.log(server);
+    //   return <div className="dash-server-card" key={i}>
+    //       <SingleServer objKey={server} />
+    //     </div>
+    // })
+
     return (
       <div className="main-dash-cont">
         <DirectMessageSidebar />
         <div className="dash-list-cont">
           <h1>Dashboard</h1>
-          <div className="scrollbar" id="style-7">
+          <div className="scrollbar" id="style-8">
             {dashList}
           </div>
         </div>
