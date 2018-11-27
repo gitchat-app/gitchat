@@ -3,6 +3,7 @@ import "./MessageCard.scss";
 
 import moment from "moment";
 import Markdown from "react-markdown";
+import { Link } from "react-router-dom";
 
 import firebase from "../../firebase";
 
@@ -49,7 +50,10 @@ class MessageCard extends Component {
         </div>
         <div className="inside-message">
           <div className="top">
-            <div className="username"> {this.state.sender.username}</div>
+            <Link to={`/direct/${this.props.obj.sender}`}>
+              {" "}
+              <div className="username"> {this.state.sender.username}</div>
+            </Link>
             <div className="timestamp"> {timestamp}</div>
           </div>
 
