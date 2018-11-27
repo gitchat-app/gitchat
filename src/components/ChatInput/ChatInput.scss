@@ -24,7 +24,84 @@
     align-items: center;
 
     padding: 0 1%;
+
+    .send-button {
+      height: 30px;
+      width: 100px;
+      border: 1px solid $lightest-green;
+
+      &:hover {
+        color: #333;
+        // background: darken(white, 7%);
+        background: lighten($lightest-green, 40%);
+        border: #333 1px solid;
+      }
+    }
+
+    .plus-container {
+      //   width: 120px;
+      .plus-button {
+        color: $dark-green;
+        width: 30px;
+        border-radius: 6px;
+
+        &:hover {
+          color: #333;
+          // background: darken(white, 7%);
+          background: lighten($lightest-green, 40%);
+          //   border: #333 1px solid;
+        }
+      }
+      .menu {
+        display: flex;
+        flex-direction: column;
+
+        border-radius: 4px;
+        // padding: 2px;
+
+        position: absolute;
+        bottom: 35%;
+        background-color: whitesmoke;
+        min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+
+        overflow: hidden;
+
+        .menu-button {
+          padding: 2px;
+
+          border-radius: 0px;
+
+          &:hover {
+            color: #333;
+            // background: darken(white, 7%);
+            background: lighten($lightest-green, 40%);
+          }
+        }
+      }
+    }
   }
+}
+
+.chat-modal {
+  position: absolute;
+  top: 150px;
+  left: 450px;
+  right: 450px;
+  bottom: 150px;
+  background-color: $dark-green;
+  border-radius: 10px;
+  font-family: "Ubuntu";
+}
+
+.chat-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.75);
 }
 
 textarea {
@@ -47,19 +124,11 @@ button {
   border: none;
   cursor: pointer;
   font-weight: bold;
-  background: white;
-  height: 30px;
-  width: 100px;
+  background: whitesmoke;
 
   border-radius: 10px;
 
   transition: 0.5s;
 
   // margin-bottom: 1vh;
-
-  &:hover {
-    color: #333;
-    // background: darken(white, 7%);
-    background: rgb(179, 255, 172);
-  }
 }
