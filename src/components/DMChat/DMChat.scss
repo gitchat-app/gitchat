@@ -22,74 +22,20 @@
     padding-left: 2%;
   }
 
+  .chat-window {
+    height: 95vh;
+    width: 100%;
+  }
+
   .scrollbar {
     // max-height: 94vh;
     overflow-y: auto;
 
-    height: 75vh;
+    height: 80%;
 
     .fake-div {
       // height: 1vh;
       height: 1px;
-    }
-  }
-
-  .input-and-button {
-    padding: 1%;
-    background: $lightest-green;
-
-    // height: 15vh;
-    height: auto;
-    width: 78%;
-
-    position: fixed;
-    bottom: 0;
-
-    color: $font;
-
-    .button-area {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      padding: 0 1%;
-    }
-  }
-
-  textarea {
-    width: 100%;
-    border: none;
-    padding: 10px 20px;
-    // font: 14px/22px "Lato", Arial, sans-serif;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    resize: none;
-
-    // background: $lightest-green;
-  }
-
-  button {
-    float: right;
-    color: grey;
-    font-size: 16px;
-    // text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    background: white;
-    height: 30px;
-    width: 100px;
-
-    border-radius: 10px;
-
-    transition: 0.5s;
-
-    // margin-bottom: 1vh;
-
-    &:hover {
-      color: #333;
-      // background: darken(white, 7%);
-      background: rgb(179, 255, 172);
     }
   }
 }

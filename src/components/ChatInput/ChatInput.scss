@@ -1,0 +1,65 @@
+@import "../../index.scss";
+
+.input-and-button {
+  //   border: black 2px solid;
+
+  padding: 1%;
+  background: $lightest-green;
+
+  height: 20%;
+  width: 100%;
+
+  position: relative;
+
+  color: $font;
+
+  display: flex;
+  flex-direction: column;
+  //   align-items: center;
+  justify-content: space-evenly;
+
+  .button-area {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    padding: 0 1%;
+  }
+}
+
+textarea {
+  width: 100%;
+  border: none;
+  padding: 10px 20px;
+  // font: 14px/22px "Lato", Arial, sans-serif;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  resize: none;
+
+  // background: $lightest-green;
+}
+
+button {
+  float: right;
+  color: grey;
+  font-size: 16px;
+  // text-transform: uppercase;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  background: white;
+  height: 30px;
+  width: 100px;
+
+  border-radius: 10px;
+
+  transition: 0.5s;
+
+  // margin-bottom: 1vh;
+
+  &:hover {
+    color: #333;
+    // background: darken(white, 7%);
+    background: rgb(179, 255, 172);
+  }
+}

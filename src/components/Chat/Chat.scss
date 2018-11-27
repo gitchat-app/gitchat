@@ -27,6 +27,7 @@
 
     .chat-window {
       width: 85%;
+      height: 95vh;
     }
 
     .users {
@@ -38,74 +39,19 @@
 
   .scrollbar {
     // max-height: 94vh;
-    overflow-y: auto;
+    // overflow-y: auto;
 
-    height: 75vh;
+    overflow-y: scroll;
+
+    // overflow: force;
+
+    height: 80%;
 
     .fake-div {
       // height: 5vh;
       // height: 1px;
       // margin-top: 5px;
       height: 0px;
-    }
-  }
-
-  .input-and-button {
-    padding: 1%;
-    background: $lightest-green;
-
-    // height: 15vh;
-    height: auto;
-    width: 65%;
-
-    position: fixed;
-    bottom: 0;
-
-    color: $font;
-
-    .button-area {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-
-      padding: 0 1%;
-    }
-  }
-
-  textarea {
-    width: 100%;
-    border: none;
-    padding: 10px 20px;
-    // font: 14px/22px "Lato", Arial, sans-serif;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    resize: none;
-
-    // background: $lightest-green;
-  }
-
-  button {
-    float: right;
-    color: grey;
-    font-size: 16px;
-    // text-transform: uppercase;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-    background: white;
-    height: 30px;
-    width: 100px;
-
-    border-radius: 10px;
-
-    transition: 0.5s;
-
-    // margin-bottom: 1vh;
-
-    &:hover {
-      color: #333;
-      // background: darken(white, 7%);
-      background: rgb(179, 255, 172);
     }
   }
 }
