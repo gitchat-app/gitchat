@@ -68,7 +68,7 @@ class ChatInput extends Component {
   }
 
   render() {
-    console.log("this.state", this.state);
+    // console.log("this.state", this.state);
     return (
       <div className="input-and-button">
         <form onSubmit={(e) => this.submitForm(e)}>

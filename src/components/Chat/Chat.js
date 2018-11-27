@@ -53,8 +53,9 @@ class Chat extends Component {
     messagesRef
       .orderByChild("timeSent")
       .limitToLast(20)
-      .on("value", (snap) => {
-        this.setState({ messages: snap.val() });
+      .on("value", async (snap) => {
+        await this.setState({ messages: snap.val() });
+        this.scrollToBottom({ block: "end", behavior: "smooth" });
       });
   }
 
@@ -64,7 +65,6 @@ class Chat extends Component {
 
       this.getMessages();
     }
-    this.scrollToBottom({ block: "end", behavior: "smooth" });
   }
 
   componentDidMount() {
