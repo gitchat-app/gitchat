@@ -14,11 +14,23 @@ class Profile extends Component {
       email: "",
       edit: false
     };
+    this.uploadImage = this.uploadImage.bind(this);
+  }
+
+  async uploadImage(e) {
+    let uploader = document.getElementById("uploader").files[0];
+    let fileRef = firebase.storage().ref(`user_avatars/${uploader.name}`);
+    await fileRef.put(uploader);
+    await fileRef.getDownloadURL().then(url => {
+      console.log(url);
+      this.setState({ avatar: url });
+    });
   }
 
   componentDidMount() {
     firebase.auth().onAuthStateChanged(
       function(user) {
+        console.log(user);
         if (user) {
           const ref = firebase.database().ref(`users/${user.uid}`);
           ref.on("value", snapshot => {
@@ -54,8 +66,7 @@ class Profile extends Component {
               onError={
                 e =>
                   (e.target.src =
-                    "https://www.biber.com/dta/themes/biber/core/assets/images/no-featured-175.jpg")
-                // use when this.state.imgurl doesn't lead to an img
+                    "http://laurauinteriordesign.com/wp-content/uploads/2018/03/avatar-placeholder.png") // use this.state.imgurl doesn't lead to an img
               }
             />
             <br />
@@ -78,45 +89,59 @@ class Profile extends Component {
               onError={
                 e =>
                   (e.target.src =
-                    "https://www.biber.com/dta/themes/biber/core/assets/images/no-featured-175.jpg")
-                // use when this.state.imgurl doesn't lead to an img
+                    "http://laurauinteriordesign.com/wp-content/uploads/2018/03/avatar-placeholder.png") // use this.state.imgurl doesn't lead to an img
               }
             />
             <br />
 
-            <h3>Avatar URL</h3>
-            <input
-              value={this.state.avatar}
-              placeholder="Avatar"
-              onChange={e => this.setState({ avatar: e.target.value })}
-            />
+            <form className="editProfile">
+              <p>
+                <label>Photo/Avatar URL: </label>
+                <input
+                  type="file"
+                  id="uploader"
+                  required
+                  onChange={e => this.uploadImage(e)}
+                />
+              </p>
+              <p>
+                <label>Display name: </label>
+                <input
+                  value={this.state.username}
+                  placeholder="Display name..."
+                  required
+                  onChange={e => this.setState({ username: e.target.value })}
+                />
+              </p>
+              <p>
+                <label>Name: </label>
+                <input
+                  value={this.state.name}
+                  placeholder="Name..."
+                  required
+                  onChange={e => this.setState({ name: e.target.value })}
+                />
+              </p>
+              <p>
+                <label>Email: </label>
+                <input
+                  value={this.state.email}
+                  placeholder="email..."
+                  required
+                  onChange={e => this.setState({ email: e.target.value })}
+                />
+              </p>
+            </form>
 
-            <h3>username</h3>
-            <input
-              value={this.state.username}
-              placeholder="Username"
-              onChange={e => this.setState({ username: e.target.value })}
-            />
-
-            <h3>name</h3>
-            <input
-              value={this.state.name}
-              placeholder="Name"
-              onChange={e => this.setState({ name: e.target.value })}
-            />
-
-            <h3>email</h3>
-            <input
-              value={this.state.email}
-              placeholder="email"
-              onChange={e => this.setState({ email: e.target.value })}
-            />
+            <br />
             <br />
             <button onClick={e => this.setState({ edit: false })}>
               Cancel
             </button>
+            <br />
             <div>
               <button
+                required
                 onClick={() => {
                   firebase
                     .database()

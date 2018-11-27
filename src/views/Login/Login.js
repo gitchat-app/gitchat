@@ -3,6 +3,7 @@ import "./Login.scss";
 import firebase from "../../firebase";
 import firebaseui from "firebaseui";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
+import ReactModal from "react-modal";
 
 class Login extends Component {
   uiConfig = {
@@ -28,10 +29,20 @@ class Login extends Component {
   render() {
     return (
       <div className="isAuth">
-        <StyledFirebaseAuth
-          uiConfig={this.uiConfig}
-          firebaseAuth={firebase.auth()}
-        />
+        <ReactModal
+          isOpen={true}
+          contentLabel="server-modal"
+          //onRequestClose={handleCloseModal}
+          shouldCloseOnEsc={true}
+          className="Modal"
+          appElement={document.getElementById("isAuth")}
+          overlayClassName="Overlay"
+        >
+          <StyledFirebaseAuth
+            uiConfig={this.uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+        </ReactModal>
       </div>
     );
   }
