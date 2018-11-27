@@ -106,17 +106,18 @@ class Dashboard extends Component {
           <SingleServer objKey={key} />
         </div>
       );
+      console.log(user);
       // console.log(Object.keys(servers[key].members));
       // console.log('servers[key].members: ', servers[key].members);
       let keys = Object.keys(servers[key].members);
-      dashList.push(singleServer);
-      for(let member in servers[key].members) {
-        console.log(member);
-        
-        if(member === user.uid) {
-          dashList.splice()
-        }
-      }
+      // dashList.push(singleServer);
+      keys.map(key => key !== user.uid ? dashList.push(singleServer) : null);
+      // for(let member in servers[key].members) {
+      //   console.log(member);
+      //   if(member === user.uid) {
+          
+      //   }
+      // }
       // userServers.map(userKey => {
       //   if(userKey !== key) {
       //     dashList.push(singleServer);
