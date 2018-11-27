@@ -52,7 +52,7 @@ class Chat extends Component {
 
     messagesRef
       .orderByChild("timeSent")
-      .limitToLast(20)
+      .limitToLast(200)
       .on("value", async (snap) => {
         await this.setState({ messages: snap.val() });
         this.scrollToBottom({ block: "end", behavior: "smooth" });
