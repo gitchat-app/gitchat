@@ -14,13 +14,26 @@
   display: flex;
   overflow: auto;
 
-  h3 {
-    margin: 0.3em auto;
-    font-size: 24px;
-  }
+  form {
+    // border: 1px solid red;
+    display: table;
   
+  }
+  p {
+    display: table-row;
+  }
+  label {
+    display: table-cell;
+    padding: 0 15px 0 0;
+  }
+  input {
+    display: table-cell;
+    size: ''; 
+  }
+
   .avatar-img {
     width: 20vw;
+    border-radius: 50%; 
   }
 
   button {
@@ -33,7 +46,7 @@
     font-weight: bold;
     background: white;
     height: 30px;
-    width: 100px;
+    width: auto;
     border-radius: 10px;
     transition: 0.5s;
     // margin-bottom: 1vh;
