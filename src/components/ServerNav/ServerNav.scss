@@ -97,17 +97,17 @@
   }
   .scrollbar {
     height: 62%;
-    overflow: hidden;
-    transition: .3s;
-    padding: .3em 0;
-
-  }
-
-  .scrollbar:hover {
     overflow-y: scroll;
     transition: .3s;
+    padding: .3em 0;
     width: 100%;
   }
+
+  // .scrollbar:hover {
+  //   overflow-y: scroll;
+  //   transition: .3s;
+  //   width: 100%;
+  // }
 
   .serverList-cont {
     width: 90%;

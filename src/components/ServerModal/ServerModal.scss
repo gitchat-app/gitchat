@@ -9,111 +9,38 @@
 }
 
 
-.Modal {
+.ServerModal {
   position: absolute;
-  top: 150px;
+  top: 75px;
   left: 450px;
   right: 450px;
-  bottom: 150px;
+  bottom: 75px;
   background-color: $dark-green;
   border-radius: 10px;
   font-family: "Ubuntu";
-}
 
-.Overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: rgba(0, 0, 0, .75);
-}
+  .default-cont {
+    width: 80%;
+    margin: 30% auto;
+    color: $font;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    text-align: center;
 
-.default-cont {
-  width: 80%;
-  margin: 8% auto;
-  color: $font;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-
-  h1 {
-    font-size: 40px;
-    margin-top: 1em;
-  }
-  .server-btn-cont {
-    width: 42%;
-
-    p {
-      font-size: 20px;
-      margin: 1em 0;
+    h1 {
+      font-size: 40px;
+      // margin-top: 1em;
     }
-
-    button {
-      background: none;
-      border: .75px solid $font;
-      border-radius: 5px;
-      font-size: 18px;
-      padding: 10px 15px;
-      color: $font;
-      transition: .3s;
-    }
-
-    button:hover {
-      background: $font;
-      color: $dark-green;
-      transition: .3s;
-      cursor: pointer;
-    }
-  }
-}
-
-.new-cont {
-  width: 80%;
-  margin: auto;
-  color: $font;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  text-align: center;
-
-  h1 {
-    font-size: 40px;
-    margin: 1em 0 .5em 0;
-  }
-
-  form {
-    width: 100%;
-
-    .server-input-cont {
+    .server-btn-cont {
+      width: 42%;
       display: flex;
       flex-direction: column;
-      width: 100%;
-      
-      input {
-        width: 50%;
-        margin: .5em auto;
-        border-radius: 5px;
-        border: none;
-        padding: 1.5%;
-      }
 
-      label {
-        width: 50%;
-        margin: .5em auto;
-        text-align: start;
-        font-size: 18px;
+      p {
+        font-size: 20px;
+        margin: 1em 0;
       }
-    }
-
-    .add-server-btn-cont{
-      width: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin: .5em auto;
 
       button {
         background: none;
@@ -123,6 +50,7 @@
         padding: 10px 15px;
         color: $font;
         transition: .3s;
+        margin: auto;
       }
 
       button:hover {
@@ -133,6 +61,151 @@
       }
     }
   }
+
+  .new-cont {
+    width: 80%;
+    margin: 12.5% auto;
+    color: $font;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;;
+    text-align: center;
+
+    h1 {
+      font-size: 40px;
+      margin: .3em 0;
+    }
+
+    form {
+      width: 100%;
+
+      .server-input-cont {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        
+        input {
+          width: 50%;
+          margin: .5em auto;
+          border-radius: 5px;
+          border: none;
+          padding: 1.5%;
+        }
+
+        label {
+          width: 50%;
+          margin: .5em auto;
+          text-align: start;
+          font-size: 18px;
+        }
+      }
+
+      .add-server-btn-cont{
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: .5em auto;
+
+        button {
+          background: none;
+          border: .75px solid $font;
+          border-radius: 5px;
+          font-size: 18px;
+          padding: 10px 15px;
+          color: $font;
+          transition: .3s;
+        }
+
+        button:hover {
+          background: $font;
+          color: $dark-green;
+          transition: .3s;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+
+  .join-cont {
+    width: 80%;
+    margin: 27.5% auto;
+    color: $font;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;;
+    text-align: center;
+
+    h1 {
+      font-size: 40px;
+      margin: .3em 0;
+    }
+
+    form {
+      width: 100%;
+
+      .server-input-cont {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        
+        input {
+          width: 50%;
+          margin: .5em auto;
+          border-radius: 5px;
+          border: none;
+          padding: 1.5%;
+        }
+
+        label {
+          width: 50%;
+          margin: .5em auto;
+          text-align: start;
+          font-size: 18px;
+        }
+      }
+
+      .add-server-btn-cont{
+        width: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin: .5em auto;
+
+        button {
+          background: none;
+          border: .75px solid $font;
+          border-radius: 5px;
+          font-size: 18px;
+          padding: 10px 15px;
+          color: $font;
+          transition: .3s;
+        }
+
+        button:hover {
+          background: $font;
+          color: $dark-green;
+          transition: .3s;
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+.ServerModal:focus{
+  outline: 0;
+}
+
+.Overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, .75);
 }
 
 #close-btn {

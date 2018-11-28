@@ -15,6 +15,7 @@ class ServerNav extends Component {
       channels: "",
       icon: "",
       name: "",
+      description: "",
       user: {}
     }
 
@@ -87,16 +88,21 @@ class ServerNav extends Component {
     this.setState({ name: e.target.value });
   };
 
+  handleDescInput = (e) => {
+    this.setState({ description: e.target.value });
+  };
+
   addServer = (e) => {
     e.preventDefault();
-    const { icon, channels, name, user } = this.state;
+    const { icon, description, name, user } = this.state;
     const serverRef = firebase.database().ref("servers");
     serverRef.push({
-      channels: { general: "home" },
+      channels: { original: { description: "home", name: "general" } },
       icon: icon,
       members: { [user.uid]: user.username },
       name: name,
-      admins: { [user.uid]: user.username }
+      admins: { [user.uid]: user.username },
+      description: description
     });
     serverRef
       .endAt()
@@ -144,15 +150,7 @@ class ServerNav extends Component {
   }
 
   render() {
-    const {
-      servers,
-      isOpen,
-      channels,
-      icon,
-      name,
-      modalState,
-      user
-    } = this.state;
+    const { servers, isOpen, channels, icon, name, modalState, user, description } = this.state;
     const { pathname } = this.props.location;
     let serverList = [];
     let view = "/direct";
@@ -215,6 +213,7 @@ class ServerNav extends Component {
           handleOpenModal={this.handleOpenModal}
           handleIconInput={this.handleIconInput}
           handleNameInput={this.handleNameInput}
+          handleDescInput={this.handleDescInput}
           addServer={this.addServer}
           addMember={this.addMember}
           toggleNew={this.toggleNew}
@@ -225,6 +224,7 @@ class ServerNav extends Component {
           channels={channels}
           icon={icon}
           name={name}
+          description={description}
         />
       </div>
     );
