@@ -18,6 +18,15 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
+
+  .close-button {
+    width: 70px;
+
+    position: absolute;
+    // z-index: 2;
+    top: 10px;
+    right: 10px;
+  }
 }
 
 .admin-modal-overlay {

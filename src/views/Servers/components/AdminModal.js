@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import firebase from "../../../firebase";
 
 import ReactModal from "react-modal";
 
@@ -8,11 +9,54 @@ class AdminModal extends Component {
   constructor(props) {
     super(props);
 
-    this.state = {};
+    this.state = {
+      channelName: "",
+      channelDescription: ""
+    };
+    this.changeInput = this.changeInput.bind(this);
+
+    this.submitChannelEdit = this.submitChannelEdit.bind(this);
+  }
+
+  submitChannelEdit() {
+    console.log("submit");
+    let channelRef = firebase
+      .database()
+      .ref(
+        `servers/${this.props.serverId}/channels/${this.props.modalType.key}`
+      );
+  }
+
+  changeInput(e) {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  componentDidMount() {
+    console.log("ADMIN MODAL MOUNT");
+
+    if (this.props.modalType.type === "edit channel") {
+      //stuff
+      let channelRef = firebase
+        .database()
+        .ref(
+          `servers/${this.props.serverId}/channels/${this.props.modalType.key}`
+        );
+
+      channelRef.once("value", (snap) => {
+        console.log("snap.val()", snap.val());
+        //snap.val() is the channel description
+
+        this.setState({
+          channelName: this.props.modalType.key,
+          channelDescription: snap.val()
+        });
+      });
+    }
   }
 
   render() {
-    console.log("this.props.modalType", this.props.modalType);
+    // console.log("this.props", this.props);
+    console.log("this.state", this.state);
     return (
       <ReactModal
         isOpen={true}
@@ -21,13 +65,42 @@ class AdminModal extends Component {
       >
         <div>
           <button
+            className="close-button"
             onClick={() => {
               this.props.toggleModal();
             }}
           >
             Close
           </button>
-          inside modal
+          {this.props.modalType.type}
+          {this.props.modalType.type === "edit channel" ? (
+            <div>
+              Key: {this.props.modalType.key}
+              <div>
+                Channel Name:
+                <input
+                  onChange={(e) => this.changeInput(e)}
+                  name="channelName"
+                  placeholder="Channel name..."
+                  value={this.state.channelName}
+                />
+              </div>
+              <div>
+                Channel Description
+                <input
+                  onChange={(e) => this.changeInput(e)}
+                  name="channelDescription"
+                  placeholder="Channel description..."
+                  value={this.state.channelDescription}
+                />
+              </div>
+              <button onClick={() => this.submitChannelEdit()}>
+                Submit changes
+              </button>
+            </div>
+          ) : (
+            <div> ERROR </div>
+          )}
         </div>
       </ReactModal>
     );

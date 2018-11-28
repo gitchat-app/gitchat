@@ -73,11 +73,12 @@ class ChatInput extends Component {
   }
 
   async uploadImage() {
+    console.log("uploading image");
     let uploader = document.getElementById("uploader").files[0];
     let fileRef = firebase.storage().ref(`chat_images/${uploader.name}`);
     await fileRef.put(uploader);
     await fileRef.getDownloadURL().then((url) => {
-      console.log(url);
+      console.log("url", url);
       this.setState({ imageUrl: url });
     });
   }

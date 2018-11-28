@@ -58,6 +58,7 @@ class Servers extends Component {
           this.setState({ user });
         } else {
           console.log("NO USER");
+          this.setState({ user: { uid: "guest" } });
         }
       }.bind(this)
     );
@@ -82,6 +83,7 @@ class Servers extends Component {
               serverName={this.props.match.params.id}
               channelName={this.state.currentChannelName}
               channelSubtitle={this.state.currentChannelSubtitle}
+              user={this.state.user}
             />
           </div>
         </div>

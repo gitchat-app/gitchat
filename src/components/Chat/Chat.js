@@ -12,7 +12,8 @@ class Chat extends Component {
     super(props);
 
     this.state = {
-      messages: {}
+      messages: {},
+      isGuest: null
     };
 
     this.sendMessage = this.sendMessage.bind(this);
@@ -32,7 +33,7 @@ class Chat extends Component {
 
     messagesRef.push({
       content: input,
-      sender: this.state.user.uid,
+      sender: this.props.user.uid,
       timeSent: firebase.database.ServerValue.TIMESTAMP
     });
   }
@@ -66,16 +67,6 @@ class Chat extends Component {
 
   componentDidMount() {
     this.getMessages();
-    firebase.auth().onAuthStateChanged(
-      function(user) {
-        if (user) {
-          // console.log("user", user);
-          this.setState({ user });
-        } else {
-          console.log("NO USER");
-        }
-      }.bind(this)
-    );
 
     setTimeout(() => {
       this.scrollToBottom({ block: "end", behavior: "smooth" });
@@ -94,7 +85,8 @@ class Chat extends Component {
   render() {
     // console.log("this.state", this.state);
 
-    // console.log("this.props", this.props);
+    console.log("this.props", this.props);
+    console.log("this.props.user.uid", this.props.user.uid);
     let messageCards = [];
 
     for (let keys in this.state.messages) {
