@@ -55,7 +55,10 @@ class Chat extends Component {
       .limitToLast(200)
       .on("value", async (snap) => {
         await this.setState({ messages: snap.val() });
-        this.scrollToBottom({ block: "end", behavior: "smooth" });
+        setTimeout(() => {
+          console.log("time out");
+          this.scrollToBottom({ block: "end", behavior: "smooth" });
+        }, 500);
       });
   }
 
@@ -79,6 +82,11 @@ class Chat extends Component {
         }
       }.bind(this)
     );
+
+    setTimeout(() => {
+      console.log("time out");
+      this.scrollToBottom({ block: "end", behavior: "smooth" });
+    }, 1500);
   }
 
   componentWillUnmount() {
