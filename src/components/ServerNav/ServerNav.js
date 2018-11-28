@@ -89,19 +89,20 @@ class ServerNav extends Component {
   };
 
   handleDescInput = (e) => {
-    this.setState({ descripton: e.target.value });
+    this.setState({ description: e.target.value });
   };
 
   addServer = (e) => {
     e.preventDefault();
-    const { icon, channels, name, user } = this.state;
+    const { icon, description, name, user } = this.state;
     const serverRef = firebase.database().ref("servers");
     serverRef.push({
       channels: { original: { description: "home", name: "general" } },
       icon: icon,
       members: { [user.uid]: user.username },
       name: name,
-      admins: { [user.uid]: user.username }
+      admins: { [user.uid]: user.username },
+      description: description
     });
     serverRef
       .endAt()
