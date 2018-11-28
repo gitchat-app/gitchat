@@ -1,6 +1,36 @@
+@import "../../index.scss"; 
+
 .isAuth {
   border: 1px solid black; 
   display: flex;
   justify-content: center; 
 }
 
+.LoginModal {
+  position: absolute;
+  top: 150px;
+  left: 450px;
+  right: 450px;
+  bottom: 150px;
+  background-color: $dark-green;
+  border-radius: 10px;
+  font-family: "Ubuntu";
+  margin: auto;
+
+  .auth {
+
+    display: flex;
+    justify-content: center; 
+    align-items: space-around;
+    margin: 20%;
+  }
+}
+
+.LoginOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(76, 94, 83, 1);
+}
