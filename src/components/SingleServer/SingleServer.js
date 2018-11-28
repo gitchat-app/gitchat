@@ -76,6 +76,8 @@ class SingleServer extends Component {
           trigger={<p>{name}</p>}
           on="hover"
           className="Popup"
+          contentStyle={{ background: "#2d3832", border: "none"}}
+          arrowStyle={{ background: "#2d3832"}}
         >
           <div className="info">
             <p>Total members: {members}</p>
