@@ -167,6 +167,7 @@ class Channels extends Component {
             modalOpen={this.state.modalOpen}
             toggleModal={this.toggleModal}
             modalType={this.state.modalType}
+            serverId={this.props.serverId}
           />
         ) : null}
 
