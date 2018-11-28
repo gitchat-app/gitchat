@@ -20,14 +20,12 @@ class DirectMessageSidebar extends Component {
   }
 
   mapLinks() {
-    console.log("IN MAP LINKS this.state", this.state);
+    // console.log("IN MAP LINKS this.state", this.state);
 
     let newLinks = this.state.links;
     let keysArr = [];
 
     for (let key in this.state.openDMs) {
-      console.log("key", key);
-
       keysArr.push(key);
 
       firebase
@@ -49,7 +47,7 @@ class DirectMessageSidebar extends Component {
 
           newLinks.push(newLink);
 
-          console.log("keysArr", keysArr);
+          // console.log("keysArr", keysArr);
 
           this.setState({ links: newLinks });
         });
@@ -57,7 +55,7 @@ class DirectMessageSidebar extends Component {
   }
 
   mountFunction() {
-    console.log("MOUNT FUNC");
+    // console.log("MOUNT FUNC");
     firebase.auth().onAuthStateChanged(
       function(user) {
         if (user) {
@@ -69,7 +67,7 @@ class DirectMessageSidebar extends Component {
               this.setState({ openDMs: snap.val() });
             })
             .then(() => {
-              console.log("THEN");
+              // console.log("THEN");
               this.setState({ links: [] });
               this.mapLinks();
             });

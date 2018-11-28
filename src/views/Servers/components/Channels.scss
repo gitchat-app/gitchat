@@ -17,14 +17,73 @@
 
   .header {
     background: $dark-green;
-    padding: 5%;
+    padding: 2%;
 
     width: 100%;
 
-    min-height: 2em;
+    min-height: 5vh;
 
     font-size: 24px;
     margin-bottom: 20px;
+
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+
+    .gear-div {
+      height: 100%;
+      position: relative;
+      .settings-menu {
+        display: flex;
+        flex-direction: column;
+
+        border-radius: 4px;
+        // padding: 2px;
+
+        position: absolute;
+        // position: relative;
+        // left: 9vw;
+        top: 30px;
+        left: 5px;
+
+        background-color: whitesmoke;
+        // min-width: 160px;
+        box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+        z-index: 1;
+
+        overflow: hidden;
+
+        .menu-button {
+          padding: 4px;
+          min-width: 130px;
+          text-align: left;
+
+          border-radius: 0px;
+
+          &:hover {
+            color: #333;
+            // background: darken(white, 7%);
+            background: lighten($lightest-green, 40%);
+          }
+        }
+      }
+
+      .gear-img {
+        width: 30px;
+      }
+
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+
+      border-radius: 50%;
+      transition: 0.5s;
+      &:hover {
+        cursor: pointer;
+        // box-shadow: 0px 0px 2px 2px $light-green;
+        background: lighten($light-green, 10%);
+      }
+    }
   }
 
   .channel-button-inactive {
@@ -63,5 +122,20 @@
     justify-content: space-evenly;
 
     border-radius: 4px;
+  }
+
+  .invite-button {
+    width: 200px;
+    height: 40px;
+    font-size: 20px;
+
+    position: absolute;
+    bottom: 2%;
+
+    &:hover {
+      color: #333;
+      // background: darken(white, 7%);
+      background: lighten($light-green, 40%);
+    }
   }
 }

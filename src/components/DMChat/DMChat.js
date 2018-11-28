@@ -133,7 +133,6 @@ class DMChat extends Component {
       });
 
     setTimeout(() => {
-      console.log("time out");
       this.scrollToBottom({ block: "end", behavior: "smooth" });
     }, 1500);
   }
