@@ -14,7 +14,8 @@ class Servers extends Component {
       currentChannelSubtitle: "",
       server: {
         name: ""
-      }
+      },
+      user: {}
     };
 
     this.changeChannel = this.changeChannel.bind(this);
@@ -49,6 +50,17 @@ class Servers extends Component {
     serverRef.once("value").then((snap) => {
       this.setState({ server: snap.val() });
     });
+
+    firebase.auth().onAuthStateChanged(
+      function(user) {
+        if (user) {
+          // console.log("user", user);
+          this.setState({ user });
+        } else {
+          console.log("NO USER");
+        }
+      }.bind(this)
+    );
   }
 
   render() {
@@ -62,6 +74,7 @@ class Servers extends Component {
               serverName={this.state.server.name}
               changeChannel={this.changeChannel}
               currentChannel={this.state.currentChannelName}
+              user={this.state.user}
             />
           </div>
           <div className="middle">

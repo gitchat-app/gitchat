@@ -26,11 +26,6 @@ class Chat extends Component {
   };
 
   sendMessage(input) {
-    // if (e) {
-    //   e.preventDefault();
-    // }
-
-    // console.log(this.state.input);
     let messagesRef = firebase
       .database()
       .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
@@ -55,7 +50,9 @@ class Chat extends Component {
       .limitToLast(200)
       .on("value", async (snap) => {
         await this.setState({ messages: snap.val() });
-        this.scrollToBottom({ block: "end", behavior: "smooth" });
+        setTimeout(() => {
+          this.scrollToBottom({ block: "end", behavior: "smooth" });
+        }, 500);
       });
   }
 
@@ -79,6 +76,10 @@ class Chat extends Component {
         }
       }.bind(this)
     );
+
+    setTimeout(() => {
+      this.scrollToBottom({ block: "end", behavior: "smooth" });
+    }, 1500);
   }
 
   componentWillUnmount() {
@@ -110,8 +111,6 @@ class Chat extends Component {
           <div className="chat-window">
             <div className="scrollbar" id="style-7">
               {messageCards}
-
-              {/* <div style={{ height: "50px" }} /> */}
               <div
                 className="fake-div"
                 style={{ position: "relative" }}
@@ -119,13 +118,6 @@ class Chat extends Component {
                   this.messagesEnd = e;
                 }}
               />
-              {/* <div
-                className="fake-div"
-                style={{ float: "left", clear: "both" }}
-                ref={(el) => {
-                  this.messagesEnd = el;
-                }}
-              /> */}
             </div>
             <ChatInput
               sendMessage={this.sendMessage}

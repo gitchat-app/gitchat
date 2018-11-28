@@ -11,7 +11,7 @@ class App extends Component {
       .auth()
       .onAuthStateChanged(user => {
         if (!user) {
-          this.props.history.push('/login');
+          // this.props.history.push('/login');
         } else {
       console.log(user);
         let connectedRef = firebase.database().ref(".info/connected");
