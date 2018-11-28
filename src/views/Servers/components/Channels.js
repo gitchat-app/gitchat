@@ -108,7 +108,7 @@ class Channels extends Component {
 
   render() {
     // console.log("CHANNELS this.props", this.props);
-    console.log("this.state", this.state);
+    // console.log("this.state", this.state);
 
     let channelsArr = [];
 
@@ -166,7 +166,7 @@ class Channels extends Component {
           <AdminModal
             modalOpen={this.state.modalOpen}
             toggleModal={this.toggleModal}
-            modalType={this.modalType}
+            modalType={this.state.modalType}
           />
         ) : null}
 
@@ -186,9 +186,51 @@ class Channels extends Component {
               />
               {this.state.settingsMenu ? (
                 <div className="settings-menu">
-                  <button className="menu-button">Edit Server</button>
-                  <button className="menu-button">Add Admin</button>
-                  <button className="menu-button">Add Channel</button>
+                  <button
+                    className="menu-button"
+                    onClick={() => {
+                      this.setState(
+                        {
+                          modalType: { type: "edit server" }
+                        },
+                        () => {
+                          this.toggleModal();
+                        }
+                      );
+                    }}
+                  >
+                    Edit Server
+                  </button>
+                  <button
+                    className="menu-button"
+                    onClick={() => {
+                      this.setState(
+                        {
+                          modalType: { type: "add admin" }
+                        },
+                        () => {
+                          this.toggleModal();
+                        }
+                      );
+                    }}
+                  >
+                    Add Admin
+                  </button>
+                  <button
+                    className="menu-button"
+                    onClick={() => {
+                      this.setState(
+                        {
+                          modalType: { type: "add channel" }
+                        },
+                        () => {
+                          this.toggleModal();
+                        }
+                      );
+                    }}
+                  >
+                    Add Channel
+                  </button>
                 </div>
               ) : null}
             </div>

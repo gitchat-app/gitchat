@@ -12,7 +12,7 @@ class AdminModal extends Component {
   }
 
   render() {
-    console.log("this.props.modalType", this.props.modalType);
+    console.log("this.props", this.props);
     return (
       <ReactModal
         isOpen={true}
@@ -27,7 +27,7 @@ class AdminModal extends Component {
           >
             Close
           </button>
-          inside modal
+          {this.props.modalType.type}
         </div>
       </ReactModal>
     );
