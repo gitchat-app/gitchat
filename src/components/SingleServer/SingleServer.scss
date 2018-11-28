@@ -37,6 +37,11 @@
     }
   }
 
+  .info {
+    background: $dark-green;
+    border: $middle-green;
+  }
+
   .server-link:hover {
     transition: 0.3s;
     background: rgba(224, 224, 224, 0.6);
