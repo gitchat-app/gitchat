@@ -1,0 +1,41 @@
+@import"../../index.scss";
+
+.Modal {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  width: 25vw;
+  margin: auto;
+
+  .modal-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    height: 30vh;
+
+    h1 {
+      color: $font;
+      font-size: 36px;
+    }
+    .guest-links:hover {
+      background: $font;
+      color: $dark-green;
+      transition: .3s;
+    }
+
+    .guest-links {
+      text-decoration: none;
+      color: $font;
+      border: .5px solid $font;
+      border-radius: 5px;
+      padding: 3%;
+      margin: 1em 0 .5em 0;
+      transition: .3s;
+    }
+  }
+}
+
+.Modal:focus{
+  outline: 0;
+}

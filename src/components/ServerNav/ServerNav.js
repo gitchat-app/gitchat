@@ -25,7 +25,7 @@ class ServerNav extends Component {
     // console.log(this.props);
     firebase.auth().onAuthStateChanged((user) => {
       if (!user) {
-        this.props.history.push("/login");
+        // this.props.history.push("/login");
       } else {
         // console.log(user);
         const ref = firebase.database().ref(`users/${user.uid}`);
