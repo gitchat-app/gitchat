@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import firebase from "../../../firebase";
 import "./Channels.scss";
+import AdminModal from "./AdminModal";
 
 class Channels extends Component {
   constructor(props) {
@@ -10,7 +11,9 @@ class Channels extends Component {
     this.state = {
       channels: {},
       isAdmin: false,
-      settingsMenu: false
+      settingsMenu: false,
+      modalType: "",
+      modalOpen: false
     };
 
     this.getChannels = this.getChannels.bind(this);
@@ -18,6 +21,12 @@ class Channels extends Component {
 
     this.clickGear = this.clickGear.bind(this);
     this.closeSettingsMenu = this.closeSettingsMenu.bind(this);
+
+    this.toggleModal = this.toggleModal.bind(this);
+  }
+
+  toggleModal() {
+    this.setState({ modalOpen: !this.state.modalOpen });
   }
 
   clickGear(e) {
@@ -99,6 +108,7 @@ class Channels extends Component {
 
   render() {
     // console.log("CHANNELS this.props", this.props);
+    console.log("this.state", this.state);
 
     let channelsArr = [];
 
@@ -121,7 +131,30 @@ class Channels extends Component {
             });
           }}
         >
-          <h2>#{key}</h2>
+          <div className="channel-name">#{key}</div>
+          {/* {conditionally render edit button here} */}
+          {this.state.isAdmin ? (
+            <button
+              className="edit-button"
+              onClick={() => {
+                console.log(`${key} edit clicked`);
+                this.setState(
+                  {
+                    modalType: { type: "edit channel", key: key }
+                  },
+                  () => {
+                    this.toggleModal();
+                  }
+                );
+              }}
+            >
+              <img
+                className="edit-img"
+                src="https://www.materialui.co/materialIcons/image/edit_white_192x192.png"
+                alt="edit icon"
+              />
+            </button>
+          ) : null}
         </div>
       );
 
@@ -129,6 +162,14 @@ class Channels extends Component {
     }
     return (
       <div className="channels">
+        {this.state.modalOpen ? (
+          <AdminModal
+            modalOpen={this.state.modalOpen}
+            toggleModal={this.toggleModal}
+            modalType={this.modalType}
+          />
+        ) : null}
+
         <div className="header">
           {this.props.serverName}
           {this.state.isAdmin ? (
@@ -153,6 +194,7 @@ class Channels extends Component {
             </div>
           ) : null}
         </div>
+        <div className="title">Channels</div>
         {channelsArr}
         {/* <div className="invite-container"> */}
         <button className="invite-button">Invite</button>

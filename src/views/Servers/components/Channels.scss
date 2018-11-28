@@ -24,7 +24,7 @@
     min-height: 5vh;
 
     font-size: 24px;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 
     display: flex;
     justify-content: space-evenly;
@@ -86,6 +86,15 @@
     }
   }
 
+  .title {
+    font-size: 20px;
+    width: 100%;
+    padding: 5px;
+    text-align: left;
+
+    text-decoration: underline;
+  }
+
   .channel-button-inactive {
     cursor: pointer;
 
@@ -94,17 +103,32 @@
     margin: 1% 0;
     height: 40px;
     width: 90%;
-    font-size: 20px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    font-size: 18px;
 
     border-radius: 4px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .channel-button-inactive:hover {
     background: lighten($middle-green, 5%);
+  }
+
+  .edit-button {
+    background: none;
+
+    .edit-img {
+      height: 20px;
+      z-index: 2;
+    }
+
+    &:hover {
+      cursor: pointer;
+      background: darken($light-green, 7%);
+    }
   }
 
   .channel-button-active {
@@ -115,17 +139,18 @@
     margin: 1% 0;
     height: 40px;
     width: 90%;
-    font-size: 20px;
-
-    display: flex;
-    flex-direction: column;
-    justify-content: space-evenly;
+    font-size: 18px;
 
     border-radius: 4px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .invite-button {
-    width: 200px;
+    width: 8vw;
     height: 40px;
     font-size: 20px;
 
