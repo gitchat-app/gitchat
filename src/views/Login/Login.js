@@ -34,14 +34,16 @@ class Login extends Component {
           contentLabel="server-modal"
           //onRequestClose={handleCloseModal}
           shouldCloseOnEsc={true}
-          className="Modal"
+          className="LoginModal"
           appElement={document.getElementById("isAuth")}
-          overlayClassName="Overlay"
+          overlayClassName="LoginOverlay"
         >
-          <StyledFirebaseAuth
-            uiConfig={this.uiConfig}
-            firebaseAuth={firebase.auth()}
-          />
+          <div className="auth">
+            <StyledFirebaseAuth
+              uiConfig={this.uiConfig}
+              firebaseAuth={firebase.auth()}
+            />
+          </div>
         </ReactModal>
       </div>
     );

@@ -1,0 +1,32 @@
+@import "../../index.scss";
+
+.home-page {
+  background-color: $light-green;
+  width: 100%;
+  color: $font;
+  
+  .home-page-links {
+    display: flex;
+    justify-content: space-around;
+    align-content: space-around;
+    padding: 30px;
+    font-size: 30px;
+  }
+
+  .home-page-link {
+    text-decoration: none; 
+    color: $font;
+  }
+
+  .logo_transparent {
+    display: flex; 
+    justify-content: space-around;
+    align-content: space-around;
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: center; 
+    align-content: center; 
+  }
+}
