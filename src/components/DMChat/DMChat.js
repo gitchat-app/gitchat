@@ -131,6 +131,10 @@ class DMChat extends Component {
       .once("value", (snap) => {
         this.setState({ recipientUsername: snap.val().username });
       });
+
+    setTimeout(() => {
+      this.scrollToBottom({ block: "end", behavior: "smooth" });
+    }, 1500);
   }
 
   render() {

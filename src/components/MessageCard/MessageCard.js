@@ -34,9 +34,9 @@ class MessageCard extends Component {
     // console.log("this.props", this.props);
     // console.log("this.state", this.state);
 
-    let timeHours = moment
-      .unix(this.props.obj.timeSent / 1000)
-      .format("h:mm A");
+    // let timeHours = moment
+    //   .unix(this.props.obj.timeSent / 1000)
+    //   .format("h:mm A");
 
     let timestamp = moment
       .unix(this.props.obj.timeSent / 1000)
