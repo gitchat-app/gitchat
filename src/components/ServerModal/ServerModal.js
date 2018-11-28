@@ -3,7 +3,7 @@ import ReactModal from 'react-modal';
 import "./ServerModal.scss";
 
 export default function ServerModal(props) {
-  const { isOpen, handleCloseModal, name, icon, handleNameInput, handleIconInput, addServer, modalState, toggleNew, toggleJoin, toggleDefault, addMember, uploadImage } = props;
+  const { isOpen, handleCloseModal, name, icon, handleNameInput, handleDescInput, handleIconInput, addServer, modalState, toggleNew, toggleJoin, toggleDefault, addMember, uploadImage, description } = props;
   return (
     <div id="main-server-modal">
       <ReactModal
@@ -11,7 +11,7 @@ export default function ServerModal(props) {
         contentLabel="server-modal"
         onRequestClose={handleCloseModal}
         shouldCloseOnEsc={true}
-        className="Modal"
+        className="ServerModal"
         appElement={document.getElementById("main-server-modal")}
         overlayClassName="Overlay">
         <button id="close-btn" onClick={() => { handleCloseModal(); toggleDefault() }}>X</button>
@@ -42,7 +42,15 @@ export default function ServerModal(props) {
                   required
                   placeholder="Enter server name"
                 />
-                <label>Icon URL:</label>
+                <label>Description:</label>
+                <input
+                  onChange={handleDescInput}
+                  value={description}
+                  type="text"
+                  required
+                  placeholder="Enter server descrption"
+                />
+                <label>Icon URL or Upload Image:</label>
                 <input
                   onChange={handleIconInput}
                   value={icon}
@@ -62,7 +70,7 @@ export default function ServerModal(props) {
               </div>
             </form>
           </div>
-          : <div className="new-cont">
+          : <div className="join-cont">
             <h1>Join Server</h1>
             <form onSubmit={addMember}>
               <div className="server-input-cont">
