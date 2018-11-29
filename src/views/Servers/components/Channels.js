@@ -60,10 +60,8 @@ class Channels extends Component {
             if (snap.exists()) {
               // console.log("current user is admin");
               this.setState({ isAdmin: true });
-              console.log("this.state", this.state);
             } else {
               this.setState({ isAdmin: false });
-              console.log("this.state", this.state);
             }
           });
         }
@@ -249,7 +247,8 @@ class Channels extends Component {
         <div className="title">Channels</div>
         {channelsArr}
         {/* <div className="invite-container"> */}
-        <button className="invite-button">Invite</button>
+
+        {/* <button className="invite-button">Invite</button> */}
         {/* </div> */}
       </div>
     );

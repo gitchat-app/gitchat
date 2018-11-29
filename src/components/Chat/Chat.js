@@ -117,7 +117,10 @@ class Chat extends Component {
             />
           </div>
           <div className="users">
-            <Users serverName={this.props.serverName} />
+            <Users
+              serverName={this.props.serverName}
+              currentUser={this.props.user}
+            />
           </div>
         </div>
       </div>
