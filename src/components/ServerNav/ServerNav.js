@@ -20,6 +20,7 @@ class ServerNav extends Component {
     }
 
     this.uploadImage = this.uploadImage.bind(this);
+    this.handleLogOut = this.handleLogOut.bind(this);
   }
 
   componentDidMount() {
@@ -40,21 +41,6 @@ class ServerNav extends Component {
       }
     });
   }
-
-  // componentDidUpdate(prevProps) {
-  //   if (this.props !== prevProps) {
-  //     this.getServers();
-  //   }
-  // }
-
-  // getServers = () => {
-  //   const { servers, user } = this.state;
-  //   console.log(user.uid);
-  //   const ref = firebase.database().ref(`users/${user.uid}/servers`);
-  //   ref.on("value", snapshot => {
-  //     this.setState({ servers: snapshot.val() });
-  //   });
-  // }
 
   toggleNew = () => {
     this.setState({ modalState: "new" });
@@ -139,7 +125,13 @@ class ServerNav extends Component {
     this.setState({ channels: "", icon: "", name: "" });
   };
 
-  async uploadImage(e) {
+  async handleLogOut() {
+    await firebase.auth().signOut();
+    await this.props.history.push("/");
+  }
+
+  
+  async uploadImage() {
     let uploader = document.getElementById('uploader').files[0];
     let fileRef = firebase.storage().ref(`server_images/${uploader.name}`);
     await fileRef.put(uploader);
@@ -147,6 +139,10 @@ class ServerNav extends Component {
       console.log(url);
       this.setState({icon: url});
     });
+  }
+
+  componentWillUnmount() {
+    console.log("ServerNav Unmounting");
   }
 
   render() {
@@ -188,17 +184,12 @@ class ServerNav extends Component {
             <h2>{user.username}</h2>
           </>
         )}
-        <NavLink
-          to="/"
+        <button
+          onClick={() => this.handleLogOut()}
           className="signout-link"
-          onClick={() => firebase.auth().signOut()}
         >
           Log out
-        </NavLink>
-        {/* <NavLink to={view} className="toggle-link">
-          {viewText}
-        </NavLink> */}
-
+        </button>
         <NavLink to="/dashboard" className="toggle-link">
           Dashboard
         </NavLink>
