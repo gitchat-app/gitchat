@@ -27,6 +27,7 @@ class Channels extends Component {
 
   toggleModal() {
     this.setState({ modalOpen: !this.state.modalOpen });
+    this.getChannels();
   }
 
   clickGear(e) {
@@ -44,6 +45,8 @@ class Channels extends Component {
   }
 
   getAdmins() {
+    console.log("GETTING ADMINS");
+
     let adminRef = firebase
       .database()
       .ref(`servers/${this.props.serverId}/admins`);
@@ -57,8 +60,10 @@ class Channels extends Component {
             if (snap.exists()) {
               // console.log("current user is admin");
               this.setState({ isAdmin: true });
+              console.log("this.state", this.state);
             } else {
               this.setState({ isAdmin: false });
+              console.log("this.state", this.state);
             }
           });
         }
@@ -67,18 +72,21 @@ class Channels extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    // console.log("this.props, prevProps", this.props, prevProps);
     if (this.props.serverId !== prevProps.serverId) {
-      // console.log("NEW CHANNEL PROPS");
+      console.log("NEW CHANNEL PROPS");
       // console.log("this.props", this.props);
-
-      this.getChannels();
       this.getAdmins();
+      this.getChannels();
     }
+    // else if (this.props !== prevProps) {
+    //   this.getChannels();
+    // }
   }
 
   componentDidMount() {
-    this.getChannels();
     this.getAdmins();
+    this.getChannels();
   }
 
   getChannels() {
@@ -107,13 +115,13 @@ class Channels extends Component {
   }
 
   render() {
-    console.log("CHANNELS this.props", this.props);
-    // console.log("this.state", this.state);
+    // console.log("CHANNELS this.props", this.props);
+    // console.log("channels this.state", this.state);
 
     let channelsArr = [];
 
     for (let key in this.state.channels) {
-      console.log("key", key);
+      // console.log("key", key);
       let activeStatus = "";
       if (this.props.currentChannelName === this.state.channels[key].name) {
         activeStatus = "active";
@@ -203,7 +211,7 @@ class Channels extends Component {
                   >
                     Edit Server
                   </button>
-                  <button
+                  {/* <button
                     className="menu-button"
                     onClick={() => {
                       this.setState(
@@ -217,7 +225,7 @@ class Channels extends Component {
                     }}
                   >
                     Add Admin
-                  </button>
+                  </button> */}
                   <button
                     className="menu-button"
                     onClick={() => {

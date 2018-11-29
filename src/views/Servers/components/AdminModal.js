@@ -11,11 +11,42 @@ class AdminModal extends Component {
 
     this.state = {
       channelName: "",
-      channelDescription: ""
+      channelDescription: "",
+      serverName: "",
+      serverIcon: "",
+      serverDescription: ""
     };
     this.changeInput = this.changeInput.bind(this);
 
     this.submitChannelEdit = this.submitChannelEdit.bind(this);
+    this.submitServerEdit = this.submitServerEdit.bind(this);
+
+    this.submitNewChannel = this.submitNewChannel.bind(this);
+  }
+
+  submitServerEdit() {
+    console.log("server edit submit");
+
+    let serverRef = firebase.database().ref(`servers/${this.props.serverId}`);
+
+    serverRef.child("name").set(this.state.serverName);
+    serverRef.child("icon").set(this.state.serverIcon);
+    serverRef.child("description").set(this.state.serverDescription);
+
+    this.props.toggleModal();
+  }
+
+  submitNewChannel() {
+    let channelsRef = firebase
+      .database()
+      .ref(`servers/${this.props.serverId}/channels`);
+
+    channelsRef.push({
+      name: this.state.channelName,
+      description: this.state.channelDescription
+    });
+
+    this.props.toggleModal();
   }
 
   submitChannelEdit() {
@@ -25,6 +56,13 @@ class AdminModal extends Component {
       .ref(
         `servers/${this.props.serverId}/channels/${this.props.modalType.key}`
       );
+
+    channelRef.set({
+      name: this.state.channelName,
+      description: this.state.channelDescription
+    });
+
+    this.props.toggleModal();
   }
 
   changeInput(e) {
@@ -43,12 +81,26 @@ class AdminModal extends Component {
         );
 
       channelRef.once("value", (snap) => {
-        console.log("snap.val()", snap.val());
+        // console.log("snap.val()", snap.val());
         //snap.val() is obj with name and description
 
         this.setState({
           channelName: snap.val().name,
           channelDescription: snap.val().description
+        });
+      });
+    } else if (this.props.modalType.type === "edit server") {
+      console.log("EDIT SERVER");
+
+      let serverRef = firebase.database().ref(`servers/${this.props.serverId}`);
+
+      serverRef.once("value", (snap) => {
+        console.log("snap.val()", snap.val());
+
+        this.setState({
+          serverIcon: snap.val().icon,
+          serverName: snap.val().name,
+          serverDescription: snap.val().description
         });
       });
     }
@@ -72,10 +124,11 @@ class AdminModal extends Component {
           >
             Close
           </button>
-          {this.props.modalType.type}
+          {/* {this.props.modalType.type} */}
           {this.props.modalType.type === "edit channel" ? (
             <div>
-              Key: {this.props.modalType.key}
+              {/* Key: {this.props.modalType.key} */}
+              Edit Channel
               <div>
                 Channel Name:
                 <input
@@ -98,6 +151,67 @@ class AdminModal extends Component {
                 Submit changes
               </button>
             </div>
+          ) : this.props.modalType.type === "add channel" ? (
+            <div>
+              Add New Channel
+              <div>
+                Channel Name:
+                <input
+                  onChange={(e) => this.changeInput(e)}
+                  name="channelName"
+                  placeholder="Channel name..."
+                  value={this.state.channelName}
+                />
+              </div>
+              <div>
+                Channel Description
+                <input
+                  onChange={(e) => this.changeInput(e)}
+                  name="channelDescription"
+                  placeholder="Channel description..."
+                  value={this.state.channelDescription}
+                />
+              </div>
+              <button onClick={() => this.submitNewChannel()}>
+                Add channel{" "}
+              </button>
+            </div>
+          ) : this.props.modalType.type === "edit server" ? (
+            <>
+              Edit Server
+              <div>
+                Server Name:
+                <input
+                  onChange={(e) => this.changeInput(e)}
+                  name="serverName"
+                  placeholder="Server name..."
+                  value={this.state.serverName}
+                />
+              </div>
+              <div>
+                Server Description:
+                <input
+                  onChange={(e) => this.changeInput(e)}
+                  name="serverDescription"
+                  placeholder="Server Description..."
+                  value={this.state.serverDescription}
+                />
+              </div>
+              <div>
+                Server Icon URL:
+                <input
+                  onChange={(e) => this.changeInput(e)}
+                  name="serverIcon"
+                  placeholder="Server Icon..."
+                  value={this.state.serverIcon}
+                />
+              </div>
+              <button onClick={() => this.submitServerEdit()}>
+                Submit changes
+              </button>
+            </>
+          ) : this.props.modalType.type === "add admin" ? (
+            <div>add admin stuff</div>
           ) : (
             <div> ERROR </div>
           )}
