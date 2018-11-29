@@ -15,8 +15,9 @@ class ServerNav extends Component {
       channels: "",
       icon: "",
       name: "",
+      description: "",
       user: {}
-    };
+    }
 
     this.uploadImage = this.uploadImage.bind(this);
   }
@@ -87,16 +88,21 @@ class ServerNav extends Component {
     this.setState({ name: e.target.value });
   };
 
+  handleDescInput = (e) => {
+    this.setState({ description: e.target.value });
+  };
+
   addServer = (e) => {
     e.preventDefault();
-    const { icon, channels, name, user } = this.state;
+    const { icon, description, name, user } = this.state;
     const serverRef = firebase.database().ref("servers");
     serverRef.push({
-      channels: { general: "home" },
+      channels: { original: { description: "home", name: "general" } },
       icon: icon,
       members: { [user.uid]: user.username },
       name: name,
-      admins: { [user.uid]: user.username }
+      admins: { [user.uid]: user.username },
+      description: description
     });
     serverRef
       .endAt()
@@ -134,25 +140,17 @@ class ServerNav extends Component {
   };
 
   async uploadImage(e) {
-    let uploader = document.getElementById("uploader").files[0];
+    let uploader = document.getElementById('uploader').files[0];
     let fileRef = firebase.storage().ref(`server_images/${uploader.name}`);
     await fileRef.put(uploader);
-    await fileRef.getDownloadURL().then((url) => {
+    await fileRef.getDownloadURL().then(url => {
       console.log(url);
-      this.setState({ icon: url });
+      this.setState({icon: url});
     });
   }
 
   render() {
-    const {
-      servers,
-      isOpen,
-      channels,
-      icon,
-      name,
-      modalState,
-      user
-    } = this.state;
+    const { servers, isOpen, channels, icon, name, modalState, user, description } = this.state;
     const { pathname } = this.props.location;
     let serverList = [];
     let view = "/direct";
@@ -184,11 +182,7 @@ class ServerNav extends Component {
         ) : (
           <>
             <NavLink to="/profile" className="profile-link">
-              <img
-                src={user.avatar}
-                alt={user.username}
-                className="profile-img"
-              />
+              <img src={user.avatar} alt={user.username} className="profile-img" />
             </NavLink>
 
             <h2>{user.username}</h2>
@@ -210,7 +204,7 @@ class ServerNav extends Component {
         </NavLink>
         <h3>My Servers</h3>
         <div className="scrollbar" id="style-9">
-          {serverList}
+        {serverList}
         </div>
         <button onClick={() => this.handleOpenModal()}>+</button>
         <ServerModal
@@ -219,6 +213,7 @@ class ServerNav extends Component {
           handleOpenModal={this.handleOpenModal}
           handleIconInput={this.handleIconInput}
           handleNameInput={this.handleNameInput}
+          handleDescInput={this.handleDescInput}
           addServer={this.addServer}
           addMember={this.addMember}
           toggleNew={this.toggleNew}
@@ -229,6 +224,7 @@ class ServerNav extends Component {
           channels={channels}
           icon={icon}
           name={name}
+          description={description}
         />
       </div>
     );
