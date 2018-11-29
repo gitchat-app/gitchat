@@ -44,11 +44,11 @@ class AdminModal extends Component {
 
       channelRef.once("value", (snap) => {
         console.log("snap.val()", snap.val());
-        //snap.val() is the channel description
+        //snap.val() is obj with name and description
 
         this.setState({
-          channelName: this.props.modalType.key,
-          channelDescription: snap.val()
+          channelName: snap.val().name,
+          channelDescription: snap.val().description
         });
       });
     }

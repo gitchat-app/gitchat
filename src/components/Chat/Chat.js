@@ -85,8 +85,8 @@ class Chat extends Component {
   render() {
     // console.log("this.state", this.state);
 
-    console.log("this.props", this.props);
-    console.log("this.props.user.uid", this.props.user.uid);
+    // console.log("this.props", this.props);
+    // console.log("this.props.user.uid", this.props.user.uid);
     let messageCards = [];
 
     for (let keys in this.state.messages) {

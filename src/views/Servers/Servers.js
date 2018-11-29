@@ -65,7 +65,7 @@ class Servers extends Component {
   }
 
   render() {
-    // console.log("this.state", this.state);
+    console.log("this.state", this.state);
     return (
       <div className="server-page">
         <div className="body">

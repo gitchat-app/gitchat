@@ -96,10 +96,10 @@ class Channels extends Component {
       })
       .then(() => {
         for (let key in this.state.channels) {
-          if (key === "general") {
+          if (key === "original") {
             this.props.changeChannel({
-              name: key,
-              subtitle: this.state.channels[key]
+              name: this.state.channels[key].name,
+              subtitle: this.state.channels[key].description
             });
           }
         }
@@ -113,6 +113,7 @@ class Channels extends Component {
     let channelsArr = [];
 
     for (let key in this.state.channels) {
+      console.log(key);
       let activeStatus = "";
       if (this.props.currentChannel === key) {
         activeStatus = "active";
@@ -126,12 +127,12 @@ class Channels extends Component {
           className={`channel-button-${activeStatus}`}
           onClick={() => {
             this.props.changeChannel({
-              name: key,
-              subtitle: this.state.channels[key]
+              name: this.state.channels[key].name,
+              subtitle: this.state.channels[key].description
             });
           }}
         >
-          <div className="channel-name">#{key}</div>
+          <div className="channel-name">#{this.state.channels[key].name}</div>
           {/* {conditionally render edit button here} */}
           {this.state.isAdmin ? (
             <button
