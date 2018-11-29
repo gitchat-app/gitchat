@@ -107,15 +107,15 @@ class Channels extends Component {
   }
 
   render() {
-    // console.log("CHANNELS this.props", this.props);
+    console.log("CHANNELS this.props", this.props);
     // console.log("this.state", this.state);
 
     let channelsArr = [];
 
     for (let key in this.state.channels) {
-      console.log(key);
+      console.log("key", key);
       let activeStatus = "";
-      if (this.props.currentChannel === key) {
+      if (this.props.currentChannelName === this.state.channels[key].name) {
         activeStatus = "active";
       } else {
         activeStatus = "inactive";
