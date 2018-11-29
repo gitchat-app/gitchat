@@ -42,7 +42,7 @@ class SingleServer extends Component {
     userKeys.map(user => {
       const onlineRef = firebase.database().ref(`users/${user}/status`);
       onlineRef.once("value", snap => {
-        console.log(snap.val());
+        // console.log(snap.val());
         if (snap.val() === "online") {
           onlineUsers += 1;
         } 

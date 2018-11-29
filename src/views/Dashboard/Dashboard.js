@@ -3,8 +3,9 @@ import firebase from "../../firebase";
 import DirectMessageSidebar from "../../components/DirectMessageSidebar/DirectMessageSidebar";
 import moment from "moment";
 import GuestModal from "../../components/GuestModal/GuestModal";
-import "./Dashboard.scss";
 import SingleServer from "../../components/SingleServer/SingleServer";
+import "./Dashboard.scss";
+import Axios from "axios";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -14,7 +15,6 @@ class Dashboard extends Component {
       servers: {},
       friends: {},
       guestModal: false
-      // serverInfo: false
     };
 
     this.findServers = this.findServers.bind(this);
@@ -45,7 +45,7 @@ class Dashboard extends Component {
       this.setState({ friends: snapshot.val() });
     });
     serverRef.on("value", (snapshot) => {
-      console.log("snapshot:", snapshot.val());
+      // console.log("snapshot:", snapshot.val());
       this.setState({ servers: snapshot.val() });
     });
   }
@@ -54,7 +54,7 @@ class Dashboard extends Component {
     //NOTE: if you just call findServers() in the render, it will give an infinite loop error. if it's in the componentDidMount, it will get called before this.state.user.uid exists. (you can probably do it in the mount if you do an async await for the user info to come back)
     const singleServerList = [];
     //this console.log is to show each time the loop is run
-    console.log("FINDING SERVERS");
+    // console.log("FINDING SERVERS");
     const { servers, user } = this.state;
     for (let key in servers) {
       let singleServer = (
@@ -71,24 +71,28 @@ class Dashboard extends Component {
         serverRef.once("value", (snap) => {
           //if the snap exists, then the user is in that server, so we want to push the ones the user ISN'T in via the else
           if (snap.exists()) {
-            console.log("EXISTS", key, snap.val());
+            // console.log("EXISTS", key, snap.val());
           } else {
-            console.log("DOESN'T EXIST", key);
+            // console.log("DOESN'T EXIST", key);
             singleServerList.push(singleServer);
           }
         });
       } else {
-        console.log("No user.uid");
+        // console.log("No user.uid");
       }
     }
-    console.log("singleServerList", singleServerList);
+    // console.log("singleServerList", singleServerList);
     //singleServerList is now a list of servers the user isn't in
     this.setState({ singleServerList });
   }
 
+  componentWillUnmount() {
+    console.log("Dash unmounting");
+  }
+
   render() {
     const { friends, singleServerList, guestModal } = this.state;
-    console.log(this.state);
+    // console.log(this.state);
     let onlineList = [];
     let offlineList = [];
     let colorStatus = "";
@@ -122,8 +126,7 @@ class Dashboard extends Component {
         );
       }
     }
-    return (
-      <div className="main-dash-cont">
+    return <div className="main-dash-cont">
         <GuestModal status={guestModal} />
         <DirectMessageSidebar />
         <div className="dash-list-cont">
@@ -139,8 +142,7 @@ class Dashboard extends Component {
           <h4>Offline</h4>
           {offlineList}
         </div>
-      </div>
-    );
+      </div>;
   }
 }
 
