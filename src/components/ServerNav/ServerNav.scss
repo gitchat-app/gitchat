@@ -49,7 +49,7 @@
   .signout-link {
     text-decoration: none;
     color: $font;
-    // border-bottom: .25px solid $font;
+    border: none;
     padding: 5px;
     font-size: 12px;
     margin: 0.3em auto;
@@ -61,6 +61,7 @@
   .signout-link:hover {
     transition: 0.3s;
     text-decoration: underline;
+    border: none;
   }
 
   .toggle-link {
