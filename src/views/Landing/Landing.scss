@@ -1,21 +1,41 @@
 @import "../../index.scss";
 
-.home-page {
+.homepage {
   background-color: $light-green;
   width: 100%;
   color: $font;
   
-  .home-page-links {
+  .homepage-links {
     display: flex;
     justify-content: space-around;
     align-content: space-around;
     padding: 30px;
-    font-size: 30px;
   }
 
-  .home-page-link {
+  // common styling for link & button tags
+  .homepage-link {
     text-decoration: none; 
     color: $font;
+    font: $font;
+    font-weight: normal;
+    font-size: 30px;
+  }
+  // special styling for button tags (dont need for link tags): 
+  .homepage-signout-button {
+    background: none; 
+    border: none;
+  }
+
+  .homepage-link:hover {
+    transition: 0.3s;
+    text-decoration: underline;
+    border: none;
+  } 
+
+  .logo-container {
+    display: flex;
+    justify-content: center; 
+    align-content: center; 
   }
 
   .logo_transparent {
@@ -24,9 +44,27 @@
     align-content: space-around;
   }
 
-  .logo-container {
+  .homepage-footer {
     display: flex;
-    justify-content: center; 
-    align-content: center; 
+    justify-content: space-around;
+    align-content: space-around;
+    padding: 5vh; 
+    width: 60%; 
   }
+  .homepage-footer-group {
+    
+  }
+  h4 {
+    text-decoration: none; 
+    color: $font;
+    font: $font;
+    font-weight: normal;
+    font-size: 30px;
+    padding: 0% 10% 2% 0%;
+  }
+  p {
+    font-weight: normal;
+    font-size: 16px;
+  }
+
 }
