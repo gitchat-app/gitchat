@@ -94,8 +94,10 @@ class ChatInput extends Component {
       this.props.sendMessage(
         `![image](${this.state.imageUrl})\n ${this.state.imageComment}`
       );
+      this.setState({ imageComment: "", imageUrl: "" });
     } else {
       this.props.sendMessage(`![image](${this.state.imageUrl})`);
+      this.setState({ imageComment: "", imageUrl: "" });
     }
 
     this.closeModal();
