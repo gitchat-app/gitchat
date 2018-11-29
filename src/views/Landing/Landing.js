@@ -27,7 +27,7 @@ class Landing extends Component {
     return (
       <div className="homepage">
         <div className="homepage-links">
-          <Link to="/server/-LRJIG0Y_f2mtEVOL5CE" className="homepage-link">
+          <Link to="/server/-LSRXkbdM4Ny08d-3m0k" className="homepage-link">
             View Global Server{" "}
           </Link>
           {!this.state.loggedIn ? (
@@ -52,21 +52,28 @@ class Landing extends Component {
           <div className="homepage-footer-group">
             {" "}
             <h4>Direct Messaging</h4>{" "}
-            <p>Use direct messaging to communicate with individuals.</p>
+            <p>for communicating with individuals.</p>
           </div>
 
           <div className="homepage-footer-group">
             {" "}
             <h4>Servers</h4>{" "}
-            <p>Create or join server channels to communicate as a group. </p>
-            <p>Upload code snippets (which preserve code indentation). </p>
+            <p>for group discussions & collaboration. </p>
           </div>
 
-          {/* <div className="homepage-footer-group">
+          <div className="homepage-footer-group">
             {" "}
-            <h4>About</h4>{" "}
-            <p> </p>
-          </div> */}
+            <h4>Code Snippets</h4>{" "}
+            <p>for sharing code (with preserved code indentation). </p>
+          </div>
+
+          <div className="homepage-footer-group">
+            {" "}
+            <h4>Inspired</h4>{" "}
+            <p>
+              by Slack & Discord.
+            </p>
+          </div>
         </div>
       </div>
     );

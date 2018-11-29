@@ -48,8 +48,7 @@
     display: flex;
     justify-content: space-around;
     align-content: space-around;
-    padding: 5vh; 
-    width: 60%; 
+    width: 100%; 
   }
   .homepage-footer-group {
     
@@ -60,11 +59,12 @@
     font: $font;
     font-weight: normal;
     font-size: 30px;
-    padding: 0% 10% 2% 0%;
+    padding: 0% 0% 2% 0%;
   }
   p {
     font-weight: normal;
     font-size: 16px;
+    line-height: 1.5em;
   }
 
 }
