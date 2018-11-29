@@ -47,7 +47,7 @@ class Username extends Component {
           email: user.email,
           username: this.state.username,
           avatar: img,
-          servers: { "-LRJIG0Y_f2mtEVOL5CE": "Global Server" }
+          servers: { "-LSRXkbdM4Ny08d-3m0k": "Global Server" }
         });
       }
     });

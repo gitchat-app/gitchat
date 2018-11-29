@@ -4,6 +4,7 @@ import ServerModal from "../ServerModal/ServerModal";
 import SingleServer from "../SingleServer/SingleServer";
 import { NavLink, withRouter } from "react-router-dom";
 import "./ServerNav.scss";
+import logo from "../../media/logo_transparent.png";
 
 class ServerNav extends Component {
   constructor(props) {
@@ -172,7 +173,13 @@ class ServerNav extends Component {
       display = "none";
     }
     return (
+      
       <div className="main-nav-cont" style={{ display: display }}>
+
+        <NavLink to="/" className="homepage-link logo-container">
+          <img className="logo_transparent" alt="logo&tagline" src={logo} /> 
+        </NavLink>
+
         {!user ? (
           <p>Loading...</p>
         ) : (

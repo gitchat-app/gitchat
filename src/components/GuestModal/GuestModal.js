@@ -17,7 +17,7 @@ export default function GuestModal(props) {
             <h1>You are not logged in!</h1>
             <NavLink className="guest-links" to="/login">Login here</NavLink>
             <h1>or</h1>
-            <NavLink className="guest-links" to="server/-LRJIG0Y_f2mtEVOL5CE">Checkout the Global Server</NavLink>
+            <NavLink className="guest-links" to="server/-LSRXkbdM4Ny08d-3m0k">Checkout the Global Server</NavLink>
           </div>
         </ReactModal>
     </div>
