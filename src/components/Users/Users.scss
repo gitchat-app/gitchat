@@ -8,7 +8,6 @@
 
   height: 100%;
 
-
   h1 {
     font-size: 20px;
   }
@@ -28,6 +27,21 @@
     p {
       font-size: 18px;
       margin-left: 5px;
+
+      color: $font;
+      text-decoration: none;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .dm-link {
+      text-decoration: none;
+      color: $font;
+
+      &:hover {
+        text-decoration: underline;
+      }
     }
 
     img {
@@ -61,7 +75,6 @@
   display: flex;
   align-items: center;
   justify-content: space-evenly;
-
 
   .friend-link {
     display: flex;
