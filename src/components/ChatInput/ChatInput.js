@@ -33,7 +33,7 @@ class ChatInput extends Component {
     // console.log("e.keyCode", e.keyCode);
 
     if (e.keyCode === 13 && e.ctrlKey && this.state.input !== "") {
-      console.log("BOTH PRESSED AND NOT EMPTY STRING");
+      // console.log("BOTH PRESSED AND NOT EMPTY STRING");
       this.props.sendMessage(this.state.input);
       this.setState({ input: "" });
     }
@@ -73,12 +73,12 @@ class ChatInput extends Component {
   }
 
   async uploadImage() {
-    console.log("uploading image");
+    // console.log("uploading image");
     let uploader = document.getElementById("uploader").files[0];
     let fileRef = firebase.storage().ref(`chat_images/${uploader.name}`);
     await fileRef.put(uploader);
     await fileRef.getDownloadURL().then((url) => {
-      console.log("url", url);
+      // console.log("url", url);
       this.setState({ imageUrl: url });
     });
   }
@@ -166,6 +166,7 @@ class ChatInput extends Component {
         <ReactModal
           isOpen={this.state.modalOpen}
           shouldCloseOnEsc={true}
+          onRequestClose={this.closeModal}
           className="chat-modal"
           overlayClassName="chat-modal-overlay"
         >
@@ -186,6 +187,7 @@ class ChatInput extends Component {
                 <textarea
                   onChange={(e) => this.setState({ snippet: e.target.value })}
                   placeholder="Paste code here..."
+                  rows="5"
                 />
                 <button
                   onClick={() =>
@@ -199,12 +201,15 @@ class ChatInput extends Component {
             ) : this.state.modalType === "Upload Image" ? (
               <div className="upload-container">
                 <h3>Image Uploader</h3>
-                <input value={this.state.imageUrl} />
-                <input
-                  type="file"
-                  id="uploader"
-                  onChange={(e) => this.uploadImage(e)}
-                />
+                <div className="img-url-cont">
+                  <p>Image URL:</p>
+                  <input value={this.state.imageUrl} />
+                </div>
+                  <input
+                    type="file"
+                    id="uploader"
+                    onChange={(e) => this.uploadImage(e)}
+                  />
                 <p>Image message:</p>
                 <textarea
                   onChange={(e) =>

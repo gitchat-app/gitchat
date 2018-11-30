@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-
 import "./Chat.scss";
-
 import firebase from "../../firebase";
 import MessageCard from "../MessageCard/MessageCard";
 import Users from "../Users/Users";
@@ -18,7 +16,6 @@ class Chat extends Component {
 
     this.sendMessage = this.sendMessage.bind(this);
     this.getMessages = this.getMessages.bind(this);
-
     this.scrollToBottom = this.scrollToBottom.bind(this);
   }
 
@@ -51,9 +48,7 @@ class Chat extends Component {
       .limitToLast(200)
       .on("value", async (snap) => {
         await this.setState({ messages: snap.val() });
-        setTimeout(() => {
-          this.scrollToBottom({ block: "end", behavior: "smooth" });
-        }, 500);
+        this.scrollToBottom({ block: "end", behavior: "smooth" });
       });
   }
 
@@ -62,24 +57,31 @@ class Chat extends Component {
       // console.log("NEW PROPS");
 
       this.getMessages();
+      
     }
+    this.scrollToBottom({ block: "end", behavior: "smooth" });
   }
 
   componentDidMount() {
     this.getMessages();
-
-    setTimeout(() => {
+    this.timerHandle = setTimeout(() => {
       this.scrollToBottom({ block: "end", behavior: "smooth" });
     }, 1500);
   }
 
   componentWillUnmount() {
-    console.log("UNMOUNTING");
+    // console.log("UNMOUNTING");
+    if (this.timerHandle) {
+      // console.log("test");
+      clearTimeout(this.timerHandle);
+      this.timerHandle = 0;
+    }
     let messagesRef = firebase
       .database()
       .ref(`messages/${this.props.serverName}-${this.props.channelName}`);
 
     messagesRef.off();
+
   }
 
   render() {

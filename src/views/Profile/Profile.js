@@ -22,7 +22,7 @@ class Profile extends Component {
     let fileRef = firebase.storage().ref(`user_avatars/${uploader.name}`);
     await fileRef.put(uploader);
     await fileRef.getDownloadURL().then(url => {
-      console.log(url);
+      // console.log(url);
       this.setState({ avatar: url });
     });
   }
@@ -30,11 +30,11 @@ class Profile extends Component {
   componentDidMount() {
     firebase.auth().onAuthStateChanged(
       function(user) {
-        console.log(user);
+        // console.log(user);
         if (user) {
           const ref = firebase.database().ref(`users/${user.uid}`);
           ref.on("value", snapshot => {
-            console.log("snapshot:", snapshot.val());
+            // console.log("snapshot:", snapshot.val());
             this.setState({ user: snapshot.val() });
             this.setState({ uid: snapshot.val().uid });
             this.setState({ avatar: snapshot.val().avatar });
@@ -44,15 +44,14 @@ class Profile extends Component {
           });
         } else {
           // No user is logged in.
-          console.log("No user logged in");
+          // console.log("No user logged in");
         }
       }.bind(this)
     );
   }
 
   render() {
-    const uid = firebase.database();
-    console.log(uid);
+    // console.log(uid);
 
     return (
       <div className="profile">

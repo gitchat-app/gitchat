@@ -119,7 +119,7 @@ class DMChat extends Component {
           this.setState({ currentUserId: user.uid });
           this.makeKey();
         } else {
-          console.log("NO USER");
+          // console.log("NO USER");
         }
       }.bind(this)
     );
@@ -130,10 +130,16 @@ class DMChat extends Component {
       .once("value", (snap) => {
         this.setState({ recipientUsername: snap.val().username });
       });
-
-    setTimeout(() => {
+    this.timerHandle = setTimeout(() => {
       this.scrollToBottom({ block: "end", behavior: "smooth" });
-    }, 1500);
+    }, 1000);
+  }
+
+  componentWillUnmount() {
+    if(this.timerHandle) {
+      clearTimeout(this.timerHandle);
+      this.timerHandle = 0;
+    }
   }
 
   render() {

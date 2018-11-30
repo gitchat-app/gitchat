@@ -47,7 +47,7 @@ class Servers extends Component {
       .database()
       .ref(`servers/${this.props.match.params.id}`);
 
-    serverRef.once("value").then((snap) => {
+    serverRef.on("value", snap => {
       this.setState({ server: snap.val() });
     });
 
@@ -57,7 +57,7 @@ class Servers extends Component {
           // console.log("user", user);
           this.setState({ user });
         } else {
-          console.log("NO USER");
+          // console.log("NO USER");
           this.setState({ user: { uid: "guest" } });
         }
       }.bind(this)

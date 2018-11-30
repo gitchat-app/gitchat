@@ -45,7 +45,7 @@ class Channels extends Component {
   }
 
   getAdmins() {
-    console.log("GETTING ADMINS");
+    // console.log("GETTING ADMINS");
 
     let adminRef = firebase
       .database()
@@ -72,7 +72,7 @@ class Channels extends Component {
   componentDidUpdate(prevProps) {
     // console.log("this.props, prevProps", this.props, prevProps);
     if (this.props.serverId !== prevProps.serverId) {
-      console.log("NEW CHANNEL PROPS");
+      // console.log("NEW CHANNEL PROPS");
       // console.log("this.props", this.props);
       this.getAdmins();
       this.getChannels();
@@ -144,7 +144,7 @@ class Channels extends Component {
             <button
               className="edit-button"
               onClick={() => {
-                console.log(`${key} edit clicked`);
+                // console.log(`${key} edit clicked`);
                 this.setState(
                   {
                     modalType: { type: "edit channel", key: key }

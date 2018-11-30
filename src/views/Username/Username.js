@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import firebase from "../../firebase";
-import firebaseui from "firebaseui";
+import ReactModal from "react-modal";
+import "./Username.scss";
 
 class Username extends Component {
   constructor(props) {
@@ -15,7 +16,7 @@ class Username extends Component {
   componentDidMount() {
     firebase.auth().onAuthStateChanged(function(user) {
       if (user) {
-        console.log("user", user);
+        // console.log("user", user);
         // User is signed in.
       } else {
         // No user is signed in.
@@ -28,7 +29,7 @@ class Username extends Component {
     let fileRef = firebase.storage().ref(`user_avatars/${uploader.name}`);
     await fileRef.put(uploader);
     await fileRef.getDownloadURL().then(url => {
-      console.log(url);
+      // console.log(url);
       this.setState({ avatar: url });
     });
   }
@@ -60,26 +61,49 @@ class Username extends Component {
   };
 
   render() {
-    console.log(this.props);
+    // console.log(this.props);
     return (
-      <div>
-        <h1>Create your username</h1>
-        <input
-          value={this.state.username}
-          onChange={(e) => this.setState({ username: e.target.value })}
-        />
-        <p>Upload custom avatar</p>
-        <input
-          type="file"
-          id="uploader"
-          onChange={e => this.uploadImage(e)}
-        />
-        <button
-          disabled={this.state.username === "" ? true : false}
-          onClick={() => this.createUser()}
-        >
-          Create user
-        </button>
+      <div id="username-modal">
+        <ReactModal
+          isOpen={true}
+          contentLabel="server-modal"
+          className="UsernameModal"
+          appElement={document.getElementById("username-modal")}
+          overlayClassName="UsernameOverlay">
+          <div 
+            className="username-content">
+            <h1>To complete signup:</h1> 
+            <div className="username-input-cont">
+              <label>Create your own display name:</label>
+              <input
+                required
+                value={this.state.username}
+                onChange={(e) => this.setState({ username: e.target.value })}
+              />
+            </div>
+            <div className="username-input-cont">
+              <label>Upload custom avatar url:</label>
+              <input
+                type="text"
+                className="avatar-url"
+                required
+                value={this.state.avatar}
+                onChange={e => this.setState({ avatar: e.target.value })}
+              />
+            </div>
+            <input
+              type="file"
+              id="uploader"
+              onChange={e => this.uploadImage(e)}
+            />
+            <button
+              type="submit"
+              disabled={this.state.username && this.state.avatar === "" ? true : false}
+              onClick={() => this.createUser()}
+            >Create User
+            </button>
+          </div>
+        </ReactModal>
       </div>
     );
   }
