@@ -12,12 +12,14 @@ class Login extends Component {
         if (authResult.additionalUserInfo.isNewUser === true) {
           return true;
         } else {
-          window.location.assign("http://localhost:3000/dashboard");
+          window.location.assign(
+            "https://gitchat-app.firebaseapp.com/dashboard"
+          );
         }
       }
     },
     signInFlow: "popup",
-    signInSuccessUrl: "http://localhost:3000/username",
+    signInSuccessUrl: "https://gitchat-app.firebaseapp.com/username",
     signInOptions: [
       firebase.auth.EmailAuthProvider.PROVIDER_ID,
       firebase.auth.GoogleAuthProvider.PROVIDER_ID,
@@ -28,21 +30,21 @@ class Login extends Component {
   render() {
     return (
       // <div className="isAuth">
-        <ReactModal
-          isOpen={true}
-          // contentLabel="LoginModal"}
-          className="login-modal"
-          // appElement={document.getElementById("isAuth")}
-          overlayClassName="login-overlay"
-        >
-          <div>
+      <ReactModal
+        isOpen={true}
+        // contentLabel="LoginModal"}
+        className="login-modal"
+        // appElement={document.getElementById("isAuth")}
+        overlayClassName="login-overlay"
+      >
+        <div>
           <p>Login via Firebase Auth</p>
-            <StyledFirebaseAuth
-              uiConfig={this.uiConfig}
-              firebaseAuth={firebase.auth()}
-            />
-          </div>
-        </ReactModal>
+          <StyledFirebaseAuth
+            uiConfig={this.uiConfig}
+            firebaseAuth={firebase.auth()}
+          />
+        </div>
+      </ReactModal>
       // </div>
     );
   }
