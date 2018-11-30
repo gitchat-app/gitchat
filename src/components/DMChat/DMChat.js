@@ -77,7 +77,6 @@ class DMChat extends Component {
       sender: this.state.currentUserId,
       timeSent: firebase.database.ServerValue.TIMESTAMP
     });
-
     this.setState({ input: "" });
   }
 
