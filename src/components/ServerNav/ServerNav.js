@@ -130,7 +130,6 @@ class ServerNav extends Component {
     await firebase.auth().signOut();
     await this.props.history.push("/");
   }
-
   
   async uploadImage() {
     let uploader = document.getElementById('uploader').files[0];
@@ -169,7 +168,7 @@ class ServerNav extends Component {
       view = "/dashboard";
       viewText = "Dashboard";
     }
-    if (!firebase.auth().currentUser) {
+    if (!firebase.auth().currentUser || pathname === '/') {
       display = "none";
     }
     return (
