@@ -100,9 +100,9 @@ class Users extends Component {
     });
 
     if (this.props.currentUser.uid === "guest") {
-      this.setState({ loggedIn: false })
+      this.setState({ loggedIn: false });
     } else {
-      this.setState({ loggedIn: true })
+      this.setState({ loggedIn: true });
     }
   }
 
@@ -117,7 +117,6 @@ class Users extends Component {
 
       this.getUsers();
     }
-
   }
 
   render() {
@@ -137,7 +136,9 @@ class Users extends Component {
               style={{ background: colorStatus }}
               className="online-status-color"
             />
-            <p>{this.state.members[key]}</p>
+            <Link to={`/direct/${key}`} className="dm-link">
+              <p>{this.state.members[key]}</p>
+            </Link>
             {/* <img src={[key].avatar} alt="" /> */}
           </div>
         );
@@ -154,7 +155,9 @@ class Users extends Component {
               style={{ background: colorStatus }}
               className="online-status-color"
             />
-            <p>{this.state.members[key]}</p>
+            <Link className="dm-link" to={`/direct/${key}`}>
+              <p>{this.state.members[key]}</p>
+            </Link>
             {/* <img src={[key].avatar} alt="" /> */}
           </div>
         );
@@ -185,11 +188,19 @@ class Users extends Component {
               <div className="friend-link">
                 <h1> Send your friend this link:</h1>
                 {/* <Link to={`/server/${this.props.serverName}`}> */}
-                <input value={`https://gitchat-app.firebaseapp.com/server/${this.props.serverName}`} />
-                <CopyToClipboard 
-                  text={`https://gitchat-app.firebaseapp.com/server/${this.props.serverName}`}
-                  onCopy={() => this.setState({copied: true})} 
-                ><button>Copy to clipboard </button></CopyToClipboard>
+                <input
+                  value={`https://gitchat-app.firebaseapp.com/server/${
+                    this.props.serverName
+                  }`}
+                />
+                <CopyToClipboard
+                  text={`https://gitchat-app.firebaseapp.com/server/${
+                    this.props.serverName
+                  }`}
+                  onCopy={() => this.setState({ copied: true })}
+                >
+                  <button>Copy to clipboard </button>
+                </CopyToClipboard>
                 <p>{!this.state.copied ? "" : "Copied!"}</p>
                 {/* </Link> */}
               </div>
@@ -198,12 +209,14 @@ class Users extends Component {
         ) : null}
 
         {!this.state.loggedIn ? (
-          <Link to='/login'><button>Login</button></Link>
-          ) : this.state.isMember ? (
+          <Link to="/login">
+            <button>Login</button>
+          </Link>
+        ) : this.state.isMember ? (
           <div>
             <button onClick={() => this.inviteFriends()}>Invite Friends</button>
           </div>
-        ) :  (
+        ) : (
           <div>
             <button onClick={() => this.joinServer()}>Join Server</button>
           </div>
