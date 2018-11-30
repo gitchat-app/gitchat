@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./Users.scss";
 import ReactModal from "react-modal";
-
+import { CopyToClipboard } from "react-copy-to-clipboard";
 import { Link } from "react-router-dom";
 
 import firebase from "../../firebase";
@@ -12,7 +12,10 @@ class Users extends Component {
 
     this.state = {
       onlineUsers: [],
-      modalOpen: false
+      modalOpen: false,
+      loggedIn: false,
+      copyValue: "",
+      copied: false
     };
 
     this.getUsers = this.getUsers.bind(this);
@@ -23,12 +26,12 @@ class Users extends Component {
   }
 
   toggleModal() {
-    this.setState({ modalOpen: !this.state.modalOpen });
+    this.setState({ modalOpen: !this.state.modalOpen, copied: false });
   }
 
   joinServer() {
-    console.log("join clicked");
-    console.log("this.state", this.state);
+    // console.log("join clicked");
+    // console.log("this.state", this.state);
     let membersRef = firebase
       .database()
       .ref(
@@ -49,7 +52,7 @@ class Users extends Component {
   }
 
   inviteFriends() {
-    console.log("invite clicked");
+    // console.log("invite clicked");
     this.toggleModal();
   }
 
@@ -67,10 +70,10 @@ class Users extends Component {
 
     userMemberRef.once("value", (snap) => {
       if (snap.exists()) {
-        console.log("is member");
+        // console.log("is member");
         this.setState({ isMember: true });
       } else {
-        console.log("not member");
+        // console.log("not member");
         this.setState({ isMember: false });
       }
     });
@@ -95,6 +98,12 @@ class Users extends Component {
       // console.log("snap.val()", snap.val());
       this.setState({ currentUsername: snap.val() });
     });
+
+    if (this.props.currentUser.uid === "guest") {
+      this.setState({ loggedIn: false })
+    } else {
+      this.setState({ loggedIn: true })
+    }
   }
 
   componentDidMount() {
@@ -103,11 +112,12 @@ class Users extends Component {
 
   componentDidUpdate(prevProps) {
     if (this.props !== prevProps) {
-      console.log("NEW PROPS");
+      // console.log("NEW PROPS");
       // console.log("this.props", this.props);
 
       this.getUsers();
     }
+
   }
 
   render() {
@@ -160,6 +170,7 @@ class Users extends Component {
           <ReactModal
             isOpen={true}
             className="users-modal"
+            onRequestClose={this.toggleModal}
             overlayClassName="users-modal-overlay"
           >
             <div>
@@ -171,22 +182,28 @@ class Users extends Component {
               >
                 Close
               </button>
-              <div>
-                <div> Send your friend this link:</div>
+              <div className="friend-link">
+                <h1> Send your friend this link:</h1>
                 {/* <Link to={`/server/${this.props.serverName}`}> */}
-                https://gitchat-app.firebaseapp.com/server/
-                {this.props.serverName}
+                <input value={`https://gitchat-app.firebaseapp.com/server/${this.props.serverName}`} />
+                <CopyToClipboard 
+                  text={`https://gitchat-app.firebaseapp.com/server/${this.props.serverName}`}
+                  onCopy={() => this.setState({copied: true})} 
+                ><button>Copy to clipboard </button></CopyToClipboard>
+                <p>{!this.state.copied ? "" : "Copied!"}</p>
                 {/* </Link> */}
               </div>
             </div>
           </ReactModal>
         ) : null}
 
-        {this.state.isMember ? (
+        {!this.state.loggedIn ? (
+          <Link to='/login'><button>Login</button></Link>
+          ) : this.state.isMember ? (
           <div>
             <button onClick={() => this.inviteFriends()}>Invite Friends</button>
           </div>
-        ) : (
+        ) :  (
           <div>
             <button onClick={() => this.joinServer()}>Join Server</button>
           </div>

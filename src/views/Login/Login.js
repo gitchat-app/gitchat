@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import "./Login.scss";
 import firebase from "../../firebase";
-import firebaseui from "firebaseui";
 import StyledFirebaseAuth from "react-firebaseui/StyledFirebaseAuth";
 import ReactModal from "react-modal";
 
@@ -9,7 +8,7 @@ class Login extends Component {
   uiConfig = {
     callbacks: {
       signInSuccessWithAuthResult: function(authResult, redirectUrl) {
-        console.log(authResult, redirectUrl);
+        // console.log(authResult, redirectUrl);
         if (authResult.additionalUserInfo.isNewUser === true) {
           return true;
         } else {
@@ -28,24 +27,23 @@ class Login extends Component {
 
   render() {
     return (
-      <div className="isAuth">
+      // <div className="isAuth">
         <ReactModal
           isOpen={true}
-          contentLabel="server-modal"
-          //onRequestClose={handleCloseModal}
-          shouldCloseOnEsc={true}
-          className="LoginModal"
-          appElement={document.getElementById("isAuth")}
-          overlayClassName="LoginOverlay"
+          // contentLabel="LoginModal"}
+          className="login-modal"
+          // appElement={document.getElementById("isAuth")}
+          overlayClassName="login-overlay"
         >
-          <div className="auth">
+          <div>
+          <p>Login via Firebase Auth</p>
             <StyledFirebaseAuth
               uiConfig={this.uiConfig}
               firebaseAuth={firebase.auth()}
             />
           </div>
         </ReactModal>
-      </div>
+      // </div>
     );
   }
 }

@@ -18,6 +18,7 @@ class Landing extends Component {
       if (!user) {
         this.setState({ loggedIn: false });
       } else {
+        this.props.history.push('/dashboard');
         this.setState({ loggedIn: true });
       }
     });
@@ -27,22 +28,29 @@ class Landing extends Component {
     return (
       <div className="homepage">
         <div className="homepage-links">
+        {!this.state.loggedIn ?(
           <Link to="/server/-LSRXkbdM4Ny08d-3m0k" className="homepage-link">
-            View Global Server{" "}
+              View Global Server{" "}
           </Link>
-          {!this.state.loggedIn ? (
-            <Link to="/login" className="homepage-link">
-              {" "}
-              Login / Signup
-            </Link>
-          ) : (
-            <button
-              className="homepage-link homepage-signout-button"
-              onClick={() => firebase.auth().signOut()}
-            >
-              Log out
-            </button>
-          )}
+        ) : (
+          <Link to="/dashboard" className="homepage-link">
+            Dashboard
+          </Link>
+        )
+        }
+        {!this.state.loggedIn ? (
+          <Link to="/login" className="homepage-link">
+            {" "}
+            Login / Signup
+          </Link>
+        ) : (
+          <button
+            className="homepage-link homepage-signout-button"
+            onClick={() => firebase.auth().signOut()}
+          >
+            Log out
+          </button>
+        )}
         </div>
         <div className="logo-container">
           <img className="logo_transparent" alt="logo&tagline" src={logo} />

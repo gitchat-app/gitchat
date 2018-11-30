@@ -25,7 +25,7 @@
     color: $font;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     text-align: center;
 
     h1 {
@@ -105,73 +105,7 @@
         width: 50%;
         display: flex;
         align-items: center;
-        justify-content: space-between;
-        margin: .5em auto;
-
-        button {
-          background: none;
-          border: .75px solid $font;
-          border-radius: 5px;
-          font-size: 18px;
-          padding: 10px 15px;
-          color: $font;
-          transition: .3s;
-        }
-
-        button:hover {
-          background: $font;
-          color: $dark-green;
-          transition: .3s;
-          cursor: pointer;
-        }
-      }
-    }
-  }
-
-  .join-cont {
-    width: 80%;
-    margin: 27.5% auto;
-    color: $font;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;;
-    text-align: center;
-
-    h1 {
-      font-size: 40px;
-      margin: .3em 0;
-    }
-
-    form {
-      width: 100%;
-
-      .server-input-cont {
-        display: flex;
-        flex-direction: column;
-        width: 100%;
-        
-        input {
-          width: 50%;
-          margin: .5em auto;
-          border-radius: 5px;
-          border: none;
-          padding: 1.5%;
-        }
-
-        label {
-          width: 50%;
-          margin: .5em auto;
-          text-align: start;
-          font-size: 18px;
-        }
-      }
-
-      .add-server-btn-cont{
-        width: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
+        justify-content: center;
         margin: .5em auto;
 
         button {

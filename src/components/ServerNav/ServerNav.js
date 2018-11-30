@@ -4,7 +4,6 @@ import ServerModal from "../ServerModal/ServerModal";
 import SingleServer from "../SingleServer/SingleServer";
 import { NavLink, withRouter } from "react-router-dom";
 import "./ServerNav.scss";
-import logo from "../../media/logo_transparent.png";
 
 class ServerNav extends Component {
   constructor(props) {
@@ -136,13 +135,13 @@ class ServerNav extends Component {
     let fileRef = firebase.storage().ref(`server_images/${uploader.name}`);
     await fileRef.put(uploader);
     await fileRef.getDownloadURL().then(url => {
-      console.log(url);
+      // console.log(url);
       this.setState({icon: url});
     });
   }
 
   componentWillUnmount() {
-    console.log("ServerNav Unmounting");
+    // console.log("ServerNav Unmounting");
   }
 
   render() {
@@ -174,11 +173,6 @@ class ServerNav extends Component {
     return (
       
       <div className="main-nav-cont" style={{ display: display }}>
-
-        <NavLink to="/" className="homepage-link logo-container">
-          <img className="logo_transparent" alt="logo&tagline" src={logo} /> 
-        </NavLink>
-
         {!user ? (
           <p>Loading...</p>
         ) : (
@@ -194,7 +188,7 @@ class ServerNav extends Component {
           onClick={() => this.handleLogOut()}
           className="signout-link"
         >
-          Log out
+          Logout
         </button>
         <NavLink to="/dashboard" className="toggle-link">
           Dashboard
@@ -203,7 +197,7 @@ class ServerNav extends Component {
         <div className="scrollbar" id="style-9">
         {serverList}
         </div>
-        <button onClick={() => this.handleOpenModal()}>+</button>
+        <button className="toggle-modal" onClick={() => this.handleOpenModal()}>+</button>
         <ServerModal
           isOpen={isOpen}
           handleCloseModal={this.handleCloseModal}

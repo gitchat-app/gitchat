@@ -19,6 +19,35 @@
   align-items: center;
   justify-content: space-evenly;
 
+  .channel-cont {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-evenly;
+    height: 20vh;
+    width: 18vw;
+
+    h1 {
+      font-size: 24px;
+    }
+
+    .inner-channel-cont {
+      width:  100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    #server-uploader {
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    button {
+      margin: 0 auto;
+    }
+  }
+
   .close-button {
     width: 70px;
 

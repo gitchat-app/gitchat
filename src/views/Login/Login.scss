@@ -1,12 +1,14 @@
 @import "../../index.scss"; 
 
-.isAuth {
-  border: 1px solid black; 
-  display: flex;
-  justify-content: center; 
-}
+// .isAuth {
+//   border: 1px solid black; 
+//   display: flex;
+//   justify-content: center; 
+// }
 
-.LoginModal {
+.login-modal {
+    background: lightgreen;
+
   position: absolute;
   top: 150px;
   left: 450px;
@@ -15,18 +17,41 @@
   background-color: $dark-green;
   border-radius: 10px;
   font-family: "Ubuntu";
-  margin: auto;
+  // margin: auto;
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  color: $font;
 
-  .auth {
+  // .auth {
+  //   height: 80%;
+  //   display: flex;
+  //   flex-direction: column;
+  //   justify-content: space-evenly; 
+  //   align-items: center;
+  //   margin-top: 8%;
 
-    display: flex;
-    justify-content: center; 
-    align-items: space-around;
-    margin: 20%;
-  }
+    p {
+      // color: $font;
+      font-size: 30px;
+      text-align: center;
+    }
+
+    #firebaseui_container {
+      height: 20vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly; 
+      align-items: center;
+      // margin: none;
+    }
+  // }
+
+
 }
 
-.LoginOverlay {
+.login-overlay {
   position: fixed;
   top: 0;
   left: 0;

@@ -13,14 +13,14 @@ class App extends Component {
         if (!user) {
           // this.props.history.push('/login');
         } else {
-      console.log(user);
+      // console.log(user);
         let connectedRef = firebase.database().ref(".info/connected");
         let onlineRef = firebase.database().ref(`onlineUsers/${user.uid}`);
         let userRef = firebase.database().ref(`users/${user.uid}/status`);
         connectedRef.on("value", snap => {
           if (snap.val() === true) {
             let sessionRef = firebase.database().ref(`users/${user.uid}`);
-            console.log("connected");
+            // console.log("connected");
             onlineRef.onDisconnect().remove();
             onlineRef.set(true);
             userRef.set('online');
@@ -28,7 +28,7 @@ class App extends Component {
             sessionRef.child('ended').onDisconnect().set(firebase.database.ServerValue.TIMESTAMP);
             sessionRef.child('began').set(firebase.database.ServerValue.TIMESTAMP);
           } else {
-            console.log("not connected");
+            // console.log("not connected");
           }
         });
         }

@@ -16,7 +16,7 @@
   }
 
   .dash-list-cont {
-    width: 65%;
+    width: 80%;
     height: 100vh;
     // overflow: auto;
 
@@ -55,7 +55,7 @@
   
 
   .friends-cont {
-    width: 19%;
+    width: 20%;
     background: $dark-green;
     display: flex;
     align-items: center;
@@ -70,6 +70,7 @@
     h4 {
       font-size: 20px;
       margin: 0.3em 0;
+      border-bottom: .75px solid $font;
     }
 
     h5 {
@@ -86,6 +87,15 @@
 
       p {
         font-size: 20px;
+      }
+
+      .dm-link {
+        text-decoration: none;
+        color: $font;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
 
       img {

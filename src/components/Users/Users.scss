@@ -8,6 +8,7 @@
 
   height: 100%;
 
+
   h1 {
     font-size: 20px;
   }
@@ -61,6 +62,31 @@
   align-items: center;
   justify-content: space-evenly;
 
+
+  .friend-link {
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    justify-content: space-evenly;
+    height: 17vh;
+    font-size: 14px;
+    width: 25vw;
+
+    input {
+      min-width: 100%;
+    }
+    h1 {
+      font-size: 22px;
+    }
+    button {
+      margin: 0 auto;
+    }
+
+    p {
+      margin: 0 auto;
+      font-size: 20px;
+    }
+  }
   .close-button {
     width: 70px;
 

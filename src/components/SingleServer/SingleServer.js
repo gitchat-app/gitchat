@@ -19,7 +19,6 @@ class SingleServer extends Component {
   }
 
   componentDidMount() {
-    const { channels } = this.state;
     const { objKey } = this.props;
     let userKeys = [];
     let onlineUsers = 0;

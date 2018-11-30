@@ -5,7 +5,7 @@ import moment from "moment";
 import GuestModal from "../../components/GuestModal/GuestModal";
 import SingleServer from "../../components/SingleServer/SingleServer";
 import "./Dashboard.scss";
-import Axios from "axios";
+import { Link } from "react-router-dom";
 
 class Dashboard extends Component {
   constructor(props) {
@@ -87,7 +87,7 @@ class Dashboard extends Component {
   }
 
   componentWillUnmount() {
-    console.log("Dash unmounting");
+    // console.log("Dash unmounting");
   }
 
   render() {
@@ -111,7 +111,7 @@ class Dashboard extends Component {
             style={{ background: colorStatus }}
             className="online-status-color"
           />
-          <p>{friends[key].username}</p>
+          <Link className="dm-link" to={`/direct/${key}`}><p>{friends[key].username}</p></Link>
           <img src={friends[key].avatar} alt="" />
         </div>
       );
@@ -136,7 +136,7 @@ class Dashboard extends Component {
           </div>
         </div>
         <div className="friends-cont">
-          <h3>Friends</h3>
+          <h3>Global Users</h3>
           <h4>Online</h4>
           {onlineList}
           <h4>Offline</h4>
