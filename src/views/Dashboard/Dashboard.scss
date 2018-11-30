@@ -38,6 +38,7 @@
         flex-direction: column;
         
         img {
+          min-width: 175px;
           height: 21vh;
         }
 
@@ -81,11 +82,12 @@
     .userList-cont {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      justify-content: flex-start;
       width: 50%;
       margin: 0.3em 0;
 
       p {
+        margin-left: .3em;
         font-size: 20px;
       }
 
@@ -99,7 +101,7 @@
       }
 
       img {
-        width: 30%;
+        width: 65px;
         border-radius: 50%;
         height: 6vh;
       }

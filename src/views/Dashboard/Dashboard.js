@@ -112,7 +112,7 @@ class Dashboard extends Component {
             className="online-status-color"
           />
           <Link className="dm-link" to={`/direct/${key}`}><p>{friends[key].username}</p></Link>
-          <img src={friends[key].avatar} alt="" />
+          {/* <img src={friends[key].avatar} alt="" /> */}
         </div>
       );
       if (friends[key].status === "online") {
